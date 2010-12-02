@@ -1,5 +1,9 @@
-- - - - - - - - - - - -
- iutbx1-ds README file
-- - - - - - - - - - - -
+-- This is the official git repository for all projects for IUT Bordeaux 1 Dimitri Sabadie.
 
-This is the official git repository for all projects for IUT Bordeaux 1 Dimitri Sabadie.
+2 projects up to now :
+
+	- a nameless pong-like game. This project is ended.
+	- a nameless bejeweled-like game. Work in progress.
+	
+Theese 2 projects are written in imperative C++ (yeah, sad ...).
+
