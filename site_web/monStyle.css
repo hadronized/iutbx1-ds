@@ -1,0 +1,72 @@
+h1 
+{
+    color: black;
+}
+
+body 
+{ 
+    background-image: url(http://img686.imageshack.us/img686/7336/diamants.jpg);
+}
+
+#header 
+{
+    color: white;
+}
+
+#header h1 
+{
+    text-align: center;
+    border: 0px;
+    background-color: orange;
+}
+
+#header h2
+{
+    text-align: left;
+    border: 0px;
+
+}
+
+#intro
+{
+    float: left;
+    position: relative;
+    background-color: black;
+    color: white;
+    opacity: 0.8;
+}
+
+#menu
+{
+    float: left;
+    position: relative;
+    color: white;
+}
+
+#menu li a
+{
+    color: white;
+}
+
+#but
+{
+    text-align: left;
+    color: white;
+}
+
+#instruction
+{
+    text-align: left;
+    color: white;
+}
+
+h2
+{
+    color: white;
+}
+
+#nous
+{
+    float:left;
+    color: white;
+}

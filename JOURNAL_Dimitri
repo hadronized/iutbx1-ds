@@ -1,0 +1,310 @@
+======================================
+  Journal de bord de Dimitri Sabadie
+======================================
+
+-- Mardi 9 Novembre 2010
+Choix structures :
+
+	typedef int diamond_type;
+	struct diamond {
+		diamond_type type;
+		int x;
+		int y;
+	};
+	
+Ici, l'idée de faire un typedef est plus pertinent que d'utiliser une enum. Dans ce dernier cas, on
+avait un problème majeur : on donnait des étiquettes à des valeurs (c'est le but d'une enum ...), alors
+qu'on s'en contre fou : on veut juste pouvoir différencier les types de diamants sans pour autant
+connaître leur valeur (on s'en balance.). `diamond_type' fait donc maintenant référence à deux choses :
+	· le type du diamant. On se fiche de savoir si 0 représente un diamant vert ou rouge. Le plus
+	  important est de savoir qu'ils sont différents.
+	· l'indice dans le tableau de SDL_Surface. En effet, le type du diamant variant de 0 à 7 inclu,
+	  il peut être utilisé pour indicer l'image à utiliser pour représenter le diamant dans le jeu.
+
+
+-- Jeudi 11 Novembre 2010
+Bon, entre temps, j'ai codé la génération des diamants en deux phases. La première phase consistait en
+une simple boucle itérant dans la matrice de diamants dans laquelle j'initialisais un diamant
+aléatoirement et que je plaçais à sa position dans la matrice. Une série de tests de fréquences que
+j'ai réalisés m'a contraint à passer à la deuxième phase : sur 10 grilles générées, 7 comportaient
+au moins une solution (3 diamants alignés horizontalement ou verticalement) dès le début du jeu, 5
+en comportaient au moins 2 et 3 grilles comportaient plus de 3 solutions. L'idée que l'on pourrait
+avoir serait d'écrire un algo qui vérifie la présence de solutions (lequel devra dans tous les cas
+être implémenté pour la suite des opérations) après la génération de la grille, et de re-générer une
+grille jusqu'à ce qu'il n'y ait plus de solutions. Evidemment, ce n'est pas du tout performant (paye
+ta complexité ...). La deuxième phase correspond donc à l'ajout d'un petit algo qui casse le type 
+aléatoire des diamants si ces derniers génèrent une/des solution(s).
+
+Ce jour, j'ai simplifié la fonction `init_gameboard' : elle est désormais plus rapide. La complexité
+n'a pas bougé, elle reste la meilleure qui soit (quadratique), car il faut au moins initialiser
+tous les diamants (O(N²) donc). Le principe est relativement simple : je génère un diamant
+aléatoirement, et je fais des tests sur les triplets. Sachant que l'on remplit la matrice de diamants
+horizontalement, il y a deux tests à faire en horizontal et un seul en vertical : en horizontal, 
+si il y a deux diamants du même type qui celui généré à gauche, alors on change le type de diamants
+selon deux cas : si il y a au moins deux diamants au dessus, on empêche d'avoir le même diamant
+qu'au dessus, afin d'éviter ce schéma :
+
+        7
+        7
+	2 2 ?               // tmp = 2
+
+Ici on voit que l'on tire un 2, et que donc on doit changer le type du diamant. Si par un malheureux
+hasard on tombe sur un 7, on va se sentir bien dans le pétrin ... De même, on pourrait changer
+le type du diamant, par exemple mettre 7, et faire ensuite le test vertical (on le changerait donc
+deux fois ). Le problème c'est qu'il faudrait aller s'assurer de ne pas générer le diamant de gauche,
+on se mord la queue ... Bref, ma solution est la meilleure.
+
+Bon, on va faire une liste de tout ce dont on va avoir besoin pour la suite :
+	· échanger deux diamants (prévoir le cas où ce n'est pas possible)
+	· selectionner un diamant
+	· vérifier qu'il existe encore au moins une solution
+	· afficher une aide (un diamant)
+	
+D'ailleurs, pour la dernière idée, j'ai une idée : l'algo qui vérifiera la présence de solutions va en
+fait s'arrêter dès qu'une solution est trouvée. On passera alors un pointeur sur le diamant solution (
+disons, pSol). Ainsi, une fois que l'on sort de la fonction (disons, `check_solutions'), si le
+pointeur est à 0, cela signifiera qu'aucune solution n'a été trouvée. Si il diffère de 0, alors il
+pointe vers la première solution trouvée (laquelle pourra être affichée joliment si le joueur a des
+difficultés).
+
+Une autre alternative pourrait être de stocker dans un deuxième tableau des pointeurs sur diamants.
+Ce tableau contiendrait toutes les solutions du jeu. Si la taille du tableau tombe à 0, alors la partie
+est finie. Le problème vient du fait que si on génère beaucoup d'explosions, on risque d'avoir
+quelques difficultés à mettre à jour le tableau de solutions. On aurait l'avantage d'avoir une
+complexité constante. A VOIR donc.
+
+Bien dans un premier temps on va vouloir selectionner un diamant. Notre fonction prendra donc 3
+paramètres : la matrice de diamants, et le couple de valeurs position (x, y). La fonction renverra
+par copie un diamant (cf. le diamant selectionné).
+
+Dans le cas d'un swap de diamant, on va avoir une deuxième selection à faire : il s'agit d'adapter
+la fonction `select_diamond' pour pouvoir l'utiliser dans les deux cas. On aura cependant une petite
+chose de plus à faire dans swap_diamonds : il faudra vérifier que la distance entre les deux diamants
+vaut mieux 1. On va donc avoir besoin d'une fonction qui nous retourne la distance entre deux diamants.
+En fait, on va surtout écrire une fonction qui nous retourne true si deux diamants se touchent, false
+sinon. Par exemple ici :
+
+	1 7 9 5
+	1 1 4 6
+	3 4 2 3
+    2 4 5 6
+
+Si l'on souhaite échanger le 1 et le 4 (pour avoir les 3 4 alignés verticalement), la fonction
+`swappable' retournera true. Par contre si l'on souhaite échanger le même 1 avec le 3 en dessous à
+gauche (pour avoir 3 1 verticalement), la fonction `swappable' retournera false.
+
+On voit bien que le retour de cette fonction est important, car il nous permettra par la suite
+de, par exemple, lancer une petite animation signifant que deux diamants ne peuvent être échangés.
+
+
+-- Vendredi 12 Novembre 2010
+Aujourd'hui je m'occupe de la fonction swappable. L'idée est simple : deux diamants soit échangeables
+si ils ont la même abscisse et que la différence des deux vaut 1 OU la même chose avec les ordonnées.
+
+
+-- Dimanche 14 Novembre 2010
+Aujourd'hui je me lance dans l'algorithme diamond_swap. J'ai retenu deux grandes idées : la première,
+disons l'idée « naïve », consiste à échanger les deux diamants et à reparcourir toute la matrice de
+diamants en recherchant des séries de plus de 3 diamants à l'aide d'un algorithme trivial. Avantages :
+facile à mettre en oeuvre. Incovénients : complexité linéaire médiocre. Imaginons que le diamons_swap
+ne génère aucune explosion. On aura parcouru toute la matrice, pour finalement se rendre compte que
+l'échange de donne rien, et que donc il faut dire au joueur qu'il s'est trompé de diamants.
+
+La deuxième idée, que je pense implémenter car beaucoup plus intéressante, consiste à définir des
+chemins en partant des diamants échangés. Soit la matrix de diamants suivante :
+
+	A B C D E
+	F G H I J
+	K L M N O
+	P Q R S T
+	U V W X Y
+	
+Imaginons qui nous souhaitions échanger K et L. On se retrouve donc avec une matrice comme celle-ci :
+
+	A B C D E
+	F G H I J
+	L K M N O
+	P Q R S T
+	U V W X Y
+	
+L'idée de mon algorithme est alors de rechercher des chemins pour chaqu'un des deux diamants échangés.
+On commence donc par L. Pour rechercher des chemins, l'algorithme se base d'abord sur l'abscisse du
+diamant, puis sur son ordonnée. On ne fait qu'empiler des chemins possibles dans un simple tableau.
+Ici, x = 0 pour L, donc pas de solution sur x. Cependant, y != 0 et y != MATRIX_H-1. Donc deux
+chemins verticaux possibles. Nous pouvons commencer notre recherche pour le diamant L à partir de 
+deux diamants : F et P. K ne peut pas être considéré comme un départ de chemin car il ne peut pas
+être du même type que L.
+Finalement, pour qu'un chemin puisse être validé, il faut que les diamants trouvés (F et P) soit du 
+même type que le diamant racine de la recherche (L). Admettons ici que ça ne soit pas le cas de F mais
+bien de P.
+
+On se retrouve donc avec une seule solution : L-P. La façon dont est représenté un chemin est un
+détail d'implémentation (ça pourrait être un vecteur 2D, on verra). P étant du même type que L, on
+incrémente un compteur initialisé à 1 : il vaut 2, ce qui signifie que le chemin emprunté nous a amené
+2 diamants de même type que le diamant racine. On continue le chemin et on tombe sur U : il est du
+même type que L (quel hasard ...). Le compteur passe à 3. On continue le chemin ... ha, impossible.
+La recherche est donc terminée. On regarde le compteur. Si il est supérieur ou égal à 3, cela signifie
+qu'une explosion doit être générée. Il faut donc marquer les 3 derniers diamants lus comme "explosifs".
+On passe au chemin suivant ... ha, il n'y en a plus. On en a donc fini avec le premier diamant de
+l'échange. On passe donc au deuxième, à savoir K.
+
+Il existe 3 chemins pour K : K-G, K-M et K-Q. Il faudra donc rechercher au moins 3 diamants en
+empruntant chacun de ces 3 chemins.
+
+En fin de compte, cet algorithme est peut être extrêmement compliqué pour franchement pas grand
+chose ... Sachant que si le joueur casse beaucoup de diamants d'un coup, beaucoup vont tomber, et
+vu que notre algorithme fonctionne à l'aide d'un diamant racine, quels diamants racines utiliser une
+fois la première série d'explosions terminée ? On ne peut pas vraiment savoir, sachant qu'une
+explosion peut surgir de n'importe où.
+
+La meilleure solution est donc l'algo naïf, qui consiste à parcourir l'intégralité de la matrice à
+chaque diamond_swap. On peut cependant l'optimiser : il faudrait stocker dans une variable le
+diamant le plus bas qui génère une explosion. Ouais non, là encore c'est se casser le cul pour par
+grand chose.
+
+On va donc écrire un algo, disons, `check_explode', qui va se charger de remplir un tableau
+contenant tous les diamants à éclater leur putain de race d'enculé de leur ... Bon, c'est cool.
+On passera par référénce non constante le tableau et la taille du tableau. Si à la sortie de cette
+fonction, la taille du tableau vaut 0, c'est que l'échange que l'on a fait précédement s'est soldé
+par un échec : il faut donc reswap les diamants et prévenir le joueur qu'il est un gros mongolien.
+
+En fait, une fois un swap effectué, il faudra tout simplement boucler sur la fonction
+`check_explode', tant que la taille n'est pas égale à 0. Il faudra cependant l'appeler une
+fois avant la boucle pour savoir si le swap est valable ou pas.
+
+
+-- Mercredi 17 Novembre 2010
+Un immonde bug était présent dans l'algo de génération de grille. En fait, le problème venait du fait
+qu'il ne fallait pas utiliser abusivement du type temporaire :
+
+     7
+     7
+1 1 tmp
+
+Ici, admettons que tmp valle 1. La première condition permet de supprimer les triplets horizontaux.
+Mais c'est là qu'il faut comprendre la subtilité : il ne faut surtout pas modifier la valeur de tmp.
+Ici, disons que l'on se retrouve avec ceci :
+
+    7
+    7
+1 1 3
+
+Le test vertical qui suit ne pose pas de problème. Si par contre nous avions eu :
+
+    7
+    7
+1 1 7
+
+Le test vertical aurait tenté de supprimer le triplet vertical. Si tmp avait été mise à jour, on aurait
+perdu l'information sur la valeur horizontale. L'algorithme empêche donc cela, ce qui est génial !
+C'est un algo assez moche, il faudra tenter de le simplifier, mais on verra ça à la fin. Pour
+l'instant, l'algo est performant et il fait le boulot qu'on lui demande. On verra plus tard pour la
+tronche qu'il a.
+
+Maintenant, on va passer à la fonction qui recherche des séries d'au moins 3 diamants, et qui remplit
+le tableau de diamants à faire péter. J'ai eu une petite idée assez intéressante. En fait, au lieu
+d'utiliser des pointeurs sur les diamants à faire péter, on va simplement faire un tableau
+d'entiers. Chaque entier correspondra à l'indice du diamant à éclater.
+
+L'idée est simple : on parcourt la matrice de diamants, on compte combien de diamants sont vus
+plus de trois fois en série, puis on fait une petite boucle pour remplir comme un débile le tableau
+en insérant des valeurs à la fin du tableau. L'avantage c'est que l'on n'a même pas besoin de
+décrémenter la matrice de diamants vu qu'on utiliser des indices et que l'on connait le nombre de
+diamants à démonter ! Génial cet algo putain :) Reste à l'implémenter ... CAY PARTI !
+
+Bon et bien c'est implémenter, et ça marche du tonnerre ! Pour l'instant l'algo est implémenter
+uniquement en horizontal. Il faudra juste rajouter quelques trucs pour gérer le cas vertical. Pour le
+faire on va hacker de chez hacker : j'ai écrit une fonction `matrix_index' qui transforme un couple
+d'indices 2D d'une matrice en un indice 1D. Le premier paramètre est la colonne et le deuxième la
+ligne. Bon et bien il suffit de récupérer un deuxième indice en inversant les deux paramètres pour, 
+telle de la magie, parcourir la matrice de haut en bas ! C'est beau hein :)
+
+Sinon l'algo est très simple : on récupère donc le diamant correspondant aux itérations courantes (à
+l'aide de `query_diamond'), et on transforme l'indiçage 2D en 1D. On teste ensuite ensuite le
+type du diamant récupéré avec une variable tmp (laquelle est initialisée à -1 au début de chaque
+colonne) : si le teste est vrai, on incrémente un compteur. Sinon, on fait deux choses : si le
+compteur est supérieur ou égal à 3, alors on ajoute à la fin du tableau de solutions les indices
+précédant (en se basant sur index-1 et sur le compteur, on peut en une simple boucle for remplir
+le tableau, ce qui est très bien !). Quoi qu'il en soit, on passe root à la valeur lue, et le compteur
+à 1.
+
+Une fois qu'une ligne a été entièrement analysée, on sort de la boucle bouclant sur les colonnes pour
+tomber dans celle des lignes. On va à la ligne d'après et on passe évidemment root à -1. Pourquoi ?
+Tout simplement car si la ligne précédente se termine par plus de 3 diamants, il est important de bien
+pouvoir les distinguer à ce moment là (et ce d'ailleurs l'unique moment).
+
+Et voila ! :)
+
+
+-- Jeudi 18 Novembre 2010
+L'implémentation de `check_explode' est quasiment terminée. Quelques subtilités ont été ajoutées,
+notamment la vérification de l'état du compteur _après_ être sorti des deux boucles. Le problème
+majeur là, c'est « Comment décrémenter verticalement, et efficacement ? ».
+
+
+-- Samedi 20 Novembre 2010
+`check_explode' est terminée. Cependant, la configuration en L de la génération de diamants couille
+toujours ... Il va falloir débugguer pour comprendre pourquoi.
+
+Sinon j'ai une putain d'idées de fou pour la suite des évènements, pour l'algo vérifiant la
+présence de solution et positionnant un pointeur sur la première solution. L'idée est
+extrêmement simple : il faut gérer des motifs. Il faut faire une liste exhaustive des motifs pouvant
+générer une solution. Voici cette liste :
+
+	· en horizontal
+	
+		1.  D x D    ou    x D x
+		    x D x          D x D
+		
+		2.  x x D    ou    D D x
+		    D D x          x x D
+		    
+		3.  D x x    ou    x D D
+		    x D D          D x x
+		
+		4.  D D x D  ou  D x D D
+		
+	· en vertical
+	
+	    1. x D      D x
+	       D x  ou  x D
+	       x D      D x
+	       
+	    2. x D      D x
+	       x D  ou  D x
+	       D x      x D
+	    
+	    3. D x      x D
+	       x D  ou  D x
+	       x D      D x
+	    
+	    4. D          D
+	       D    ou    x
+	       x          D
+	       D          D
+
+Il n'existe AUCUN autre motif pouvant générer une solution. Par exemple, si nous avonc ceci :
+
+	D x x
+	D x x
+	x D D
+
+On reconnait vite le motif v2.2 (vertical 2 2, voir schéma du dessus). En fonction de comment on
+parcourera la grille de diamants, on pourrait aussi trouver dans cette configuration le motif h3.1.
+Dans tous les cas, à partir du moment qu'un seul motif sera trouvé, on arrêtera l'algo, on placera
+un pointeur sur le diamant du motif qui génère l'explosion, et voila :)
+
+Bon avant de me lancer dans ce dernier "gros algo" du programme, faut d'abord réparer la fonction
+`init_gameboard' ... C'est parti !
+
+Réparé ! Le problème venait du fait qu'on utilisait tmp et non pas le diamant à index-1 ...
+
+-- Dimanche 21 Novembre 2010
+Aujourd'hui, j'ai réalisé quelques tests afin de faire mumuse avec les fréquences. Evidemment, 100%
+des grilles générées ne contiennent aucune solution grace à mon algo de fou. Un truc très intéressant
+à voir aussi, c'est que sur ma machine, tous les algos, que ce soit la génération d'une grille ou
+check_explode (même les deux en même temps) sont en 0.00s real et user, autant dire que ça poutre bien.
+
+J'ai écrit une fonction int_swap, qui se base sur le célèbre hack XOR. Je vais aussi écrire
+diamond_swap. Attention, cette fonction échange uniquement le type d'un diamant, la position n'a
+surtout pas à être échangée !
