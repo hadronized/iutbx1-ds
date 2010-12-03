@@ -23,7 +23,7 @@
 #define GAMEPLAY_H
 
 #include "gameboard.h"
-#include "gui.h"
+#include "graphics.h"
 
 int const GRID_WIDTH   = 480;
 int const GRID_HEIGHT  = 480;

@@ -23,7 +23,6 @@
 #include <cstdlib>
 #include <string>
 #include "gameplay.h"
-#include "gui.h"
 #include <cmath>
 
 using namespace std;

@@ -20,7 +20,7 @@
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <iostream> // cerr
-#include "gui.h"
+#include "graphics.h"
 
 using namespace std;
 
