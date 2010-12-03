@@ -20,29 +20,33 @@
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <iostream> // uniquement pour tests
+#include "algorithm.h"
 #include "array.h"
 
 using namespace std;
 
-bool push_back(int x, int *a, int &n, int nmax) {
+bool array_insert(int x, int *a, int &n, int nmax) {
+    int i = 0;
+
     if (n >= nmax)
         return false;
-    ++n;
-    a[n-1] = x;
-    return true;
-}
-
-bool array_find(int x, int *a, int n) {
-    int i = 0;
-    bool found = false;
-
-    while (!found && i < n) {
-        if (a[i] == x)
-            found = true;
-        ++i;
+    while (i < n) {
+        if (a[i] == x) { // doublon, on refuse
+            return false;
+        } if (a[i] > x) {
+            for (int y = n; y > i; --y)
+                int_swap(a[y], a[y-1]);
+            a[i] = x;
+            ++n;
+            return true;
+        } else {
+            ++i;
+        }
     }
 
-    return found;
+    a[n] = x;
+    ++n;
+    return true;
 }
 
 #include "matrix.h"
