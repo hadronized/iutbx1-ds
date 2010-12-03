@@ -22,24 +22,25 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
-/* ************************ push_back ************************
-   * bool push_back(int x, int *a, int &n, int nmax);        *
+/* ********************* array_insert ************************
+   * bool array_insert(int x, int *a, int &n, int nmax);     *
    ********************* Auteur , Dates **********************
    * Dimitri Sabadie, 17 novembre 2010, v0.1                 *
    ********************** Description ************************
-   * Cette fonction permet d'ajouter a la fin d'un tableau   *
-   * d'entiers un autre entier.                              *
+   * Cette fonction permet d'inserer un entier dans un       *
+   * tableau d'entiers. Si l'entier est deja present dans le *
+   * tableau, le doublon n'est alors pas insere.             *
    ************************ Entrees **************************
-   * `x' : la valeur a ajouter                               *
+   * `x' : l'entier a ajouter                                *
    * `a' : le tableau ou ajouter l'entier                    *
    * `n' : la taille « pseudo dynamique » actuelle du        *
    *       tableau                                           *
-   * `nmax' : la taille maximal du tableau                   *
+   * `nmax' : la taille maximale du tableau                  *
    ************************ Sorties **************************
    * `bool' : true si l'insertion s'est bien deroulee, false *
    *          sinon                                          *
    *********************************************************** */
-bool push_back(int x, int *a, int &n, int nmax);
+bool array_insert(int x, int *a, int &n, int nmax);
 
 /* *********************** array_find ************************
    * bool array_find(int *x, int *a, int n);                 *

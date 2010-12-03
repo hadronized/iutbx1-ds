@@ -91,10 +91,8 @@ bool check_explode(gameboard &gb) {
             } else {
                 if (counth >= 3) {
                     --index;
-                    for (int y = 0; y < counth; ++y) {
-                        if (array_find(index-y, gb.expl, gb.nb_expl) == false)
-                            push_back(index-y, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
-                    }
+                    for (int y = 0; y < counth; ++y)
+                        array_insert(index-y, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
                 }
                 rooth = tmp.type;
                 counth = 1;
@@ -112,10 +110,8 @@ bool check_explode(gameboard &gb) {
                         index = index_2D1D(j-1, MATRIX_HEIGHT-1);
                     else
                         index -= MATRIX_WIDTH;
-                    for (int y = 0; y < countv; ++y) {
-                        if (array_find(index-y*MATRIX_WIDTH, gb.expl, gb.nb_expl) == false)
-                            push_back(index-y*MATRIX_WIDTH, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
-                    }
+                    for (int y = 0; y < countv; ++y)
+                        array_insert(index-y*MATRIX_WIDTH, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
                 }
                 rootv = tmp.type;
                 countv = 1;
@@ -125,12 +121,12 @@ bool check_explode(gameboard &gb) {
 
     if (counth >= 3) {
         for (int y = 0; y < counth; ++y)
-            push_back(index-y, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
+            array_insert(index-y, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
     }
 
     if (countv >= 3) {
         for (int y = 0; y < countv; ++y)
-            push_back(index-y*MATRIX_WIDTH, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
+            array_insert(index-y*MATRIX_WIDTH, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
     }
 
     return gb.nb_expl != 0;
@@ -173,5 +169,28 @@ void explode(gameboard &gb, SDL_Surface *ps) {
         
         SDL_Flip(ps);
         SDL_Delay(100);
+    }
+}
+
+void get_down(gameboard &gb, SDL_Surface *ps) {
+    int x, y;
+    diamond *pd;
+
+    for (int i = 0; i < gb.nb_expl; ++i) {
+        index_1D2D(gb.expl[i], x, y);
+        while (y > 0) {
+            diamond_swap(query_diamond(gb, x, y), query_diamond(gb, x, y-1));
+            show_gameboard(gb, ps);
+            SDL_Flip(ps);
+            cin.ignore(1024, '\n');
+            --y;
+        }
+        
+        /*show_gameboard(gb, ps);
+        SDL_Flip(ps);
+        cout << "Changement type diamant" << endl;
+        cin.ignore(1024, '\n');*/
+        pd = &query_diamond(gb, x, 0);
+        change_diamond_type(*pd, pd->type, pd->type);
     }
 }

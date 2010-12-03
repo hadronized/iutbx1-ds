@@ -21,6 +21,7 @@
 
 #include <iostream> // pour tests
 #include "gameplay.h"
+#include "array.h"
 
 using namespace std;
 
@@ -46,10 +47,13 @@ bool main_loop(SDL_Surface *ps) {
                         pSelected->sub.y = DIAMOND_SIZE;
                     } else {
                         pSelected->sub.y = 0;
-                        if (try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE))) {
+                        try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE));
+                        do {
+                            show_array(gb.expl, gb.nb_expl);
                             show_gameboard(gb, ps);
                             explode(gb, ps);
-                        }
+                            get_down(gb, ps);
+                        } while ( check_explode(gb) );
                         
                         pSelected = 0;
                     }

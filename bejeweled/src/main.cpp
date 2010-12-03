@@ -23,7 +23,6 @@
 #include <cstdlib>
 #include <string>
 #include "gameplay.h"
-#include "gui.h"
 #include <cmath>
 
 using namespace std;
@@ -37,6 +36,7 @@ int const YEAR        = 2010;
 int main() {
     int rcode = 0;
     SDL_Surface *ps = 0;
+
     cout << SCREEN_TITLE << " version " << VERSION << endl;
     cout << AUTHORS << endl;
     cout << "Licence : " << COPYING << endl;
