@@ -27,25 +27,47 @@ body
 
 }
 
-#intro
+#menu 
 {
     float: left;
+}
+
+#menu ul
+{ 
+    float: left;
+    position: absolute;
+    color: white;
+    list-style-type: none;
+}
+
+#menu li 
+{
+    margin-left: 20px;
+    float:left;
+
+}
+
+#menu ul li a
+{
+    color: white;
+    display: block;  
+    width: 100px;
+    height: 10px;
+    background-color: orange;
+    text-decoration: none;
+    text-align: center;
+    padding: 30px;
+    border: 1px solid;
+    border-color: black;
+}
+
+
+#intro
+{ 
+    color: white; 
     position: relative;
     background-color: black;
-    color: white;
     opacity: 0.8;
-}
-
-#menu
-{
-    float: left;
-    position: relative;
-    color: white;
-}
-
-#menu li a
-{
-    color: white;
 }
 
 #but
