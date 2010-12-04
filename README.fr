@@ -119,4 +119,9 @@ Note d'utilisation de git pour Ludwig :
 
       $ git branch -r
 
+      Mais attention, ici la branche sera reliée à HEAD, à savoir la branche 
+      master ... Ce n'est pas ce que tu voudras (et ce n'est pas ce que je veux).
+      Dans le pire des cas, relie ta branche à dev :
+      
+      $ git push origin origin/dev:refs/heads/experimental
       
