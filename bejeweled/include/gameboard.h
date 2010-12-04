@@ -106,4 +106,6 @@ void explode(gameboard &gb, SDL_Surface *ps);
 
 void get_down(gameboard &gb, SDL_Surface *ps);
 
+void check_solution(gameboard &gb);
+
 #endif // guard
