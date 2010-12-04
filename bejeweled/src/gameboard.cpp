@@ -180,16 +180,9 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
         index_1D2D(gb.expl[i], x, y);
         while (y > 0) {
             diamond_swap(query_diamond(gb, x, y), query_diamond(gb, x, y-1));
-            show_gameboard(gb, ps);
-            SDL_Flip(ps);
-            cin.ignore(1024, '\n');
             --y;
         }
         
-        /*show_gameboard(gb, ps);
-        SDL_Flip(ps);
-        cout << "Changement type diamant" << endl;
-        cin.ignore(1024, '\n');*/
         pd = &query_diamond(gb, x, 0);
         change_diamond_type(*pd, pd->type, pd->type);
     }
