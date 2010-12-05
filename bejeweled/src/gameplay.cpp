@@ -54,6 +54,12 @@ bool main_loop(SDL_Surface *ps) {
                             explode(gb, ps);
                             get_down(gb, ps);
                         } while ( check_explode(gb) );
+
+                        if (!check_solution(gb)) {
+                            cout << "Pas de solution pour l'instant" << endl;
+                        } else {
+                            cout << gb.index_sol << " est une solution" << endl;
+                        }
                         
                         pSelected = 0;
                     }

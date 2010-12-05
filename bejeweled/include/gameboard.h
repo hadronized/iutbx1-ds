@@ -41,6 +41,7 @@ struct gameboard {
     diamond_matrix dmds;
     diamond_indices expl;
     int nb_expl;
+    int index_sol;
     SDL_Surface *pieces;   // les 8 diamants
     SDL_Surface *grid;     // la grille
     SDL_Surface *title_wp; // fond d'ecran titre
@@ -106,6 +107,6 @@ void explode(gameboard &gb, SDL_Surface *ps);
 
 void get_down(gameboard &gb, SDL_Surface *ps);
 
-void check_solution(gameboard &gb);
+bool check_solution(gameboard &gb);
 
 #endif // guard

@@ -31,6 +31,7 @@ void init_gameboard(gameboard &gb) {
     diamond_type tmp;
 
     gb.nb_expl = 0;
+    gb.index_sol = -1;
 
     for (int j = 0; j < MATRIX_HEIGHT; ++j) {
         for (int i = 0; i < MATRIX_WIDTH; ++i) {
@@ -186,4 +187,53 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
         pd = &query_diamond(gb, x, 0);
         change_diamond_type(*pd, pd->type, pd->type);
     }
+}
+
+bool check_solution_config11(gameboard &gb, int x, int y) {
+    diamond a, b, c;
+
+    a = query_diamond(gb, x, y);
+    b = query_diamond(gb, x+2, y);
+    c = query_diamond(gb, x+1, y+1);
+
+    if (a.type == b.type && b.type == c.type) {
+        gb.index_sol = index_2D1D(x+1, y+1);
+        return true;
+    }
+
+    return false;
+}
+
+bool check_solution_config12(gameboard &gb, int x, int y) {
+    diamond a, b, c;
+
+    a = query_diamond(gb, x, y+1);
+    b = query_diamond(gb, x+1, y);
+    c = query_diamond(gb, x+2, y+1);
+
+    if (a.type == b.type && b.type == c.type) {
+        gb.index_sol = index_2D1D(x+1, y);
+        return true;
+    }
+
+    return false;
+}
+        
+bool check_solution(gameboard &gb) {
+    int x;
+    int y = 0;
+
+    while (y <= MATRIX_HEIGHT-2) {
+        x = 0;
+        while (x <= MATRIX_WIDTH-3) {
+            if ( check_solution_config11(gb, x, y) ) return true;
+            else if ( check_solution_config12(gb, x, y) ) return true;
+
+            ++x;
+        }
+
+        ++y;
+    }
+
+    return false;
 }
