@@ -138,7 +138,7 @@ bool try_swap(gameboard &gb, diamond &a, diamond &b) {
     
     if ( is_near(a, b) ) { // tentative possible
         diamond_swap(a, b); // on echange les diamants
-	if ( check_explode(gb) ) // si il y a au moins eu une explosion
+	if ( check_explode(gb) ) // si il y a eu au moins une explosion
             success = true;
         else { // si aucune explosion generee, on reechange les diamants
             diamond_swap(a, b);
