@@ -27,40 +27,30 @@ body
 
 }
 
-#menu 
+#menu
 {
     float: left;
+    position: relative;
+    border: 0;
+    margin-right: 40px;
 }
 
-#menu ul
-{ 
-    float: left;
-    position: absolute;
-    color: white;
-    list-style-type: none;
-}
-
-#menu li 
+#menu p
 {
-    margin-left: 20px;
-    float:left;
-
-}
-
-#menu ul li a
-{
-    color: white;
-    display: block;  
-    width: 120px;
-    height: 8px;
-    background-color: orange;
-    text-decoration: none;
     text-align: center;
-    padding: 30px;
-    border: 1px solid;
-    border-color: black;
+    margin-top: 20px;
 }
 
+#menu p a
+{
+    color: orange;
+    text-decoration:none;
+}
+
+#menu p a:hover
+{
+    font-size: larger;
+}
 
 #intro
 { 
