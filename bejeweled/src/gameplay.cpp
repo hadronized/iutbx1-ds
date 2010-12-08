@@ -58,7 +58,7 @@ bool main_loop(SDL_Surface *ps) {
                         if (!check_solution(gb)) {
                             cout << "Pas de solution pour l'instant" << endl;
                         } else {
-                            cout << gb.index_sol << " est une solution" << endl;
+                            cout << '(' << gb.index_sol%8 << ';' << gb.index_sol/8 << ") est une solution" << endl;
                         }
                         
                         pSelected = 0;

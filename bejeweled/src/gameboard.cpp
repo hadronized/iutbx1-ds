@@ -20,6 +20,7 @@
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <cstdlib> // pour rand()
+#include "algorithm.h"
 #include "gameboard.h"
 #include "array.h"
 
@@ -193,9 +194,12 @@ bool equal(diamond a, diamond b, diamond c) {
     return a.type == b.type && b.type == c.type;
 }
 
+// D X D
+// X D X
 bool check_solution_config11(gameboard &gb, int x, int y) {
     diamond a, b, c;
     
+    cout << "Dans csc11" << endl;
     a = query_diamond(gb, x, y);
     b = query_diamond(gb, x+2, y);
     c = query_diamond(gb, x+1, y+1);
@@ -208,9 +212,12 @@ bool check_solution_config11(gameboard &gb, int x, int y) {
     return false;
 }
 
+// X D X
+// D X D
 bool check_solution_config12(gameboard &gb, int x, int y) {
     diamond a, b, c;
 
+    cout << "Dans csc12" << endl;
     a = query_diamond(gb, x, y+1);
     b = query_diamond(gb, x+1, y);
     c = query_diamond(gb, x+2, y+1);
@@ -222,7 +229,90 @@ bool check_solution_config12(gameboard &gb, int x, int y) {
 
     return false;
 }
-        
+
+// D D X
+// X X D
+bool check_solution_config21(gameboard &gb, int x, int y) {
+    diamond a, b, c;
+
+    cout << "Dans csc21" << endl;
+    a = query_diamond(gb, x, y);
+    b = query_diamond(gb, x+1, y);
+    c = query_diamond(gb, x+2, y+1);
+
+    if (equal(a, b, c)) {
+	gb.index_sol = index_2D1D(x+2, y+1);
+	return true;
+    }
+
+    return false;
+}
+
+// X X D
+// D D X
+bool check_solution_config22(gameboard &gb, int x, int y) {
+    diamond a, b, c;
+
+    cout << "Dans csc22" << endl;
+    a = query_diamond(gb, x, y+1);
+    b = query_diamond(gb, x+1, y+1);
+    c = query_diamond(gb, x+2, y);
+
+    if (equal(a, b, c)) {
+	gb.index_sol = index_2D1D(x+2, y);
+	return true;
+    }
+
+    return false;
+}
+
+// D X X
+// X D D
+bool check_solution_config23(gameboard &gb, int x, int y) {
+    diamond a, b, c;
+    
+    cout << "Dans csc23" << endl;
+    a = query_diamond(gb, x, y);
+    b = query_diamond(gb, x+1, y+1);
+    c = query_diamond(gb, x+2, y+1);
+
+    if (equal(a, b, c)) {
+	gb.index_sol = index_2D1D(x, y);
+	return true;
+    }
+
+    return false;
+}
+
+// X D D
+// D X X
+bool check_solution_config24(gameboard &gb, int x, int y) {
+    diamond a, b, c;
+
+    cout << "Dans csc24" << endl;
+    a = query_diamond(gb, x, y+1);
+    b = query_diamond(gb, x+1, y);
+    c = query_diamond(gb, x+2, y);
+
+    if (equal(a, b, c)) {
+	gb.index_sol = index_2D1D(x, y+1);
+	return true;
+    }
+
+    return false;
+}
+
+bool check_solution_all_configs(gameboard &gb, int x, int y) {
+    if      ( check_solution_config11(gb, x, y) ) return true;
+    else if ( check_solution_config12(gb, x, y) ) return true;
+    else if ( check_solution_config21(gb, x, y) ) return true;
+    else if ( check_solution_config22(gb, x, y) ) return true;
+    else if ( check_solution_config23(gb, x, y) ) return true;
+    else if ( check_solution_config24(gb, x, y) ) return true;
+    
+    return false;
+}
+
 bool check_solution(gameboard &gb) {
     int x;
     int y = 0;
@@ -230,10 +320,12 @@ bool check_solution(gameboard &gb) {
     while (y <= MATRIX_HEIGHT-2) {
         x = 0;
         while (x <= MATRIX_WIDTH-3) {
-            if ( check_solution_config11(gb, x, y) ) return true;
-            else if ( check_solution_config12(gb, x, y) ) return true;
-
-            ++x;
+	    if ( check_solution_all_configs(gb, x, y) ) // test horizontal
+		return true;
+	    else if ( check_solution_all_configs(gb, y, x) ) // test vertical
+		return true;
+	    else
+		++x;
         }
 
         ++y;
@@ -242,6 +334,18 @@ bool check_solution(gameboard &gb) {
     return false;
 }
 
-// 0,0 == 1,1 == 2,0
+/*
 
-// 0,0 == 1,1 == 0,2
+  Optimisation de l'algorithme ....
+
+  D _ ? ?       D _ - -
+  _ ? ?     ou  _ + -
+  ? ?           | |
+  ?             |
+
+  Pour l'horizontal, on commence à i+1 et on compte le nombre de diamants égaux à D.
+  Si ce nombre >= 2, alors c'est une solution
+
+
+
+ */
