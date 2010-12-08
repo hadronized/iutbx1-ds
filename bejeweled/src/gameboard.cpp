@@ -303,14 +303,12 @@ bool check_solution_config24(gameboard &gb, int x, int y) {
 }
 
 bool check_solution_all_configs(gameboard &gb, int x, int y) {
-    if      ( check_solution_config11(gb, x, y) ) return true;
-    else if ( check_solution_config12(gb, x, y) ) return true;
-    else if ( check_solution_config21(gb, x, y) ) return true;
-    else if ( check_solution_config22(gb, x, y) ) return true;
-    else if ( check_solution_config23(gb, x, y) ) return true;
-    else if ( check_solution_config24(gb, x, y) ) return true;
-    
-    return false;
+    return check_solution_config11(gb, x, y) ||
+        check_solution_config12(gb, x, y) ||
+        check_solution_config21(gb, x, y) ||
+        check_solution_config22(gb, x, y) ||
+        check_solution_config23(gb, x, y) ||
+        check_solution_config24(gb, x, y);
 }
 
 bool check_solution(gameboard &gb) {
@@ -322,8 +320,8 @@ bool check_solution(gameboard &gb) {
         while (x <= MATRIX_WIDTH-3) {
 	    if ( check_solution_all_configs(gb, x, y) ) // test horizontal
 		return true;
-	    else if ( check_solution_all_configs(gb, y, x) ) // test vertical
-		return true;
+	    /*else if ( check_solution_all_configs(gb, y, x) ) // test vertical
+              return true;*/
 	    else
 		++x;
         }
@@ -333,19 +331,3 @@ bool check_solution(gameboard &gb) {
 
     return false;
 }
-
-/*
-
-  Optimisation de l'algorithme ....
-
-  D _ ? ?       D _ - -
-  _ ? ?     ou  _ + -
-  ? ?           | |
-  ?             |
-
-  Pour l'horizontal, on commence à i+1 et on compte le nombre de diamants égaux à D.
-  Si ce nombre >= 2, alors c'est une solution
-
-
-
- */
