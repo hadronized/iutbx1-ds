@@ -189,14 +189,18 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
     }
 }
 
+bool equal(diamond a, diamond b, diamond c) {
+    return a.type == b.type && b.type == c.type;
+}
+
 bool check_solution_config11(gameboard &gb, int x, int y) {
     diamond a, b, c;
-
+    
     a = query_diamond(gb, x, y);
     b = query_diamond(gb, x+2, y);
     c = query_diamond(gb, x+1, y+1);
 
-    if (a.type == b.type && b.type == c.type) {
+    if (equal(a, b, c)) {
         gb.index_sol = index_2D1D(x+1, y+1);
         return true;
     }
@@ -211,7 +215,7 @@ bool check_solution_config12(gameboard &gb, int x, int y) {
     b = query_diamond(gb, x+1, y);
     c = query_diamond(gb, x+2, y+1);
 
-    if (a.type == b.type && b.type == c.type) {
+    if (equal(a, b, c)) {
         gb.index_sol = index_2D1D(x+1, y);
         return true;
     }
@@ -237,3 +241,7 @@ bool check_solution(gameboard &gb) {
 
     return false;
 }
+
+// 0,0 == 1,1 == 2,0
+
+// 0,0 == 1,1 == 0,2
