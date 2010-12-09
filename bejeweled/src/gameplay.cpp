@@ -22,23 +22,26 @@
 #include <iostream> // pour tests
 #include "gameplay.h"
 #include "array.h"
+#include "menu.h"
 
 using namespace std;
 
-bool main_loop(SDL_Surface *ps) {
+bool solo_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
     gameboard gb;
+    menu m;
     diamond *pSelected = 0;
-
-    load_theme("themes/fractal_cosmos/", gb);
+    
     init_gameboard(gb);
+    init_menu(m);
+    load_theme("themes/fractal_cosmos/", gb);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-
-	while (SDL_PollEvent(&event)) {
-	    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+                
+       	while (SDL_PollEvent(&event)) {
+       	    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
                 quit = true;
             if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
                 if (cursor_in_grid(event)) {
@@ -65,6 +68,7 @@ bool main_loop(SDL_Surface *ps) {
         SDL_Flip(ps);
     }
 
+    free_menu(m);	
     free_theme(gb);
     return true;
 }
