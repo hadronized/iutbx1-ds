@@ -40,7 +40,7 @@ n'a pas bougé, elle reste la meilleure qui soit (quadratique), car il faut au m
 tous les diamants (O(N²) donc). Le principe est relativement simple : je génère un diamant
 aléatoirement, et je fais des tests sur les triplets. Sachant que l'on remplit la matrice de diamants
 horizontalement, il y a deux tests à faire en horizontal et un seul en vertical : en horizontal, 
-si il y a deux diamants du même type qui celui généré à gauche, alors on change le type de diamants
+nsi il y a deux diamants du même type qui celui généré à gauche, alors on change le type de diamants
 selon deux cas : si il y a au moins deux diamants au dessus, on empêche d'avoir le même diamant
 qu'au dessus, afin d'éviter ce schéma :
 
@@ -299,6 +299,7 @@ Bon avant de me lancer dans ce dernier "gros algo" du programme, faut d'abord r�
 
 Réparé ! Le problème venait du fait qu'on utilisait tmp et non pas le diamant à index-1 ...
 
+
 -- Dimanche 21 Novembre 2010
 Aujourd'hui, j'ai réalisé quelques tests afin de faire mumuse avec les fréquences. Evidemment, 100%
 des grilles générées ne contiennent aucune solution grace à mon algo de fou. Un truc très intéressant
@@ -308,3 +309,65 @@ check_explode (même les deux en même temps) sont en 0.00s real et user, autant
 J'ai écrit une fonction int_swap, qui se base sur le célèbre hack XOR. Je vais aussi écrire
 diamond_swap. Attention, cette fonction échange uniquement le type d'un diamant, la position n'a
 surtout pas à être échangée !
+
+
+-- Jeudi 09 Décembre 2010
+Aujourd'hui j'optimise la recherche de solutions. J'ai réussi à inventer un algo surpuissant. Je gère
+désormais ça par « groupe de motifs », en tournant dans un boucle sur un algo procédural. C'est
+uniquement mathématique, et par conséquent, très rapide.
+
+L'idée est que pour le motif 11 se parcourt en faisant varier i de 1 à chaque fois et j passe de 0 à 1,
+puis à 0, puis à 1, etc etc ... :
+
+D X D
+X D X
+
+Il est donc aisé de trouver une formule mathématique qui fait varier j de 0 à 1 un coup sur deux : on
+lui ajoute relj, qui change de valeur à chaque fin de boucle selon la formule simple suivante :
+
+	relj = 1 - relj
+
+Maintenant, on voit que le motif 11 et le motif 12 sont "inversés". Vu notre formule, on peut aisémant
+reconnaître ces deux motifs : la première fois que l'on rentre dans la boucle, relj = 0. On commence
+donc à regarder le motif 11. Ensuite, un refait une deuxième boucle, mais en commençant cette dernière
+avec relj = 1. On voit bien qu'on a alors ça :
+
+	premier tour :             deuxième tour :
+	D X D                      X D X
+	X D X                      D X D
+	
+On observe donc bien les deux motifs 11 et 12.
+
+Maintenant, c'est là toute la puissance de mon algo, on doit encore chercher 6 motifs : 21, 22, 23, 24,
+31 et 32. Les deux derniers motifs sont un peu particuliers puisqu'ils ne sont pas de même dimension.
+On verra donc plus tard pour eux.
+
+Il reste donc 21, 22, 23 et 24. Et là, on remarque ceci :
+
+	21      22      23      24
+	D X X | D D X | X D D | X X D
+	X D D | X X D | D X X | D D X
+	
+Mon algo étant extrêmement futé, on remarque qu'en itérant sur chaque colonne, le cycle de variation
+de j est circulaire : on descend, on stagne, on remonte, on stagne, on descend, on stagne, on remonte, 
+on stagne ...
+
+Si on traduit ça en terme de cycle circulaire pour relj, on a ceci :
+
+	relj : -1 -> 0 -> 1 -> 0 -> * (et on revient au début).
+
+Il nous faut donc une formule procédurale qui nous permette de passer d'un -1 à un 0 à un 1 à un 0 à un
+-1 ... Et bien, on sait passer de 0 à 1 à 0 à 1 ... On voit d'ici comment faire.
+
+L'idée est simple. Comme le schéma du dessus le suppose, on voit bien que l'on a 4 "étapes" (puisque 4
+motifs à observer). On fait donc varier comme au dessus notre relj, mais on multiplie le tout par une
+constante (1 ou -1) à chaque motif. Et on peut aussi faire varier cette constante une fois sur deux de
+façon procédurale (k = -k).
+
+On a donc :
+
+	relj = (1-relj)*k
+
+
+Bon en fait cette multiplication ne marche que si on clamp ... Et je n'ai pas trop envie ...
+Le but est en fait d'avoir 0 0 1 1 en cyclique.

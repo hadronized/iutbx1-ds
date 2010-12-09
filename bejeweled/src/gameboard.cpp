@@ -341,6 +341,8 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
     int reli;
     int relj;
 
+    // D X D  et  X D X
+    // X D X      D X D
     for (int off = 0; off < 2; ++off) {
         reli = 0;
         relj = off;
@@ -353,6 +355,23 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
         if (equal(abc[0], abc[1], abc[2])) {
             gb.index_sol = index_2D1D(i+1, j+relj);
             return true;
+        }
+    }
+
+    // X X D  et  D X X  et  X D D  et  D D X
+    // D D X      X D D      D X X      X X D
+    int k = 1;
+    for (int off = 0; off < 4; ++off) {
+        reli = 0;
+        relj = 0;
+
+        while (reli < 3) {
+            abc[reli] = query_diamond(gb, i+reli, j+reli);
+            ++reli;
+            relj = (1-relj)*k;
+            cout << "relj=" << relj << " avec k=" << k << endl;
+            cin.ignore(1024, '\n');
+            k = -k;
         }
     }
 
