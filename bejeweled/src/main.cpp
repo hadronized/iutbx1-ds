@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <string>
 #include "gameplay.h"
+#include "menu.h"
 #include <cmath>
 
 using namespace std;
@@ -48,9 +49,11 @@ int main() {
     if (init_gui()) {
 	ps = create_screen();
 	if (ps)
+	    menu_loop(ps);	
 	    rcode = main_loop(ps);
     }
-
+    
     quit_gui();
+    
     return rcode;
 }
