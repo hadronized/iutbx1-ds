@@ -302,31 +302,56 @@ bool check_solution_config24(gameboard &gb, int x, int y) {
     return false;
 }
 
-bool check_solution_all_hconfigs(gameboard &gb, int x, int y) {
-    return check_solution_config11(gb, x, y) ||
-           check_solution_config12(gb, x, y) ||
-           check_solution_config21(gb, x, y) ||
-           check_solution_config22(gb, x, y) ||
-           check_solution_config23(gb, x, y) ||
-           check_solution_config24(gb, x, y);
+// D X D D
+bool check_solution_config31(gameboard &gb, int x, int y) {
+    diamond a, b, c;
+
+    cout << "Dans csc31" << endl;
+    a = query_diamond(gb, x, y);
+    b = query_diamond(gb, x+2, y);
+    c = query_diamond(gb, x+3, y);
+
+    if (equal(a, b, c)) {
+        gb.index_sol = index_2D1D(x, y);
+        return true;
+    }
+
+    return false;
+}
+
+// D D X D
+bool check_solution_config32(gameboard &gb, int x, int y) {
+    diamond a, b, c;
+
+    cout << "Dans csc32" << endl;
+    a = query_diamond(gb, x, y);
+    b = query_diamond(gb, x+1, y);
+    c = query_diamond(gb, x+3, y);
+
+    if (equal(a, b, c)) {
+        gb.index_sol = index_2D1D(x+3, y);
+        return true;
+    }
+
+    return false;
 }
 
 bool check_solution(gameboard &gb) {
-    int x;
-    int y = 0;
-
-    while (y <= MATRIX_HEIGHT-2) {
-        x = 0;
-        while (x <= MATRIX_WIDTH-3) {
-	    if ( check_solution_all_hconfigs(gb, x, y) ) // test horizontal
-                return true;
-	    /*if ( check_solution_all_configs(gb, y, x) ) // test vertical
-              return true;*/
-	    else
-		++x;
+    for (int j = 0; j < MATRIX_HEIGHT; ++j) {
+        for (int i = 0; i < MATRIX_WIDTH-2; ++i) {
+            /*if ( check_solution_config11(gb, i, j) ||
+                 check_solution_config12(gb, i, j) ||
+                 check_solution_config21(gb, i, j) ||
+                 check_solution_config22(gb, i, j) ||
+                 check_solution_config23(gb, i, j) ||
+                 check_solution_config24(gb, i, j) )
+                 return true;*/
+            if (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT-1) {
+                if ( check_solution_config31(gb, i, j) ||
+                     check_solution_config32(gb, i, j) )
+                    return true;
+            }
         }
-
-        ++y;
     }
 
     return false;
