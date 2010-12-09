@@ -29,7 +29,7 @@ int const GRID_WIDTH   = 480;
 int const GRID_HEIGHT  = 480;
 
 // Fonction qui contient la boule de jeu principale
-bool main_loop(SDL_Surface *ps);
+bool solo_loop(SDL_Surface *ps);
 
 bool cursor_in_grid(SDL_Event m);
 

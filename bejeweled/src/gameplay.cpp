@@ -26,13 +26,12 @@
 
 using namespace std;
 
-bool main_loop(SDL_Surface *ps) {
+bool solo_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
     gameboard gb;
     menu m;
     diamond *pSelected = 0;
-
     
     init_gameboard(gb);
     init_menu(m);
@@ -40,20 +39,9 @@ bool main_loop(SDL_Surface *ps) {
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-        
-   		SDL_PollEvent(&event);
-		show_menu(m, ps, event);
-		if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-		    quit=false;	
-        else if ( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-		    quit = true;
-		
-        SDL_Flip(ps);
-        
-        
+                
        	while (SDL_PollEvent(&event)) {
-		
-	    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+       	    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
                 quit = true;
             if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
                 if (cursor_in_grid(event)) {
@@ -77,8 +65,10 @@ bool main_loop(SDL_Surface *ps) {
 	}
 	
 	show_gameboard(gb, ps);
+        SDL_Flip(ps);
     }
-	free_menu(m);	
+
+    free_menu(m);	
     free_theme(gb);
     return true;
 }
