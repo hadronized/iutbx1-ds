@@ -30,11 +30,9 @@ bool solo_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
     gameboard gb;
-    menu m;
     diamond *pSelected = 0;
     
     init_gameboard(gb);
-    init_menu(m);
     load_theme("themes/fractal_cosmos/", gb);
 
     while (!quit) {
@@ -67,8 +65,6 @@ bool solo_loop(SDL_Surface *ps) {
 	show_gameboard(gb, ps);
         SDL_Flip(ps);
     }
-
-    free_menu(m);	
     free_theme(gb);
     return true;
 }

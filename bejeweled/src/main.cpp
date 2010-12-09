@@ -49,12 +49,10 @@ int main() {
     if (init_gui()) {
 	ps = create_screen();
 	if (ps)
-<<<<<<< HEAD
+
 	    menu_loop(ps);	
-	    rcode = main_loop(ps);
-=======
 	    rcode = solo_loop(ps);
->>>>>>> 46940a6ef6516c77a4caac84204f97e0275221e4
+
     }
     
     quit_gui();
