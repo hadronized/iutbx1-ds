@@ -310,7 +310,7 @@ bool check_solution_config31(gameboard &gb, int x, int y) {
     a = query_diamond(gb, x, y);
     b = query_diamond(gb, x+2, y);
     c = query_diamond(gb, x+3, y);
-
+    
     if (equal(a, b, c)) {
         gb.index_sol = index_2D1D(x, y);
         return true;
@@ -336,16 +336,27 @@ bool check_solution_config32(gameboard &gb, int x, int y) {
     return false;
 }
 
+bool check_pattern_3x2(gameboard &gb, int i, int j, int relj) {
+    diamond abc[3];
+
+    for (int reli = 0; reli < 2; ++reli, relj = 1-relj)
+        abc[reli] = query_diamond(gb, i+reli, j+relj);
+    
+    if (equal(abc[0], abc[1], abc[2]))
+        return true;
+    return false;
+}
+
 bool check_solution(gameboard &gb) {
     for (int j = 0; j < MATRIX_HEIGHT; ++j) {
         for (int i = 0; i < MATRIX_WIDTH-2; ++i) {
-            /*if ( check_solution_config11(gb, i, j) ||
+            if ( check_solution_config11(gb, i, j) ||
                  check_solution_config12(gb, i, j) ||
                  check_solution_config21(gb, i, j) ||
                  check_solution_config22(gb, i, j) ||
                  check_solution_config23(gb, i, j) ||
                  check_solution_config24(gb, i, j) )
-                 return true;*/
+                return true;
             if (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT-1) {
                 if ( check_solution_config31(gb, i, j) ||
                      check_solution_config32(gb, i, j) )
