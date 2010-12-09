@@ -302,13 +302,13 @@ bool check_solution_config24(gameboard &gb, int x, int y) {
     return false;
 }
 
-bool check_solution_all_configs(gameboard &gb, int x, int y) {
-    return check_solution_config11(gb, x, y);// ||
-        /*check_solution_config12(gb, x, y) ||
-        check_solution_config21(gb, x, y) ||
-        check_solution_config22(gb, x, y) ||
-        check_solution_config23(gb, x, y) ||
-        check_solution_config24(gb, x, y);*/
+bool check_solution_all_hconfigs(gameboard &gb, int x, int y) {
+    return check_solution_config11(gb, x, y) ||
+           check_solution_config12(gb, x, y) ||
+           check_solution_config21(gb, x, y) ||
+           check_solution_config22(gb, x, y) ||
+           check_solution_config23(gb, x, y) ||
+           check_solution_config24(gb, x, y);
 }
 
 bool check_solution(gameboard &gb) {
@@ -318,10 +318,10 @@ bool check_solution(gameboard &gb) {
     while (y <= MATRIX_HEIGHT-2) {
         x = 0;
         while (x <= MATRIX_WIDTH-3) {
-	    /*if ( check_solution_all_configs(gb, x, y) ) // test horizontal
-              return true;*/
-	    if ( check_solution_all_configs(gb, y, x) ) // test vertical
+	    if ( check_solution_all_hconfigs(gb, x, y) ) // test horizontal
                 return true;
+	    /*if ( check_solution_all_configs(gb, y, x) ) // test vertical
+              return true;*/
 	    else
 		++x;
         }
