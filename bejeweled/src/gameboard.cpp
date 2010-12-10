@@ -194,148 +194,6 @@ bool equal(diamond a, diamond b, diamond c) {
     return a.type == b.type && b.type == c.type;
 }
 
-// D X D
-// X D X
-bool check_solution_config11(gameboard &gb, int x, int y) {
-    diamond a, b, c;
-    
-    cout << "Dans csc11" << endl;
-    a = query_diamond(gb, x, y);
-    b = query_diamond(gb, x+2, y);
-    c = query_diamond(gb, x+1, y+1);
-
-    if (equal(a, b, c)) {
-        gb.index_sol = index_2D1D(x+1, y+1);
-        return true;
-    }
-
-    return false;
-}
-
-// X D X
-// D X D
-bool check_solution_config12(gameboard &gb, int x, int y) {
-    diamond a, b, c;
-
-    cout << "Dans csc12" << endl;
-    a = query_diamond(gb, x, y+1);
-    b = query_diamond(gb, x+1, y);
-    c = query_diamond(gb, x+2, y+1);
-
-    if (equal(a, b, c)) {
-        gb.index_sol = index_2D1D(x+1, y);
-        return true;
-    }
-
-    return false;
-}
-
-// D D X
-// X X D
-bool check_solution_config21(gameboard &gb, int x, int y) {
-    diamond a, b, c;
-
-    cout << "Dans csc21" << endl;
-    a = query_diamond(gb, x, y);
-    b = query_diamond(gb, x+1, y);
-    c = query_diamond(gb, x+2, y+1);
-
-    if (equal(a, b, c)) {
-	gb.index_sol = index_2D1D(x+2, y+1);
-	return true;
-    }
-
-    return false;
-}
-
-// X X D
-// D D X
-bool check_solution_config22(gameboard &gb, int x, int y) {
-    diamond a, b, c;
-
-    cout << "Dans csc22" << endl;
-    a = query_diamond(gb, x, y+1);
-    b = query_diamond(gb, x+1, y+1);
-    c = query_diamond(gb, x+2, y);
-
-    if (equal(a, b, c)) {
-	gb.index_sol = index_2D1D(x+2, y);
-	return true;
-    }
-
-    return false;
-}
-
-// D X X
-// X D D
-bool check_solution_config23(gameboard &gb, int x, int y) {
-    diamond a, b, c;
-    
-    cout << "Dans csc23" << endl;
-    a = query_diamond(gb, x, y);
-    b = query_diamond(gb, x+1, y+1);
-    c = query_diamond(gb, x+2, y+1);
-
-    if (equal(a, b, c)) {
-	gb.index_sol = index_2D1D(x, y);
-	return true;
-    }
-
-    return false;
-}
-
-// X D D
-// D X X
-bool check_solution_config24(gameboard &gb, int x, int y) {
-    diamond a, b, c;
-
-    cout << "Dans csc24" << endl;
-    a = query_diamond(gb, x, y+1);
-    b = query_diamond(gb, x+1, y);
-    c = query_diamond(gb, x+2, y);
-
-    if (equal(a, b, c)) {
-	gb.index_sol = index_2D1D(x, y+1);
-	return true;
-    }
-
-    return false;
-}
-
-// D X D D
-bool check_solution_config31(gameboard &gb, int x, int y) {
-    diamond a, b, c;
-
-    cout << "Dans csc31" << endl;
-    a = query_diamond(gb, x, y);
-    b = query_diamond(gb, x+2, y);
-    c = query_diamond(gb, x+3, y);
-    
-    if (equal(a, b, c)) {
-        gb.index_sol = index_2D1D(x, y);
-        return true;
-    }
-
-    return false;
-}
-
-// D D X D
-bool check_solution_config32(gameboard &gb, int x, int y) {
-    diamond a, b, c;
-
-    cout << "Dans csc32" << endl;
-    a = query_diamond(gb, x, y);
-    b = query_diamond(gb, x+1, y);
-    c = query_diamond(gb, x+3, y);
-
-    if (equal(a, b, c)) {
-        gb.index_sol = index_2D1D(x+3, y);
-        return true;
-    }
-
-    return false;
-}
-
 bool check_pattern_3x2(gameboard &gb, int i, int j) {
     diamond abc[3];
     int reli;
@@ -360,20 +218,11 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
 
     // X X D  et  D X X  et  X D D  et  D D X
     // D D X      X D D      D X X      X X D
-    int k = 1;
-    for (int off = 0; off < 4; ++off) {
+    /*for (int off = 0; off < 4; ++off) {
         reli = 0;
         relj = 0;
 
-        while (reli < 3) {
-            abc[reli] = query_diamond(gb, i+reli, j+reli);
-            ++reli;
-            relj = (1-relj)*k;
-            cout << "relj=" << relj << " avec k=" << k << endl;
-            cin.ignore(1024, '\n');
-            k = -k;
-        }
-    }
+	}*/
 
     return false;
 }
