@@ -10,6 +10,7 @@ body
 
 #header 
 {
+    position: relative;
     color: white;
 }
 
@@ -31,15 +32,14 @@ body
 {
     float: left;
     position: relative;
-    border: 0;
     margin-right: 40px;
-    opacity: 0,8;
+    width: 150px;
 }
 
 #menu p
 {
     text-align: center;
-    margin-top: 100px;
+    margin-bottom: 100px;
 }
 
 #menu p a
