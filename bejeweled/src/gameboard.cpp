@@ -218,11 +218,29 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
 
     // X X D  et  D X X  et  X D D  et  D D X
     // D D X      X D D      D X X      X X D
-    /*for (int off = 0; off < 4; ++off) {
+    int a = 0;
+    int b = 0;
+    relj = 0;
+    for (int off = 0; off < 4; ++off) {
         reli = 0;
-        relj = 0;
+        
+        cout << "Nouveau motif ..." << endl;
+        while (reli < 3) {
+            abc[reli] = query_diamond(gb, i+reli, j+relj);
+            ++reli;
+            relj = 1-a;
+            a = b;
+            b = relj;
+        }
 
-	}*/
+        if (equal(abc[0], abc[1], abc[2])) {
+            cout << "solution de fou" << endl;
+            gb.index_sol = index_2D1D(i+(off%2)*2, j+relj);
+            return true;
+        }
+    }
+
+    cout << "fin de ligne" << endl;
 
     return false;
 }
