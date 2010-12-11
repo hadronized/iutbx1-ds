@@ -13,27 +13,110 @@
     <div id="header">
       <h1 >COMMENT JOUER ?</h1>
     </div>
+    <div id="menu">
+      <p class="elem menu"><a href="site.html">Accueil</a></p>
+      <p class="elem menu"><a href="page1.html">Comment jouer</a></p>
+      <p class="elem menu"><a href="page2.html">Algorithmes</a></p>
+      <p class="elem menu"><a href="page3.html">Telechargements</a></p>
+      <p class="elem menu"><a href="page4.html">Credits</a></p>
+    </div>
     <div id="but">
       <h2 >Le but du jeu</h2>
-      <p>
-	Le but du jeu est d'échanger une gemme avec une gemme adjacente afin de réaliser une ligne ou une colonne de 3 gemmes identiques (ou plus).
+      <p>Le but du jeu est d'échanger une gemme avec une gemme adjacente afin de réaliser une ligne ou une colonne de 3 gemmes identiques (ou plus).
 	Des points bonus sont attribués lorsque l'on réalise une chaine de plus de 3 gemmes.
-	Parfois des réactions en chaine appellées cascades, sont réalisées lors de l'échange de 2 gemmes. Ces cascades sont récompensées par des multiplicateurs,
-	appelés combos. L'enchainement de ces combos permet de réaliser un maximum de points.
-	Le jeu arrive à son terme lorsque le temps imparti est ecoulé ou qu'aucun échange n'est réalisable.
-    </p>
+	Parfois des réactions en chaine appellées "combos", sont réalisées lors de l'échange de 2 gemmes. Ces combos sont récompensés par des multiplicateurs,
+	de points. L'enchainement de ces combos permet de réaliser un maximum de points.</p>
+      <p>Le jeu arrive à son terme lorsque le temps imparti est ecoulé ou qu'aucun échange n'est réalisable. Il est important de noter que si plus aucun échange
+        n'est réalisable, le temps restant permet de gagner quelques points supplémentaires ... alors n'attendez pas, et jouez !</p>
     </div>
     <div id="instruction">
-      <h2 >Commandes</h2>
-      <p>
-	Le jeu se joue entièrement à la souris. Pour échanger deux gemmes il suffit de maintenir la touche gauche de la souris et de déplacer la gemme séléctionnée sur la gemme avec laquelle on souhaite l'échanger.
+      <h2>Gameplay</h2>
+      <p>Une fois le jeu lancé, l'écran d'accueil apparaît. Plusieurs choix sont disponibles : 
+        <ul>
+          <li>Solo</li>
+          <li>Duel</li>
+          <li>Coopération</li> <!-- ça ça reste à voir :D -->
+          <li>Options</li>
+          <li>Crédits</li>
+          <li>Quitter</li>
+        </ul>
       </p>
-      <h2 >Bon jeu a tous !</h2>
-    </div>
-    <div id="menu">
+      <h3>Mode solo</h3>
+      <p>[ Image mode solo ici ]</p>
+      <p>Dans ce mode, vous êtes seul(e). Vous avez deux adversaires : le temps, et le hasard. Votre but est simple : échanger deux gemmes afin d'aligner
+        horizontalement ou verticalement 3 gemmes (ou plus).</p>
+      <p>Pour pouvoir réaliser un échange de gemmes, vous êtes soumis à deux contraintes : les gemmes doivent êtres adjacentes [ expliquer avec une image
+        peut-être ], et le dit échange doit créer un alignement de 3 gemmes au minimum. Dans le cas contraire, l'échange est refusé.</p>
+      <p>Dans le cas où un échange est réalisé, les gemmes alignées explosent et sont par conséquent retirées du jeu. En fonction de la difficulté choisie
+        (paramétrable, voir la section <a href="#options_a">Options</a>), et du nombre de diamants explosés, un certain nombre de points est attribué au 
+        joueur. Aussi, si le joueur effectue des combos, il obtient alors un multiplicateur. Par défaut, ce multiplicateur vaut 1, et se voit doubler à
+        chaque combo. Une fois la série de combos terminée, le multiplicateur redescend à 1.</p>
+      <p>Au bout d'un certain nombre de points (ce nombre dépend lui aussi de la difficulté choisie), un bonus peut être attribué au joueur. Il existe deux
+        types de bonus :</p>
+      <p><ul>
+          <li>les bonus Action (attribués tous les 30/60/120/200 diamants en fonction de la difficulté)</li>
+          <li>les bonus Réanimation (attribués tous les 100/175/200/300 diamants en fonction de la difficulté)</li>
+        </ul></p>
+      <p>Les bonus Action sont les bonus les plus fréquents. Ils s'activent dès leur attribution, d'où leur nom. Ils vont faire exploser entre 5 et 20
+        diamants (tout dépend de la difficulté du jeu), et chaque diamant détruit rapportera un point.</p>
+      <p>Les bonus Réanimation sont des bonus beaucoup plus rares, mais très utiles. Ils ont le même effet que les bonus immédiats, mais peuvent être activés
+        à n'importe quel moment. Leur utilité majeure réside dans le fait qu'ils permettent de continuer à jouer lorsque la situation semblait perdue, c'est à
+        dire lorsque plus aucune solution n'existe ou que le temps tombe à 0. Cependant rien n'empêche le joueur de les utiliser quand il le désire. Il est
+        possible de cumuler au grand maximum 2 Réanimations.</p>
+      <h4>Informations difficulté</h4>
       <ul>
-	<li class="elem_menu"><a href="site.html"> Retour à la page d'accueil </a></li>
+        <li>Facile
+          <ul>
+            <li>Diversité diamants : 4</li>
+            <li>Multiplicateur fin de partie : 1</li>
+            <li>Point(s) par diamant : 1</li>
+            <li>Temps : 90 secondes</li>
+            <li>Temps par échange correct : +20</li>
+            <li>Temps par échange incorrect : 0</li>
+            <li>Attribution Action : tous les 30 diamants</li>
+            <li>Attribution Réanimation : tous les 100 diamants</li>
+          </ul>
+        </li>
+        <li>Normal
+          <ul>
+            <li>Diversité diamants : 5</li>
+            <li>Multiplicateur fin de partie : 2</li>
+            <li>Point(s) par diamant : 1</li>
+            <li>Temps : 60 secondes</li>
+            <li>Temps par échange correct : +15</li>
+            <li>Temps par échange incorrect : 0</li>
+            <li>Attribution Action : tous les 60 diamants</li>
+            <li>Attribution Réanimation : tous les 175 diamants</li>
+          </ul>
+        </li>
+        <li>Héroïque
+          <ul>
+            <li>Diversité diamants : 7</li>
+            <li>Multiplicateur fin de partie : 3</li>
+            <li>Point(s) par diamant : 2</li>
+            <li>Temps : 20 secondes</li>
+            <li>Temps par échange correct : +10</li>
+            <li>Temps par échange incorrect : -5</li>
+            <li>Attribution Action : tous les 120 diamants</li>
+            <li>Attribution Réanimation : tous les 200 diamants</li>
+          </ul>
+        </li>
+        <li>Légendaire
+          <ul>
+            <li>Diversité diamants : 8</li>
+            <li>Multiplicateur fin de partie : 4</li>
+            <li>Point(s) par diamant : 2</li>
+            <li>Temps : 10 secondes</li>
+            <li>Temps par échange correct : +5</li>
+            <li>Temps par échange incorrect : -5</li>
+            <li>Attribution Action : tous les 200 diamants</li>
+            <li>Attribution Réanimation : tous les 300 diamants</li>
+          </ul>
+        </li>
       </ul>
+      <h2>Commandes</h2>
+      <p>[ A compléter plus tard .... ]</p>
+      <h2 >Bon jeu a tous !</h2>
     </div>
   </body>
 </html>
