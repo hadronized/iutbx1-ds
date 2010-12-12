@@ -198,6 +198,8 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
     diamond abc[3];
     int reli;
     int relj;
+    int a = 0;
+    int b = 0;
 
     // D X D  et  X D X
     // X D X      D X D
@@ -218,8 +220,6 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
 
     // X X D  et  D X X  et  X D D  et  D D X
     // D D X      X D D      D X X      X X D
-    int a = 0;
-    int b = 0;
     relj = 0;
     for (int off = 0; off < 4; ++off) {
         reli = 0;
