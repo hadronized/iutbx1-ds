@@ -41,6 +41,7 @@ struct gameboard {
     diamond_matrix dmds;
     diamond_indices expl;
     int nb_expl;
+    int index_sol;
     SDL_Surface *pieces;   // les 8 diamants
     SDL_Surface *grid;     // la grille
     SDL_Surface *title_wp; // fond d'ecran titre
@@ -105,5 +106,46 @@ void show_gameboard(gameboard &gb, SDL_Surface *ps);
 void explode(gameboard &gb, SDL_Surface *ps);
 
 void get_down(gameboard &gb, SDL_Surface *ps);
+
+/*
+       i:0 1 2 3    0 1 2 3
+    j	 
+    :
+    0    D X D      X D X
+    1    X D X      D X D
+
+    0    X X D      D D X
+    1    D D X      X X D
+
+    0    D X X      X D D
+    1    X D D      D X X
+
+    0    X D X X    X X D X
+
+    -------------------------
+
+    0    X D        D X
+    1    D X        X D
+    2    X D        D X
+
+    0    D X        X D
+    1    D X        X D
+    2    X D        D X
+
+    0    D X        X D
+    1    X D        D X
+    2    X D        D X
+
+    0    X          X
+    1    D          X
+    2    X          D
+    3    X          X
+
+
+    16 combinaisons possibles
+
+
+ */
+bool check_solution(gameboard &gb);
 
 #endif // guard
