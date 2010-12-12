@@ -93,7 +93,7 @@ bool quit_selected(menu m, SDL_Event e) {
 }
 
 void menu_loop(SDL_Surface *ps) {
-	SDL_Event event;
+    SDL_Event event;
     bool jeu = false;
     bool quitter = false;
     menu m;
@@ -101,21 +101,45 @@ void menu_loop(SDL_Surface *ps) {
     initialisation_menu(m);
 
     while (!quitter) {
-		
-		
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-        
-   		SDL_PollEvent(&event);
-		affiche_menu(m, ps, event);
-		
-		if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-		   quitter = true;
-		 	
+
+        SDL_WaitEvent(&event);
+        if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+            quitter = true;
         else if ( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-		   jeu = true;
-		
+            jeu = true;
+        
+
+        affiche_menu(m, ps, event);
         SDL_Flip(ps);
-   
-}
+    }
 }
 
+/* Note d'attention à Ludwig : comme tu dois un peu bosser, je ne vais pas corriger tes erreurs,
+   mais juste te donner une piste.
+
+     · Déjà, à quoi te sers à la variable jeu ? Tu la passes à true lorsque le joueur clique sur
+       "Quitter", déjà, ce n'est pas trop logique ... Mais le fait est que changer l'état d'une
+       variable sans rien en faire, c'est complètement inutile.
+     · Ensuite, lorsque le joueur clique sur "Jouer", tu lui fais quitter le menu en passant
+       quitter à true. Crois-tu que ce soit réellement la meilleure idée ? Je ne pense pas.
+       Pourquoi ? C'est très simple : ta fonction ne retourne rien, ce qui veut dire, selon
+       ta logique, que dès lors que l'on sort de la foncti,on `menu_loop', on doit lancer le jeu.
+       Ce n'est pas DU TOUT le cas. La fonction `solo_loop', par exemple, ne doit théoriquement
+       pas être appelée dans `main'. Comment tu gèreras toutes les autres options sinon ? Donc
+       d'après toi, dans quelle fonction faut-il appeler `solo_loop' ? Ca tombe sous le sens
+       évidemment ...
+     · Aussi, note que tu fais quelques de pas très malin : tu appelles `initialisation_menu'
+       dans `menu_loop', sachant très bien que `menu_loop' va problablement être appelée
+       plusieurs fois (par exemple si le joueur, après une partie, souhaite quitter, ou modifier
+       l'apparence du jeu, etc etc ...). Donc ta fonction `initialisation_menu', elle n'a rien à
+       faire là. Je pense que tu peux trouver très simplement où est sa place ... ;)
+     · Finalement, ce n'est pas vraiment de ta faute, plutôt de la façon dont je gère les
+       déplacements à la souris, mais tu lances la fonction liée à un boutton lorsque le joueur
+       enfonce le boutton gauche de la souris. Arrange toi pour que la fonction soit lancée
+       lorsque le boutton gauche de la souris est relâché (car sinon ça sélectionne un diamant
+       dans la grille, pas très cool ... ;).
+
+   Donc occupe toi de ce petit menu.
+
+*/
