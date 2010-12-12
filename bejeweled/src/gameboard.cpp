@@ -190,10 +190,6 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
     }
 }
 
-bool equal(diamond a, diamond b, diamond c) {
-    return a.type == b.type && b.type == c.type;
-}
-
 bool check_pattern_3x2(gameboard &gb, int i, int j) {
     diamond abc[3];
     int reli;
@@ -210,7 +206,7 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
             relj = 1-relj;
         }
 
-        if (equal(abc[0], abc[1], abc[2])) {
+        if (abc[0].type == abc[1].type && abc[1].type == abc[2].type) {
             gb.index_sol = index_2D1D(i+1, j+relj);
             return true;
         }
@@ -233,7 +229,7 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
             b = relj;
         }
 
-        if (equal(abc[0], abc[1], abc[2])) {
+        if (abc[0].type == abc[1].type && abc[1].type == abc[2].type) {
             cout << "solution de fou" << endl;
             gb.index_sol = index_2D1D(i+(off%2)*2, j+relj);
             return true;
@@ -245,16 +241,50 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
     return false;
 }
 
+bool check_pattern_4x1(gameboard &gb, int i, int j) {
+    diamond abcd[4];
+    int reli;
+    int rel = 0;
+    int a = 0;
+    int b = 0;
+
+    // D X D D  et  D D X D
+    for (int off = 0; off < 2; ++off) {
+        reli = 0;
+        rel = off;
+        cout << "Nouveau motif lol tqvu wesh hihi" << endl;
+        while (reli < 3) {
+            cout << "lecture de (" << i+reli+rel << ';' << j << ')' << endl;
+            cout << "avec rel=" << rel << endl;
+            cin.ignore(1024, '\n');
+            abcd[reli] = query_diamond(gb, i+reli+rel, j);
+            ++reli;
+            rel = 1-a;
+            a = b;
+            b = rel;
+        }
+
+        if (abcd[0].type == abcd[1].type && abcd[1].type == abcd[2].type && abcd[2].type == abcd[3].type) {
+            cout << "solution de chtarbé" << endl;
+            //gb.index_sol = index_2D1D(
+            return true;
+        }
+    }
+
+    return false;
+}
+
 bool check_solution(gameboard &gb) {
     for (int j = 0; j < MATRIX_HEIGHT-1; ++j) {
-        for (int i = 0; i < MATRIX_WIDTH-3; ++i) {
+        for (int i = 0; i < MATRIX_WIDTH-2; ++i) {
             cout << "valeur de i :" << i << endl;
             cout << "valeur de j :" << j << endl;
-            if ( check_pattern_3x2(gb, i, j) )
-                return true;
+            /*if ( check_pattern_3x2(gb, i, j) )
+              return true;*/
 
-            if (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT-1) {
-
+            if (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT) {
+                if ( check_pattern_4x1(gb, i, j) )
+                    return true;
             }
         }
 
