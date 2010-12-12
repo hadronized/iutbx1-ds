@@ -51,7 +51,7 @@ bool main_loop(SDL_Surface *ps) {
                         do {
                             show_gameboard(gb, ps);
                             explode(gb, ps);
-n                            get_down(gb, ps);
+                            get_down(gb, ps);
                         } while ( check_explode(gb) );
 
                         if (!check_solution(gb)) {
