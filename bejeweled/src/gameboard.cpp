@@ -170,7 +170,7 @@ void explode(gameboard &gb, SDL_Surface *ps) {
         }
         
         SDL_Flip(ps);
-        SDL_Delay(100);
+        SDL_Delay(80);
     }
 }
 
@@ -224,7 +224,6 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
     for (int off = 0; off < 4; ++off) {
         reli = 0;
         
-        cout << "Nouveau motif ..." << endl;
         while (reli < 3) {
             abc[reli] = query_diamond(gb, i+reli, j+relj);
             ++reli;
@@ -234,13 +233,10 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
         }
 
         if (equal(abc[0], abc[1], abc[2])) {
-            cout << "solution de fou" << endl;
             gb.index_sol = index_2D1D(i+(off%2)*2, j+relj);
             return true;
         }
     }
-
-    cout << "fin de ligne" << endl;
 
     return false;
 }
@@ -250,18 +246,11 @@ bool check_pattern_4x1(gameboard &gb, int i, int j) {
 
     // D X D D  et  D D X D
     for (int off = 0; off < 2; ++off) {
-        
-        cout << "Nouveau motif lol tqvu wesh hihi" << endl;
-        
-        cout << "i : " << i << " et j : " << j << endl;
-        cout << "off : " << off << endl;
-        cout << endl;
         abc[0] = query_diamond(gb, i, j);
         abc[1] = query_diamond(gb, i+3, j);
         abc[2] = query_diamond(gb, i+off+1, j);
 
         if (equal(abc[0], abc[1], abc[2])) {
-            cout << "solution de chtarbé" << endl;
             gb.index_sol = index_2D1D(i+(1-off)*3, j);
             return true;
         }
@@ -273,18 +262,13 @@ bool check_pattern_4x1(gameboard &gb, int i, int j) {
 bool check_solution(gameboard &gb) {
     for (int j = 0; j < MATRIX_HEIGHT-1; ++j) {
         for (int i = 0; i < MATRIX_WIDTH-2; ++i) {
-            cout << "valeur de i :" << i << endl;
-            cout << "valeur de j :" << j << endl;
-            /*if ( check_pattern_3x2(gb, i, j) )
-              return true;*/
-
-            if (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT) {
+            if ( check_pattern_3x2(gb, i, j) ) {
+              return true;
+            } else if  (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT) {
                 if ( check_pattern_4x1(gb, i, j) )
                     return true;
             }
         }
-
-        cout << "fin ligne" << endl;
     }
 
     return false;
