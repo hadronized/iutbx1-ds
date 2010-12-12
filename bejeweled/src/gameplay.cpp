@@ -49,16 +49,19 @@ bool main_loop(SDL_Surface *ps) {
                         pSelected->sub.y = 0;
                         try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE));
                         do {
-                            show_array(gb.expl, gb.nb_expl);
                             show_gameboard(gb, ps);
                             explode(gb, ps);
                             get_down(gb, ps);
                         } while ( check_explode(gb) );
 
                         if (!check_solution(gb)) {
-                            cout << "Pas de solution pour l'instant" << endl;
+                            #ifdef _DEBUG
+                            cout << "Plus aucune solution" << endl;
+                            #endif
                         } else {
+                            #ifdef _DEBUG
                             cout << '(' << gb.index_sol%8 << ';' << gb.index_sol/8 << ") est une solution" << endl;
+                            #endif
                         }
                         
                         pSelected = 0;

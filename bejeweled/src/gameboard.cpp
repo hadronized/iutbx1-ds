@@ -325,12 +325,18 @@ bool check_vpattern_4x1(gameboard &gb, int i, int j) {
 }
 
 bool check_solution(gameboard &gb) {
+    // test horizontal
     for (int j = 0; j < MATRIX_HEIGHT-1; ++j) {
         for (int i = 0; i < MATRIX_WIDTH-2; ++i) {
-            if ( check_hpattern_3x2(gb, i, j) || check_vpattern_3x2(gb, i, j)) {
+            if ( check_hpattern_3x2(gb, i, j) ) {
                 return true;
-            } else if  (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT) {
-                if ( check_hpattern_4x1(gb, i, j) || check_vpattern_4x1(gb, i, j) )
+            } else if (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT) {
+                if ( check_hpattern_4x1(gb, i, j) )
+                    return true;
+            } else if ( check_vpattern_3x2(gb, j, i) ) {
+                return true;
+            } else if (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT) {
+                if ( check_vpattern_4x1(gb, j, i) )
                     return true;
             }
         }

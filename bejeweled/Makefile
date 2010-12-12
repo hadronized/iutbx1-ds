@@ -2,7 +2,7 @@
 # Ecrit par Dimitri Sabadie
 
 CXX=g++
-CXXFLAGS_DEBUG=-g
+CXXFLAGS_DEBUG=-g -D_DEBUG
 CXXFLAGS_RELEASE=-O2 -Os
 CXXFLAGS=-Wall -Werror -pedantic $(CXXFLAGS_DEBUG)
 INCLUDE=-I./include/
