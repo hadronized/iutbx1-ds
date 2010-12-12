@@ -246,8 +246,10 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
 }
 
 bool check_solution(gameboard &gb) {
-    for (int j = 0; j < MATRIX_HEIGHT; ++j) {
-        for (int i = 0; i < MATRIX_WIDTH-2; ++i) {
+    for (int j = 0; j < MATRIX_HEIGHT-1; ++j) {
+        for (int i = 0; i < MATRIX_WIDTH-3; ++i) {
+            cout << "valeur de i :" << i << endl;
+            cout << "valeur de j :" << j << endl;
             if ( check_pattern_3x2(gb, i, j) )
                 return true;
 
