@@ -190,6 +190,10 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
     }
 }
 
+bool equal(diamond a, diamond b, diamond c) {
+    return a.type == b.type && b.type == c.type;
+}
+
 bool check_pattern_3x2(gameboard &gb, int i, int j) {
     diamond abc[3];
     int reli;
@@ -206,7 +210,7 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
             relj = 1-relj;
         }
 
-        if (abc[0].type == abc[1].type && abc[1].type == abc[2].type) {
+        if (equal(abc[0], abc[1], abc[2])) {
             gb.index_sol = index_2D1D(i+1, j+relj);
             return true;
         }
@@ -229,7 +233,7 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
             b = relj;
         }
 
-        if (abc[0].type == abc[1].type && abc[1].type == abc[2].type) {
+        if (equal(abc[0], abc[1], abc[2])) {
             cout << "solution de fou" << endl;
             gb.index_sol = index_2D1D(i+(off%2)*2, j+relj);
             return true;
@@ -242,31 +246,23 @@ bool check_pattern_3x2(gameboard &gb, int i, int j) {
 }
 
 bool check_pattern_4x1(gameboard &gb, int i, int j) {
-    diamond abcd[4];
-    int reli;
-    int rel = 0;
-    int a = 0;
-    int b = 0;
+    diamond abc[3];
 
     // D X D D  et  D D X D
     for (int off = 0; off < 2; ++off) {
-        reli = 0;
-        rel = off;
+        
         cout << "Nouveau motif lol tqvu wesh hihi" << endl;
-        while (reli < 3) {
-            cout << "lecture de (" << i+reli+rel << ';' << j << ')' << endl;
-            cout << "avec rel=" << rel << endl;
-            cin.ignore(1024, '\n');
-            abcd[reli] = query_diamond(gb, i+reli+rel, j);
-            ++reli;
-            rel = 1-a;
-            a = b;
-            b = rel;
-        }
+        
+        cout << "i : " << i << " et j : " << j << endl;
+        cout << "off : " << off << endl;
+        cout << endl;
+        abc[0] = query_diamond(gb, i, j);
+        abc[1] = query_diamond(gb, i+3, j);
+        abc[2] = query_diamond(gb, i+off+1, j);
 
-        if (abcd[0].type == abcd[1].type && abcd[1].type == abcd[2].type && abcd[2].type == abcd[3].type) {
+        if (equal(abc[0], abc[1], abc[2])) {
             cout << "solution de chtarbé" << endl;
-            //gb.index_sol = index_2D1D(
+            gb.index_sol = index_2D1D(i+(1-off)*3, j);
             return true;
         }
     }
