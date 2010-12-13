@@ -47,7 +47,7 @@ bool main_loop(SDL_Surface *ps) {
                         pSelected->sub.y = DIAMOND_SIZE;
                     } else {
                         pSelected->sub.y = 0;
-                        try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE));
+                        try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps);
                         do {
                             show_gameboard(gb, ps);
                             explode(gb, ps);

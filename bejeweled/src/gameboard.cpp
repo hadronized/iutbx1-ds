@@ -22,6 +22,7 @@
 #include <cstdlib> // pour rand()
 #include "algorithm.h"
 #include "gameboard.h"
+#include "graphics.h"
 #include "array.h"
 
 #include <iostream> // pour tests uniquement
@@ -60,7 +61,8 @@ diamond & query_diamond(gameboard &gb, int x, int y) {
 void show_gameboard(gameboard &gb, SDL_Surface *ps) {
     diamond d;
     
-    SDL_BlitSurface(gb.game_wp, 0, ps, 0);
+    draw_game_wp(gb, 0, ps);
+    draw_grid(gb, 0, ps);
     SDL_BlitSurface(gb.grid, 0, ps, 0);
     for (int j = 0; j < MATRIX_HEIGHT; ++j) {
         for (int i = 0; i < MATRIX_WIDTH; ++i) {
@@ -134,11 +136,25 @@ bool check_explode(gameboard &gb) {
     return gb.nb_expl != 0;
 }
 
-bool try_swap(gameboard &gb, diamond &a, diamond &b) {
+bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps) {
     bool success = false;
+    int vx;
+    int vy;
     
     if ( is_near(a, b) ) { // tentative possible
-        diamond_swap(a, b); // on echange les diamants
+        vx = (b.box.x-a.box.x)/DIAMOND_SIZE * 2;
+        vy = (b.box.y-a.box.y)/DIAMOND_SIZE * 2;
+        cout << "déplacement : (" << vx << ';' << vy << ')' << endl;
+        for (int i = 0; i < DIAMOND_SIZE/2; ++i) {
+            cout << i << endl;
+            a.box.x += vx;
+            a.box.y += vy;
+            b.box.x -= vx;
+            b.box.y -= vy;
+            //show_gameboard(gb, ps); // pas optimisé du tout
+            SDL_Flip(ps);
+        }
+        
 	if ( check_explode(gb) ) // si il y a eu au moins une explosion
             success = true;
         else { // si aucune explosion generee, on reechange les diamants

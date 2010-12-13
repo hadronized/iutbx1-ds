@@ -14,7 +14,7 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
+n
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -99,7 +99,7 @@ diamond & query_diamond(gameboard &gb, int x, int y);
    *********************************************************** */
 bool check_explode(gameboard &gb);
 
-bool try_swap(gameboard &gb, diamond &a, diamond &b);
+bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps);
 
 void show_gameboard(gameboard &gb, SDL_Surface *ps);
 

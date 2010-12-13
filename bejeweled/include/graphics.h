@@ -39,5 +39,7 @@ void quit_gui(void);
 SDL_Surface * create_screen(void);
 bool load_theme(string const &name, gameboard &gb);
 void free_theme(gameboard &gb);
+void draw_game_wp(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps);
+void draw_grid(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps);
 
 #endif // guard

@@ -130,6 +130,14 @@ void free_theme(gameboard &gb) {
     }
 }
 
+void draw_game_wp(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps) {
+    SDL_BlitSurface(gb.game_wp, sub, ps, 0);
+}
+
+void draw_grid(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps) {
+    SDL_BlitSurface(gb.grid, sub, ps, 0);
+}
+
 /*
    A charger :
    
