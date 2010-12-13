@@ -20,6 +20,7 @@
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <iostream> // cerr
+#include "algorithm.h"
 #include "graphics.h"
 
 using namespace std;
@@ -131,28 +132,28 @@ void free_theme(gameboard &gb) {
 }
 
 void draw_game_wp(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps) {
-    SDL_BlitSurface(gb.game_wp, sub, ps, 0);
+    SDL_BlitSurface(gb.game_wp, sub, ps, sub);
 }
 
 void draw_grid(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps) {
-    SDL_BlitSurface(gb.grid, sub, ps, 0);
+    SDL_BlitSurface(gb.grid, sub, ps, sub);
 }
 
-/*
-   A charger :
-   
-   - le fond d'écran du menu
-   - le fond d'écran de jeu (wallpaper)
-   - les boutons
-   - tous les diamants sous forme de sprites
-   - la grille
-   - les effets d'explosions
+void draw_diamond(gameboard &gb, diamond &d, SDL_Surface *ps) {
+    SDL_BlitSurface(gb.pieces, &d.sub, ps, &d.box);
+}
 
-   Nombre d'images totales :
-      - 8 diamants
-      - 2 fonds d'écrans
-      - 1 feuille de boutons
- */
+void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SDL_Surface *ps) {
+    for (int i = 0; i < DIAMOND_SIZE/2; ++i) {
+        a.box.x += 2 * vx;
+        a.box.y += 2 * vy;
+        b.box.x -= 2 * vx;
+        b.box.y -= 2 * vy;
+        
+        show_gameboard(gb, ps); // pas optimisé du tout
+        SDL_Flip(ps);
+    }
 
-
+    sdlrect_swap(a.box, b.box);
+}
 

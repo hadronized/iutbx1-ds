@@ -63,11 +63,10 @@ void show_gameboard(gameboard &gb, SDL_Surface *ps) {
     
     draw_game_wp(gb, 0, ps);
     draw_grid(gb, 0, ps);
-    SDL_BlitSurface(gb.grid, 0, ps, 0);
     for (int j = 0; j < MATRIX_HEIGHT; ++j) {
         for (int i = 0; i < MATRIX_WIDTH; ++i) {
 	    d = query_diamond(gb, i, j);
-            SDL_BlitSurface(gb.pieces, &d.sub, ps, &d.box);
+            draw_diamond(gb, d, ps);
         }
     }
 }
@@ -142,22 +141,16 @@ bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps) {
     int vy;
     
     if ( is_near(a, b) ) { // tentative possible
-        vx = (b.box.x-a.box.x)/DIAMOND_SIZE * 2;
-        vy = (b.box.y-a.box.y)/DIAMOND_SIZE * 2;
-        cout << "déplacement : (" << vx << ';' << vy << ')' << endl;
-        for (int i = 0; i < DIAMOND_SIZE/2; ++i) {
-            cout << i << endl;
-            a.box.x += vx;
-            a.box.y += vy;
-            b.box.x -= vx;
-            b.box.y -= vy;
-            //show_gameboard(gb, ps); // pas optimisé du tout
-            SDL_Flip(ps);
-        }
-        
+        vx = (b.box.x-a.box.x)/DIAMOND_SIZE;
+        vy = (b.box.y-a.box.y)/DIAMOND_SIZE;
+
+        draw_diamond_swap(gb, a, b, vx, vy, ps);
+        diamond_swap(a, b);
+
 	if ( check_explode(gb) ) // si il y a eu au moins une explosion
             success = true;
         else { // si aucune explosion generee, on reechange les diamants
+            draw_diamond_swap(gb, a, b, vx, vy, ps);
             diamond_swap(a, b);
         }
     } 
