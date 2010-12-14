@@ -28,6 +28,7 @@ typedef int diamond_type;
 
 int const DIAMOND_TYPE_N = 8;
 int const DIAMOND_SIZE   = 60;
+int const DIAMOND_SPEED  = 4;
 
 /* *********************** diamond ***************************
    * Dimitri Sabadie, 9 novembre 2010, v0.2                  *
