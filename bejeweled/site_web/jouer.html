@@ -28,220 +28,219 @@
       <p>Le jeu arrive à son terme lorsque le temps imparti est ecoulé ou qu'aucun échange n'est réalisable. Il est important de noter que si plus aucun échange
         n'est réalisable, le temps restant permet de gagner quelques points supplémentaires ... alors n'attendez pas, et jouez !</p>
     </div>
-    <div id="instruction">
-      <h2>Gameplay</h2>
-      <p>Une fois le jeu lancé, l'écran d'accueil apparaît. Plusieurs choix sont disponibles : 
+    <h2>Gameplay</h2>
+    <p>Une fois le jeu lancé, l'écran d'accueil apparaît. Plusieurs choix sont disponibles : 
+      <ul>
+        <li><a href="#solo">Solo</a></li>
+        <li><a href="#duel">Duel</a></li>
+        <li><a href="#coop">Coopération</a></li> <!-- ça ça reste à voir :D -->
+        <li><a href="#options">Options</a></li>
+        <li><a href="#credits">Crédits</a></li>
+        <li><a href="#quitter">Quitter</a></li>
+      </ul>
+    </p>
+    <h3 id="solo">Mode Solo</h3>
+    <p>[ Image mode solo ici ]</p>
+    <p>Dans ce mode, vous êtes seul(e). Vous avez deux adversaires : le temps, et le hasard. Votre but est simple : échanger deux gemmes afin d'aligner
+      horizontalement ou verticalement 3 gemmes (ou plus).</p>
+    <p>Pour pouvoir réaliser un échange de gemmes, vous êtes soumis à deux contraintes : les gemmes doivent êtres adjacentes [ expliquer avec une image
+      peut-être ], et le dit échange doit créer un alignement de 3 gemmes au minimum. Dans le cas contraire, l'échange est refusé.</p>
+    <p>Dans le cas où un échange est réalisé, les gemmes alignées explosent et sont par conséquent retirées du jeu. En fonction de la difficulté choisie
+      (paramétrable, voir la section <a href="#options_a">Options</a>), et du nombre de diamants explosés, un certain nombre de points est attribué au 
+      joueur. Aussi, si le joueur effectue des combos, il obtient alors un multiplicateur. Par défaut, ce multiplicateur vaut 1, et se voit doubler à
+      chaque combo. Une fois la série de combos terminée, le multiplicateur redescend à 1.</p>
+    <p>Au bout d'un certain nombre de points (ce nombre dépend lui aussi de la difficulté choisie), un bonus peut être attribué au joueur. Il existe deux
+      types de bonus :</p>
+    <p><ul>
+        <li>les bonus Action</li>
+        <li>les bonus Réanimation</li>
+    </ul></p>
+    <p>Les bonus Action sont les bonus les plus fréquents. Ils s'activent dès leur attribution, d'où leur nom. Ils vont faire exploser entre 5 et 20
+      diamants (tout dépend de la difficulté du jeu), et chaque diamant détruit rapportera un point.</p>
+    <p>Les bonus Réanimation sont des bonus beaucoup plus rares, mais très utiles. Ils ont le même effet que les bonus immédiats, mais peuvent être activés
+      à n'importe quel moment. Leur utilité majeure réside dans le fait qu'ils permettent de continuer à jouer lorsque la situation semblait perdue, c'est à
+      dire lorsque plus aucune solution n'existe ou que le temps tombe à 0. Cependant rien n'empêche le joueur de les utiliser quand il le désire. Il est
+      possible de cumuler au grand maximum 2 Réanimations.</p>
+    <p>A la fin du jeu, si le joueur rentre dans le Top-10 des scores Solo, il est invité à saisir son pseudonyme, et se voit décerner un classement.</p>
+    <h4>Informations difficulté</h4>
+    <ul>
+      <li>Facile
         <ul>
-          <li><a href="#solo">Solo</a></li>
-          <li><a href="#duel">Duel</a></li>
-          <li><a href="#coop">Coopération</a></li> <!-- ça ça reste à voir :D -->
-          <li><a href="#options">Options</a></li>
-          <li><a href="#credits">Crédits</a></li>
-          <li><a href="#quitter">Quitter</a></li>
+          <li>Diversité diamants : 4</li>
+          <li>Multiplicateur fin de partie : 1</li>
+          <li>Point(s) par diamant : 1</li>
+          <li>Temps : 90 secondes</li>
+          <li>Temps par échange correct : +20</li>
+          <li>Temps par échange incorrect : 0</li>
+          <li>Attribution Action : tous les 30 diamants</li>
+          <li>Attribution Réanimation : tous les 100 diamants</li>
         </ul>
-      </p>
-      <h3 id="solo">Mode solo</h3>
-      <p>[ Image mode solo ici ]</p>
-      <p>Dans ce mode, vous êtes seul(e). Vous avez deux adversaires : le temps, et le hasard. Votre but est simple : échanger deux gemmes afin d'aligner
-        horizontalement ou verticalement 3 gemmes (ou plus).</p>
-      <p>Pour pouvoir réaliser un échange de gemmes, vous êtes soumis à deux contraintes : les gemmes doivent êtres adjacentes [ expliquer avec une image
-        peut-être ], et le dit échange doit créer un alignement de 3 gemmes au minimum. Dans le cas contraire, l'échange est refusé.</p>
-      <p>Dans le cas où un échange est réalisé, les gemmes alignées explosent et sont par conséquent retirées du jeu. En fonction de la difficulté choisie
-        (paramétrable, voir la section <a href="#options_a">Options</a>), et du nombre de diamants explosés, un certain nombre de points est attribué au 
-        joueur. Aussi, si le joueur effectue des combos, il obtient alors un multiplicateur. Par défaut, ce multiplicateur vaut 1, et se voit doubler à
-        chaque combo. Une fois la série de combos terminée, le multiplicateur redescend à 1.</p>
-      <p>Au bout d'un certain nombre de points (ce nombre dépend lui aussi de la difficulté choisie), un bonus peut être attribué au joueur. Il existe deux
-        types de bonus :</p>
-      <p><ul>
-          <li>les bonus Action</li>
-          <li>les bonus Réanimation</li>
-        </ul></p>
-      <p>Les bonus Action sont les bonus les plus fréquents. Ils s'activent dès leur attribution, d'où leur nom. Ils vont faire exploser entre 5 et 20
-        diamants (tout dépend de la difficulté du jeu), et chaque diamant détruit rapportera un point.</p>
-      <p>Les bonus Réanimation sont des bonus beaucoup plus rares, mais très utiles. Ils ont le même effet que les bonus immédiats, mais peuvent être activés
-        à n'importe quel moment. Leur utilité majeure réside dans le fait qu'ils permettent de continuer à jouer lorsque la situation semblait perdue, c'est à
-        dire lorsque plus aucune solution n'existe ou que le temps tombe à 0. Cependant rien n'empêche le joueur de les utiliser quand il le désire. Il est
-        possible de cumuler au grand maximum 2 Réanimations.</p>
-      <p>A la fin du jeu, si le joueur rentre dans le Top-10 des scores Solo, il est invité à saisir son pseudonyme, et se voit décerner un classement.</p>
-      <h4>Informations difficulté</h4>
-      <ul>
-        <li>Facile
-          <ul>
-            <li>Diversité diamants : 4</li>
-            <li>Multiplicateur fin de partie : 1</li>
-            <li>Point(s) par diamant : 1</li>
-            <li>Temps : 90 secondes</li>
-            <li>Temps par échange correct : +20</li>
-            <li>Temps par échange incorrect : 0</li>
-            <li>Attribution Action : tous les 30 diamants</li>
-            <li>Attribution Réanimation : tous les 100 diamants</li>
-          </ul>
-        </li>
-        <li>Normal
-          <ul>
-            <li>Diversité diamants : 5</li>
-            <li>Multiplicateur fin de partie : 2</li>
-            <li>Point(s) par diamant : 1</li>
-            <li>Temps : 60 secondes</li>
-            <li>Temps par échange correct : +15</li>
-            <li>Temps par échange incorrect : 0</li>
-            <li>Attribution Action : tous les 60 diamants</li>
-            <li>Attribution Réanimation : tous les 175 diamants</li>
-          </ul>
-        </li>
-        <li>Héroïque
-          <ul>
-            <li>Diversité diamants : 7</li>
-            <li>Multiplicateur fin de partie : 3</li>
-            <li>Point(s) par diamant : 2</li>
-            <li>Temps : 20 secondes</li>
-            <li>Temps par échange correct : +10</li>
-            <li>Temps par échange incorrect : -5</li>
-            <li>Attribution Action : tous les 120 diamants</li>
-            <li>Attribution Réanimation : tous les 200 diamants</li>
-          </ul>
-        </li>
-        <li>Légendaire
-          <ul>
-            <li>Diversité diamants : 8</li>
-            <li>Multiplicateur fin de partie : 4</li>
-            <li>Point(s) par diamant : 2</li>
-            <li>Temps : 10 secondes</li>
-            <li>Temps par échange correct : +5</li>
-            <li>Temps par échange incorrect : -5</li>
-            <li>Attribution Action : tous les 200 diamants</li>
-            <li>Attribution Réanimation : tous les 300 diamants</li>
-          </ul>
-        </li>
-      </ul>
-      <h3 id="duel">Mode Duel</h3>
-      <p>Comme son nom l'indique, ce mode de jeu met face à face deux joueurs qui s'affrontent dans un combat sans merci. Chaque joueur joue dans sa propre
-        grille. Le vainqueur est déterminé selon plusieurs cas.</p>
-      <p>Tout d'abord, si l'un des deux joueurs (nommons le le joueur Pierre) arrive à court de temps et que son score est inférieur à son adversaire (Paul), 
-        alors il est déclaré perdant (car même si Paul ne marque plus aucun point, son score reste supérieur à Pierre).</p>
-      <p>Cependant, si le score de Pierre est supérieur à celui de Paul, le jeu continue tant que ce dernier n'est pas à court de temps ou que son
-        score n'est pas supérieur à celui de Pierre. Si le compte à rebours de Paul atteint 0 sans que son score soit supérieur à celui de Pierre, alors Pierre
-        est déclaré vainqueur. Sinon, si Paul arrive à dépasser Pierre dans la limite de temps qu'il lui reste, il est déclaré vainqueur.</p>
-      <p>Ensuite, admettons que la grille de Pierre soit bloquée (Pierre ne peut pas appeler Réanimation car il a utilisé quelques minutes avant). La même règle
-        que plus haut s'applique ici : si le score de Pierre est inférieur à celui de Paul, Pierre est déclaré perdant car le score de Paul restera toujours
-        supérieur quoi qu'il arrive. Sinon, Paul doit dépasser le score de Pierre dans le temps qu'il lui reste pour remporter le jeu.</p>
-      <p>Le reste du gameplay est identique au mode Solo, mis à part le fait que le mode Duel ne propose pas de Top-10, et que le multiplicateur de fin de partie
-        reste à 1 quelle que soit la difficulté.</p>
-      <h4>Informations difficulté</h4>
-      <ul>
-        <li>Facile
-          <ul>
-            <li>Diversité diamants : 4</li>
-            <li>Multiplicateur fin de partie : 1</li>
-            <li>Point(s) par diamant : 1</li>
-            <li>Temps : 90 secondes</li>
-            <li>Temps par échange correct : +20</li>
-            <li>Temps par échange incorrect : 0</li>
-            <li>Attribution Action : tous les 30 diamants</li>
-            <li>Attribution Réanimation : tous les 100 diamants</li>
-          </ul>
-        </li>
-        <li>Normal
-          <ul>
-            <li>Diversité diamants : 5</li>
-            <li>Multiplicateur fin de partie : 1</li>
-            <li>Point(s) par diamant : 1</li>
-            <li>Temps : 60 secondes</li>
-            <li>Temps par échange correct : +15</li>
-            <li>Temps par échange incorrect : 0</li>
-            <li>Attribution Action : tous les 60 diamants</li>
-            <li>Attribution Réanimation : tous les 175 diamants</li>
-          </ul>
-        </li>
-        <li>Héroïque
-          <ul>
-            <li>Diversité diamants : 7</li>
-            <li>Multiplicateur fin de partie : 1</li>
-            <li>Point(s) par diamant : 2</li>
-            <li>Temps : 20 secondes</li>
-            <li>Temps par échange correct : +10</li>
-            <li>Temps par échange incorrect : -5</li>
-            <li>Attribution Action : tous les 120 diamants</li>
-            <li>Attribution Réanimation : tous les 200 diamants</li>
-          </ul>
-        </li>
-        <li>Légendaire
-          <ul>
-            <li>Diversité diamants : 8</li>
-            <li>Multiplicateur fin de partie : 1</li>
-            <li>Point(s) par diamant : 2</li>
-            <li>Temps : 10 secondes</li>
-            <li>Temps par échange correct : +5</li>
-            <li>Temps par échange incorrect : -5</li>
-            <li>Attribution Action : tous les 200 diamants</li>
-            <li>Attribution Réanimation : tous les 300 diamants</li>
-          </ul>
-        </li>
-      </ul>
-      <h3 id="coop">Mode Coopération</h3>
-      <p>Ce mode de jeu permet à deux joueurs de mobiliser leurs forces dans une seule et même grille. La difficulté de jeu étant considérablement augmentée,
-        la communication est cruciale !</p>
-      <p>La principale différence entre ce mode de jeu et le mode Solo et que les points sont partagés, de même que le compteur, ce qui implique que si un joueur
-        fait une bêtise, l'autre en subit aussi les conséquences (une diminution drastique du compte à rebours par exemple ...).</p>
-      <p>Ce mode se distingue aussi du mode solo par la taille de la grille (par défaut 8x8 en Solo). Dans ce mode, les joueurs joueront sur une grille 12x8 [ à
-        tester, évidemment ]. Ils disposent ainsi de plus de place.</p>
-      <p>A la fin de la partie, si l'équipe des deux comparses rentre dans le Top-10 des scores Duel, ils sont invités à saisir le nom de leur équipe, leur
-        pseudonyme respectif, et l'équipe se voit décerner un classement.</p>
-      <h4>Informations difficulté</h4>
-      <ul>
-        <li>Facile
-          <ul>
-            <li>Diversité diamants : 5</li>
-            <li>Multiplicateur fin de partie : 1</li>
-            <li>Point(s) par diamant : 1</li>
-            <li>Temps : 60 secondes</li>
-            <li>Temps par échange correct : +15</li>
-            <li>Temps par échange incorrect : -5</li>
-            <li>Attribution Action : tous les 60 diamants</li>
-            <li>Attribution Réanimation : tous les 120 diamants</li>
-          </ul>
-        </li>
-        <li>Normal
-          <ul>
-            <li>Diversité diamants : 6</li>
-            <li>Multiplicateur fin de partie : 2</li>
-            <li>Point(s) par diamant : 1</li>
-            <li>Temps : 30 secondes</li>
-            <li>Temps par échange correct : +10</li>
-            <li>Temps par échange incorrect : -8</li>
-            <li>Attribution Action : tous les 100 diamants</li>
-            <li>Attribution Réanimation : tous les 200 diamants</li>
-          </ul>
-        </li>
-        <li>Héroïque
-          <ul>
-            <li>Diversité diamants : 7</li>
-            <li>Multiplicateur fin de partie : 3</li>
-            <li>Point(s) par diamant : 2</li>
-            <li>Temps : 10 secondes</li>
-            <li>Temps par échange correct : +5</li>
-            <li>Temps par échange incorrect : -5</li>
-            <li>Attribution Action : tous les 175 diamants</li>
-            <li>Attribution Réanimation : tous les 300 diamants</li>
-          </ul>
-        </li>
-        <li>Légendaire
-          <ul>
-            <li>Diversité diamants : 8</li>
-            <li>Multiplicateur fin de partie : 4</li>
-            <li>Point(s) par diamant : 2</li>
-            <li>Temps : 5 secondes</li>
-            <li>Temps par échange correct : +5</li>
-            <li>Temps par échange incorrect : -8</li>
-            <li>Attribution Action : tous les 250 diamants</li>
-            <li>Attribution Réanimation : tous les 450 diamants</li>
-          </ul>
-        </li>
-      </ul>
+      </li>
+      <li>Normal
+        <ul>
+          <li>Diversité diamants : 5</li>
+          <li>Multiplicateur fin de partie : 2</li>
+          <li>Point(s) par diamant : 1</li>
+          <li>Temps : 60 secondes</li>
+          <li>Temps par échange correct : +15</li>
+          <li>Temps par échange incorrect : 0</li>
+          <li>Attribution Action : tous les 60 diamants</li>
+          <li>Attribution Réanimation : tous les 175 diamants</li>
+        </ul>
+      </li>
+      <li>Héroïque
+        <ul>
+          <li>Diversité diamants : 7</li>
+          <li>Multiplicateur fin de partie : 3</li>
+          <li>Point(s) par diamant : 2</li>
+          <li>Temps : 20 secondes</li>
+          <li>Temps par échange correct : +10</li>
+          <li>Temps par échange incorrect : -5</li>
+          <li>Attribution Action : tous les 120 diamants</li>
+          <li>Attribution Réanimation : tous les 200 diamants</li>
+        </ul>
+      </li>
+      <li>Légendaire
+        <ul>
+          <li>Diversité diamants : 8</li>
+          <li>Multiplicateur fin de partie : 4</li>
+          <li>Point(s) par diamant : 2</li>
+          <li>Temps : 10 secondes</li>
+          <li>Temps par échange correct : +5</li>
+          <li>Temps par échange incorrect : -5</li>
+          <li>Attribution Action : tous les 200 diamants</li>
+          <li>Attribution Réanimation : tous les 300 diamants</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="duel">Mode Duel</h3>
+    <p>Comme son nom l'indique, ce mode de jeu met face à face deux joueurs qui s'affrontent dans un combat sans merci. Chaque joueur joue dans sa propre
+      grille. Le vainqueur est déterminé selon plusieurs cas.</p>
+    <p>Tout d'abord, si l'un des deux joueurs (nommons le le joueur Pierre) arrive à court de temps et que son score est inférieur à son adversaire (Paul), 
+      alors il est déclaré perdant (car même si Paul ne marque plus aucun point, son score reste supérieur à Pierre).</p>
+    <p>Cependant, si le score de Pierre est supérieur à celui de Paul, le jeu continue tant que ce dernier n'est pas à court de temps ou que son
+      score n'est pas supérieur à celui de Pierre. Si le compte à rebours de Paul atteint 0 sans que son score soit supérieur à celui de Pierre, alors Pierre
+      est déclaré vainqueur. Sinon, si Paul arrive à dépasser Pierre dans la limite de temps qu'il lui reste, il est déclaré vainqueur.</p>
+    <p>Ensuite, admettons que la grille de Pierre soit bloquée (Pierre ne peut pas appeler Réanimation car il a utilisé quelques minutes avant). La même règle
+      que plus haut s'applique ici : si le score de Pierre est inférieur à celui de Paul, Pierre est déclaré perdant car le score de Paul restera toujours
+      supérieur quoi qu'il arrive. Sinon, Paul doit dépasser le score de Pierre dans le temps qu'il lui reste pour remporter le jeu.</p>
+    <p>Le reste du gameplay est identique au mode Solo, mis à part le fait que le mode Duel ne propose pas de Top-10, et que le multiplicateur de fin de partie
+      reste à 1 quelle que soit la difficulté.</p>
+    <h4>Informations difficulté</h4>
+    <ul>
+      <li>Facile
+        <ul>
+          <li>Diversité diamants : 4</li>
+          <li>Multiplicateur fin de partie : 1</li>
+          <li>Point(s) par diamant : 1</li>
+          <li>Temps : 90 secondes</li>
+          <li>Temps par échange correct : +20</li>
+          <li>Temps par échange incorrect : 0</li>
+          <li>Attribution Action : tous les 30 diamants</li>
+          <li>Attribution Réanimation : tous les 100 diamants</li>
+        </ul>
+      </li>
+      <li>Normal
+        <ul>
+          <li>Diversité diamants : 5</li>
+          <li>Multiplicateur fin de partie : 1</li>
+          <li>Point(s) par diamant : 1</li>
+          <li>Temps : 60 secondes</li>
+          <li>Temps par échange correct : +15</li>
+          <li>Temps par échange incorrect : 0</li>
+          <li>Attribution Action : tous les 60 diamants</li>
+          <li>Attribution Réanimation : tous les 175 diamants</li>
+        </ul>
+      </li>
+      <li>Héroïque
+        <ul>
+          <li>Diversité diamants : 7</li>
+          <li>Multiplicateur fin de partie : 1</li>
+          <li>Point(s) par diamant : 2</li>
+          <li>Temps : 20 secondes</li>
+          <li>Temps par échange correct : +10</li>
+          <li>Temps par échange incorrect : -5</li>
+          <li>Attribution Action : tous les 120 diamants</li>
+          <li>Attribution Réanimation : tous les 200 diamants</li>
+        </ul>
+      </li>
+      <li>Légendaire
+        <ul>
+          <li>Diversité diamants : 8</li>
+          <li>Multiplicateur fin de partie : 1</li>
+          <li>Point(s) par diamant : 2</li>
+          <li>Temps : 10 secondes</li>
+          <li>Temps par échange correct : +5</li>
+          <li>Temps par échange incorrect : -5</li>
+          <li>Attribution Action : tous les 200 diamants</li>
+          <li>Attribution Réanimation : tous les 300 diamants</li>
+        </ul>
+      </li>
+    </ul>
+    <h3 id="coop">Mode Coopération</h3>
+    <p>Ce mode de jeu permet à deux joueurs de mobiliser leurs forces dans une seule et même grille. La difficulté de jeu étant considérablement augmentée,
+      la communication est cruciale !</p>
+    <p>La principale différence entre ce mode de jeu et le mode Solo et que les points sont partagés, de même que le compteur, ce qui implique que si un joueur
+      fait une bêtise, l'autre en subit aussi les conséquences (une diminution drastique du compte à rebours par exemple ...).</p>
+    <p>Ce mode se distingue aussi du mode Solo par la taille de la grille (par défaut 8x8 en Solo). Dans ce mode, les joueurs joueront sur une grille 12x8 [ à
+      tester, évidemment ]. Ils disposent ainsi de plus de place.</p>
+    <p>A la fin de la partie, si l'équipe des deux comparses rentre dans le Top-10 des scores Duel, ils sont invités à saisir le nom de leur équipe, leur
+      pseudonyme respectif, et l'équipe se voit décerner un classement.</p>
+    <h4>Informations difficulté</h4>
+    <ul>
+      <li>Facile
+        <ul>
+          <li>Diversité diamants : 5</li>
+          <li>Multiplicateur fin de partie : 1</li>
+          <li>Point(s) par diamant : 1</li>
+          <li>Temps : 60 secondes</li>
+          <li>Temps par échange correct : +15</li>
+          <li>Temps par échange incorrect : -5</li>
+          <li>Attribution Action : tous les 60 diamants</li>
+          <li>Attribution Réanimation : tous les 120 diamants</li>
+        </ul>
+      </li>
+      <li>Normal
+        <ul>
+          <li>Diversité diamants : 6</li>
+          <li>Multiplicateur fin de partie : 2</li>
+          <li>Point(s) par diamant : 1</li>
+          <li>Temps : 30 secondes</li>
+          <li>Temps par échange correct : +10</li>
+          <li>Temps par échange incorrect : -8</li>
+          <li>Attribution Action : tous les 100 diamants</li>
+          <li>Attribution Réanimation : tous les 200 diamants</li>
+        </ul>
+      </li>
+      <li>Héroïque
+        <ul>
+          <li>Diversité diamants : 7</li>
+          <li>Multiplicateur fin de partie : 3</li>
+          <li>Point(s) par diamant : 2</li>
+          <li>Temps : 10 secondes</li>
+          <li>Temps par échange correct : +5</li>
+          <li>Temps par échange incorrect : -5</li>
+          <li>Attribution Action : tous les 175 diamants</li>
+          <li>Attribution Réanimation : tous les 300 diamants</li>
+        </ul>
+      </li>
+      <li>Légendaire
+        <ul>
+          <li>Diversité diamants : 8</li>
+          <li>Multiplicateur fin de partie : 4</li>
+          <li>Point(s) par diamant : 2</li>
+          <li>Temps : 5 secondes</li>
+          <li>Temps par échange correct : +5</li>
+          <li>Temps par échange incorrect : -8</li>
+          <li>Attribution Action : tous les 250 diamants</li>
+          <li>Attribution Réanimation : tous les 450 diamants</li>
+        </ul>
+      </li>
+    </ul>
 
-      <h2>Commandes</h2>
-      <p>[ A compléter plus tard .... ]</p>
-      <h2 >Bon jeu a tous !</h2>
-    </div>
-  </body>
+    <h2>Commandes</h2>
+    <p>[ A compléter plus tard .... ]</p>
+    <h2 >Bon jeu a tous !</h2>
+  </div>
+</body>
 </html>

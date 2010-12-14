@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Algorithmique</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="monStyle.css" rel ="stylesheet" type="text/css"/>
+  </head>
+  
+  <body>
+    <div id="header">
+      <h1 >Explication algorithmique</h1>
+    </div>
+    <div id="menu">
+      <p class="elem menu"><a href="site.html">Accueil</a></p>
+      <p class="elem menu"><a href="jouer.html">Comment jouer</a></p>
+      <p class="elem menu"><a href="algo.html">Algorithmes</a></p>
+      <p class="elem menu"><a href="telechargements.html">Telechargements</a></p>
+      <p class="elem menu"><a href="credits.html">Credits</a></p>
+    </div>
+    <p>Nous allons présenter ici deux algorithmes majeurs : celui qui gère l'échange de deux diamants et tout ce qui s'en suit (explosion(s), échange
+      interdit, etc ...) et celui qui recherche de vérifier la validité d'une grille pendant le jeu (ou encore recherche de solution).</p>
+    <h2>Echange de diamants ... toute une histoire !</h2>
+    <p>Echanger deux gemmes est votre unique façon d'intéragir avec la grille. Il est donc logique, dans le cadre de ce projet, d'en expliquer les rouages.
+      Tout d'abord, il faut savoir que, dans notre jeu, l'échange de deux diamants se fait en plusieurs phases :</p>
+    <p><img alt="swap bejeweled" src="imgs/swap_bejeweled.png"/></p>
+    <p>Comme vous pouvez le constater, cet algorithme se découpe en quatre phases majeures : la détermination de la possibilité de l'échange, l'échange 
+      graphique, l'échange algorithmique, et la génération des explosions. Plusieurs combinaisons de conditions nous permettent de valider ou non
+      l'échange. Par exemple, si le joueur échange deux diamants, mais qu'aucune explosion ne s'en suit, on voit très bien à travers ce diagramme
+      que les diamants reviendront à leur place, graphiquement et algorithmiquement.</p>
+    <h3>Détermination de la possibilité de l'échange</h3>
+    <p>Bien que cette phase de l'algorithme soit cruciale, son implémentation est relativement simple. Ce morceau d'algorithme a pour responsabilité de
+      déterminer la possibilité de l'échange en se basant sur la position des diamants à échanger.</p>
+    <p><img alt="bejeweled" src="imgs/game_sample.png"/></p>
+    <p>Faisons simple : admettons qu'ici, le joueur veuille échanger le diamant blanc en haut à droite avec celui juste en dessous, un doré. La tentative
+      d'échange est alors dite possible, mais l'échange en lui même ne l'est peut-être pas. Ainsi, lorsque le joueur va demander à échanger ces deux
+      diamants, il vont s'échanger une première fois, puis une deuxième (car aucune explosion n'aura été généré).</p>
+    <p>En revanche, admettons qu'il décide d'échanger le même diamant blanc avec le bleu, une case à gauche en dessous. La tentative d'échange est alors
+      dite impossible, car les déplacements en diagonale ne sont pas autorisés.</p>
+    <p>L'algorithme doit donc retourner vrai si les deux gemmes à échanger son collées adjacentes sur l'horizontale ou la verticale, et faux dans tous
+      les autres cas</p>
+    <p>Une façon efficace de le faire est de voir la chose comme cela : soit les diamants ont la même ordonnée et son collés (ils sont donc adjacents
+      sur l'horizontal), soit ils ont la même abscisse et sont collés (ils sont alors adjacents sur la verticale).</p>
+    <p>Le problème est de savoir comment déterminer si deux diamants sont collés l'un à l'autre. C'est très simple. Nous avons deux cas : horizontal et
+      vertical. Dans le cas horizontal, deux diamants sont adjacents si la distance entre leurs abscisses vaut la taille d'un diamant. Dans le cas
+      vertical, deux diamants sont adjacents si la distance entre leur ordonnées est égale à la taille d'un diamant (les diamants étant carrés). Pour
+      calculer la distance sur un axe entre deux diamants, il suffit de faire la différence de la composante maximale par la minimale :</p>
+    <p>distance(d1, d2).x = max(d1.x, d2.x) - min(d1.x, d2.x)</p>
+    <p>distance(d1, d2).y = may(d1.y, d2.y) - min(d1.y, d2.y)</p>
+    <p>Donc finalement, si les diamants ont la même ordonnée et que la distance entre leurs abscisses vaut la taille d'un diamant ou que les diamants
+      ont la même abscisse et que la distance entre leurs ordonnées vaut la taille d'un diamant, alors l'échange est réalisable
+
+        
+  </body>
+</html>
