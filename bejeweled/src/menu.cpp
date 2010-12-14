@@ -107,9 +107,10 @@ void menu_loop(SDL_Surface *ps) {
         if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
             jeu=true;   
         else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-            quit=true;
-        
-
+            {
+				quit=true;
+				SDL_Quit();
+			}
         affiche_menu(m, ps, event);
         SDL_Flip(ps);
 }
