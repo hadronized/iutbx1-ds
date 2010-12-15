@@ -187,6 +187,7 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
     int x, y;
     diamond *pd;
 
+    draw_getdown(gb, ps);
     for (int i = 0; i < gb.nb_expl; ++i) {
         index_1D2D(gb.expl[i], x, y);
         while (y > 0) {

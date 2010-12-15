@@ -157,3 +157,33 @@ void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SD
     sdlrect_swap(a.box, b.box);
 }
 
+void draw_getdown(gameboard &gb, SDL_Surface *ps) {
+    int x;
+    int y;
+    int vy = 2; // un diamant chute de deux pixels à chaque frame
+    diamond *pd;
+
+    for (int i = 0; i < gb.nb_expl; ++i) {
+        index_1D2D(gb.expl[i], x, y);
+        pd = &query_diamond(gb, x, y);
+        pd->box.y = -DIAMOND_SIZE;
+        change_diamond_type(*pd, pd->type, pd->type);
+    }
+
+    for (int move = 0; move < DIAMOND_SIZE/2; ++move) {
+        for (int i = 0; i < gb.nb_expl; ++i) {
+            index_1D2D(gb.expl[i], x, y);
+            while (y >= 0) {
+                query_diamond(gb, x, y).box.y += vy;
+                show_gameboard(gb, ps);
+                SDL_Flip(ps);
+                cout << "LOL " << y << endl;
+                cin.ignore(1024, '\n');
+                --y;
+            }
+        }
+    }
+
+    cout << "descente graphique finie !" << endl;
+    cin.ignore(1024, '\n');
+}
