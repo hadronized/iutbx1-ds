@@ -1,4 +1,5 @@
 #include "graphics.h"
 #include <time.h>
 
-void affiche_temps(SDL_Surface *ps);
+void affiche_temps(TTF_Font *f, SDL_Surface *ps);
+TTF_Font * init_font();

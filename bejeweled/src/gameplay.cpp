@@ -29,14 +29,23 @@
 using namespace std;
 
 bool solo_loop(SDL_Surface *ps) {
+	
+	
     SDL_Event event;
     bool quit = false;
     gameboard gb;
     diamond *pSelected = 0;
+    //TTF_Font *pFont = 0;
+    //TTF_Init();
     
     
     init_gameboard(gb);
     load_theme("themes/fractal_cosmos/", gb);
+    //pFont = init_font();
+    //if (pFont)
+	//cout << "Police correctement initialisée" << endl;
+	
+	//affiche_temps(pFont,ps);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
