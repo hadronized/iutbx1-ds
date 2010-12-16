@@ -98,7 +98,7 @@ void menu_loop(SDL_Surface *ps) {
     bool jeu=false;
     bool quit=false;
     menu m;
-
+    
     initialisation_menu(m);
 
        while(!jeu){

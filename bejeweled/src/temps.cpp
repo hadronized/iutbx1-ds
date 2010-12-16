@@ -22,7 +22,6 @@ void affiche_temps(TTF_Font *f, SDL_Surface *ps)
 	int temps;
 	int temps_restant;
 	int tps ;
-	string message = "Temps ";
     stringstream sstr;
 	
 	temps = 180;
@@ -30,16 +29,15 @@ void affiche_temps(TTF_Font *f, SDL_Surface *ps)
 	
 	temps_restant = temps - ( time(0) - tps);
 	
-	
     sstr << "Temps : " << temps_restant;
     
 	tempsFont = TTF_RenderText_Solid( f, sstr.str().c_str(), colorFont );
 	
-	if (tempsFont)
-	cout << "Surface de temps generee" << endl;
+	if (!tempsFont)
+	cerr << "Surface temps non generee" << endl;
 	
-	pos.x = SCREEN_WIDTH/2;
-	pos.y = SCREEN_HEIGHT/2;
+	pos.x = 500;
+	pos.y = 100;
     
     SDL_BlitSurface(tempsFont, 0, ps, &pos);
     SDL_FreeSurface(tempsFont);

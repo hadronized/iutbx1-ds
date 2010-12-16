@@ -22,6 +22,7 @@
 #include <cstdlib> // pour rand()
 #include "gameboard.h"
 #include "array.h"
+#include "temps.h"
 
 #include <iostream> // pour tests uniquement
 using namespace std;
@@ -49,6 +50,8 @@ void init_gameboard(gameboard &gb) {
             }
         }
     }
+    
+    
 }
 
 diamond & query_diamond(gameboard &gb, int x, int y) {
@@ -66,6 +69,13 @@ void show_gameboard(gameboard &gb, SDL_Surface *ps) {
             SDL_BlitSurface(gb.pieces, &d.sub, ps, &d.box);
         }
     }
+    TTF_Font *pFont = 0;
+    TTF_Init();
+    pFont = init_font();
+    if (!pFont)
+	cerr << "Police non initialisée" << endl;
+	
+	affiche_temps(pFont,ps);
 }
 
 bool check_explode(gameboard &gb) {

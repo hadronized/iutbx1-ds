@@ -49,8 +49,7 @@ int main() {
     if (init_gui()) {
 	ps = create_screen();
 	if (ps)
-	    menu_loop(ps);	 
-
+		menu_loop(ps);	 
     }
     
     quit_gui();

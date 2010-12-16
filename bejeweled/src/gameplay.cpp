@@ -35,17 +35,9 @@ bool solo_loop(SDL_Surface *ps) {
     bool quit = false;
     gameboard gb;
     diamond *pSelected = 0;
-    //TTF_Font *pFont = 0;
-    //TTF_Init();
-    
     
     init_gameboard(gb);
     load_theme("themes/fractal_cosmos/", gb);
-    //pFont = init_font();
-    //if (pFont)
-	//cout << "Police correctement initialisée" << endl;
-	
-	//affiche_temps(pFont,ps);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
@@ -75,7 +67,8 @@ bool solo_loop(SDL_Surface *ps) {
 	}
 	
 	show_gameboard(gb, ps);
-        SDL_Flip(ps);
+    SDL_Flip(ps);
+	        
     }
     free_theme(gb);
     return true;
