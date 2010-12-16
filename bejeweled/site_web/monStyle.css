@@ -7,6 +7,7 @@ body
 {
     background-image: url(http://img641.imageshack.us/img641/9420/f92a5f773b7774a49fa67cb.jpg);
     color: white;
+    background-attachment: fixed;
 }
 
 #header 
