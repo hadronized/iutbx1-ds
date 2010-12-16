@@ -2,6 +2,7 @@
 #include "graphics.h"
 #include "menu.h"
 #include "array.h"
+#include "gameplay.h"
 
 using namespace std;
 
@@ -104,15 +105,19 @@ void menu_loop(SDL_Surface *ps) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
 
         SDL_WaitEvent(&event);
-        if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-            jeu=true;   
+        
+        if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT){
+            jeu=true; 
+            solo_loop(ps);
+		}
+            
         else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
             {
 				quit=true;
 				SDL_Quit();
 			}
-        affiche_menu(m, ps, event);
-        SDL_Flip(ps);
+            affiche_menu(m, ps, event);
+            SDL_Flip(ps);
 }
 }
 

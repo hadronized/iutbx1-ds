@@ -37,7 +37,7 @@ int const YEAR        = 2010;
 int main() {
     int rcode = 0;
     SDL_Surface *ps = 0;
-
+    
     cout << SCREEN_TITLE << " version " << VERSION << endl;
     cout << AUTHORS << endl;
     cout << "Licence : " << COPYING << endl;
@@ -49,8 +49,7 @@ int main() {
     if (init_gui()) {
 	ps = create_screen();
 	if (ps)
-	    menu_loop(ps);	
-	    rcode = solo_loop(ps);
+	    menu_loop(ps);	 
 
     }
     
