@@ -23,6 +23,7 @@
 #include "gameplay.h"
 #include "array.h"
 #include "menu.h"
+#include "temps.h"
 
 
 using namespace std;
@@ -32,6 +33,7 @@ bool solo_loop(SDL_Surface *ps) {
     bool quit = false;
     gameboard gb;
     diamond *pSelected = 0;
+    
     
     init_gameboard(gb);
     load_theme("themes/fractal_cosmos/", gb);
