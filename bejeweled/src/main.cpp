@@ -49,7 +49,6 @@ int main() {
     if (init_gui()) {
 	ps = create_screen();
 	if (ps)
-
 	    menu_loop(ps);	
 	    rcode = solo_loop(ps);
 

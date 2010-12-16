@@ -24,6 +24,7 @@
 #include "array.h"
 #include "menu.h"
 
+
 using namespace std;
 
 bool solo_loop(SDL_Surface *ps) {
