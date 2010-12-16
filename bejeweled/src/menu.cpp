@@ -98,9 +98,10 @@ void menu_loop(SDL_Surface *ps) {
     bool jeu=false;
     bool quit=false;
     menu m;
-    
+
     initialisation_menu(m);
 
+    // mec, serieux, paye ton indention ...
        while(!jeu){
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
 
@@ -114,21 +115,21 @@ void menu_loop(SDL_Surface *ps) {
         else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
             {
 				quit=true;
-				SDL_Quit();
+				SDL_Quit(); // ouais évidement le C++ c'est magique ... (1)
 			}
             affiche_menu(m, ps, event);
-            SDL_Flip(ps);
+            SDL_Flip(ps); // après (1), ça va donner ... et heu c'est quoi l'interet de cet appel ?
 }
 }
 
 /* Note d'attention à Ludwig : comme tu dois un peu bosser, je ne vais pas corriger tes erreurs,
    mais juste te donner une piste.
 
-     · Déjà, à quoi te sers à la variable jeu ? Tu la passes à true lorsque le joueur clique sur
+     · Déjà, A QUOI TE SERT CETTE PUTAIN DE VARIABLE QUIT ? Tu la passes à true lorsque le joueur clique sur
        "Quitter", déjà, ce n'est pas trop logique ... Mais le fait est que changer l'état d'une
        variable sans rien en faire, c'est complètement inutile.
      · Ensuite, lorsque le joueur clique sur "Jouer", tu lui fais quitter le menu en passant
-       quitter à true. Crois-tu que ce soit réellement la meilleure idée ? Je ne pense pas.
+       jeu à true. Crois-tu que ce soit réellement la meilleure idée ? Je ne pense pas.
        Pourquoi ? C'est très simple : ta fonction ne retourne rien, ce qui veut dire, selon
        ta logique, que dès lors que l'on sort de la foncti,on `menu_loop', on doit lancer le jeu.
        Ce n'est pas DU TOUT le cas. La fonction `solo_loop', par exemple, ne doit théoriquement
@@ -147,5 +148,8 @@ void menu_loop(SDL_Surface *ps) {
        dans la grille, pas très cool ... ;).
 
    Donc occupe toi de ce petit menu.
+
+   Ca segfault toujours ... Je te conseille de te grouiller à corriger ça, parce que je souhaite pouvoir
+   commencer les tests avant la fin des vacances. Donc arrête de te branler et code ce menu ...
 
 */
