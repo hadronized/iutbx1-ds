@@ -11,7 +11,7 @@ TARGET=bejeweled
 
 .PHONY: all, clean, mrproper
 
-all: algorithm.o array.o diamond.o gameboard.o gameplay.o graphics.o main.o matrix.o menu.o
+all: algorithm.o array.o diamond.o gameboard.o gameplay.o graphics.o main.o matrix.o menu.o temps.o
 	$(CXX) $^ -o $(TARGET) $(CXXFLAGS) $(LIBS)
 
 main.o: src/main.cpp
