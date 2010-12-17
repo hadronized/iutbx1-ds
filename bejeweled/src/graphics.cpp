@@ -173,11 +173,9 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     int vy = 2; // un diamant chute de deux pixels à chaque frame
     diamond *pd;
 
-    SDL_Rect visible;
-    visible.w = 200;
-    visible.h = 200;
-    visible.x = (SCREEN_WIDTH-visible.w)/2;
-    visible.y = (SCREEN_HEIGHT-visible.h)/2;
+    SDL_Rect area;
+    area.y = 0;
+    area.w = DIAMOND_SIZE;
 
     for (int i = 0; i < gb.nb_expl; ++i) {
         index_1D2D(gb.expl[i], x, y);
@@ -189,14 +187,22 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     for (int move = 0; move < DIAMOND_SIZE/2; ++move) {
         for (int i = 0; i < gb.nb_expl; ++i) {
             index_1D2D(gb.expl[i], x, y);
+	    area.x = x;
+	    area.h = y;
+
             while (y >= 0) {
-                query_diamond(gb, x, y).box.y += vy;
-                show_gameboard(gb, ps);
+                pd = &query_diamond(gb, x, y);
+		pd->box.y += vy;
+
+
 		--y;
             }
         }
 	//SDL_Flip(ps);
-	SDL_UpdateRects(ps, 1, &visible);
+	draw_game_wp(gb, 0, ps);
+	draw_grid(gb, 0, ps);
+	draw_diamond(gb, *pd, ps);
+	SDL_UpdateRects(ps, 1, &area);
     }
 
     cout << "descente graphique finie !" << endl;
