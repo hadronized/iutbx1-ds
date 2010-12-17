@@ -77,6 +77,27 @@
     <p>| d1<sub>y</sub> -= v<sub>y</sub></p>
     <p>Une fois sorti de cette boucle, les deux diamants auront été <em>graphiquement</em> échangés.</p>
     <h3>Echange algorithmique</h3>
+    <p>Une fois l'échange gaphique terminé, on se retrouve avec deux diamants graphiquement échangés. Comme dit plus haut, l'échange algorithmique est
+      simple : il se résume à échanger les types des diamants. Cependant, il y a un problème. Si l'on fait cela, d1 prendra la couleur de d2, mais
+      sa position à l'écran n'est pas en accord avec sa position dans la matrice de diamants (cf. sa case). Cela peut sembler un peu compliqué, mais
+      l'idée est simple. Récapitulons.</p>
+    <p>Admettons deux diamants d1 (rouge) et d2 (vert) que l'on souhaite échanger. Le diamant d1 se trouve à l'indice i1 dans la matrice, et d2 à 
+      l'indice i2. Le diamant d1 possède une coordonnée (x1;y1) et d2 possède (x2;y2). On a donc ceci :</p>
+    <p>matrice<sub>i1</sub> : { d1(rouge, (x1;y1)) }</p>
+    <p>matrice<sub>i2</sub> : { d2(vert, (x2;y2)) }</p>
+    <p>Après l'échange graphique :</p>
+    <p>matrice<sub>i1</sub> : { d1(rouge, (x2;y2)) }</p>
+    <p>matrice<sub>i2</sub> : { d2(vert, (x1;y1)) }</p>
+    <p>Si l'on échange les couleurs maintenant :</p>
+    <p>matrice<sub>i1</sub> : { d1(vert, (x2;y2)) }</p>
+    <p>matrice<sub>i2</sub> : { d2(rouge, (x1;y1)) }</p>
+    <p>Bien. Maintenant, il reste une donnée à expliquer pour comprendre parfaitement le problème : la position d'un diamant à l'écran est lié à son
+      indice dans la matrice par la relation suivante :</p>
+    <p>diamant<sub>i<sub>x</sub></sub> = matrice<sub>i</sub> % DIAMOND_SIZE</p>
+    <p>diamant<sub>i<sub>y</sub></sub> = matrice<sub>i</sub> / DIAMOND_SIZE</p>
+    <p>On voit donc bien qu'ici, si l'on transforme l'indice du diamant d1 en deux composantes x et y, on obtient x1 et y2, ce qui n'est pas en accord
+      avec les valeurs stockés par le diamant après l'échange graphique. Il faut donc reéchanger ces composantes avant de changer le type des diamants
+      pour avoir un échange algorithmique correct.</p>
       
 
 
