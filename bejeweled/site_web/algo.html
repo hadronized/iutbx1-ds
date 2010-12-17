@@ -33,10 +33,10 @@
     <p>Bien que cette phase de l'algorithme soit cruciale, son implémentation est relativement simple. Ce morceau d'algorithme a pour responsabilité de
       déterminer la possibilité de l'échange en se basant sur la position des diamants à échanger.</p>
     <p><img alt="bejeweled" src="imgs/game_sample.png"/></p>
-    <p>Faisons simple : admettons qu'ici, le joueur veuille échanger le diamant blanc en haut à droite avec celui juste en dessous, un doré. La tentative
+    <p>Faisons simple : admettons qu'ici, le joueur veuille échanger le diamant blanc en bas à droite avec celui juste à sa gauche, un rouge. La tentative
       d'échange est alors dite possible, mais l'échange en lui même ne l'est peut-être pas. Ainsi, lorsque le joueur va demander à échanger ces deux
-      diamants, il vont s'échanger une première fois, puis une deuxième (car aucune explosion n'aura été généré).</p>
-    <p>En revanche, admettons qu'il décide d'échanger le même diamant blanc avec le bleu, une case à gauche en dessous. La tentative d'échange est alors
+      diamants, il vont s'échanger une première fois, puis une deuxième (car aucune explosion n'aura été générée).</p>
+    <p>En revanche, admettons qu'il décide d'échanger le même diamant blanc avec le bleu, une case à gauche au dessus. La tentative d'échange est alors
       dite impossible, car les déplacements en diagonale ne sont pas autorisés.</p>
     <p>L'algorithme doit donc retourner vrai si les deux gemmes à échanger son collées adjacentes sur l'horizontale ou la verticale, et faux dans tous
       les autres cas</p>
