@@ -144,14 +144,24 @@ void draw_diamond(gameboard &gb, diamond &d, SDL_Surface *ps) {
 }
 
 void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SDL_Surface *ps) {
+    SDL_Rect area;
+    area.x = min(a.box.x, b.box.x);
+    area.y = min(a.box.y, b.box.y);
+    area.w = a.box.x == b.box.x ? DIAMOND_SIZE : DIAMOND_SIZE*2;
+    area.h = a.box.y == b.box.y ? DIAMOND_SIZE : DIAMOND_SIZE*2;
+
     for (int i = 0; i < DIAMOND_SIZE/2; ++i) {
         a.box.x += 2 * vx;
         a.box.y += 2 * vy;
         b.box.x -= 2 * vx;
         b.box.y -= 2 * vy;
         
-        show_gameboard(gb, ps); // pas optimisé du tout
-        SDL_Flip(ps);
+	draw_game_wp(gb, 0, ps);
+	draw_grid(gb, 0, ps);
+	draw_diamond(gb, a, ps);
+	draw_diamond(gb, b, ps);
+	
+	SDL_UpdateRects(ps, 1, &area);
     }
 
     sdlrect_swap(a.box, b.box);
