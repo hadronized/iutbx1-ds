@@ -161,7 +161,7 @@ void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SD
 	draw_diamond(gb, a, ps);
 	draw_diamond(gb, b, ps);
 	
-	SDL_UpdateRects(ps, 1, &area);
+	SDL_UpdateRect(ps, area.x, area.y, area.w, area.h);
     }
 
     sdlrect_swap(a.box, b.box);
@@ -174,9 +174,7 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     diamond *pd;
 
     SDL_Rect area;
-    area.y = 0;
-    area.w = DIAMOND_SIZE;
-
+    
     for (int i = 0; i < gb.nb_expl; ++i) {
         index_1D2D(gb.expl[i], x, y);
         pd = &query_diamond(gb, x, y);
@@ -187,28 +185,22 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     for (int move = 0; move < DIAMOND_SIZE/2; ++move) {
         for (int i = 0; i < gb.nb_expl; ++i) {
             index_1D2D(gb.expl[i], x, y);
-	    area.x = x;
-	    area.h = y;
+	    
+	    area.x = DIAMOND_SIZE*x;
+	    area.y = 0;
+	    area.w = DIAMOND_SIZE;
+	    area.h = DIAMOND_SIZE*y;
 
-	    cout << "x: " << area.x << " y: " << area.y << endl;
-	    cout << "w: " << area.w << " h: " << area.h << endl;
-	
-            while (y >= 0) {
+	    while (y >= 0) {
                 pd = &query_diamond(gb, x, y);
 		pd->box.y += vy;
-
-
 		--y;
             }
-        }
-	
-	
-	draw_game_wp(gb, 0, ps);
-	draw_grid(gb, 0, ps);
-	draw_diamond(gb, *pd, ps);
-	SDL_UpdateRects(ps, 1, &area);
+
+	    show_gameboard(gb, ps);
+	    SDL_Flip(ps);
+	}
     }
 
     cout << "descente graphique finie !" << endl;
-    //cin.ignore(1024, '\n');
 }
