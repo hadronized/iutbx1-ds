@@ -190,6 +190,9 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
 	    area.x = x;
 	    area.h = y;
 
+	    cout << "x: " << area.x << " y: " << area.y << endl;
+	    cout << "w: " << area.w << " h: " << area.h << endl;
+	
             while (y >= 0) {
                 pd = &query_diamond(gb, x, y);
 		pd->box.y += vy;
@@ -198,7 +201,8 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
 		--y;
             }
         }
-	//SDL_Flip(ps);
+	
+	
 	draw_game_wp(gb, 0, ps);
 	draw_grid(gb, 0, ps);
 	draw_diamond(gb, *pd, ps);
@@ -206,5 +210,5 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     }
 
     cout << "descente graphique finie !" << endl;
-    cin.ignore(1024, '\n');
+    //cin.ignore(1024, '\n');
 }
