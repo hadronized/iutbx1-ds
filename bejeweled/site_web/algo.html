@@ -20,7 +20,7 @@
       <p class="elem menu"><a href="credits.html">Credits</a></p>
     </div>
     <p>Nous allons présenter ici deux algorithmes majeurs : celui qui gère l'échange de deux diamants et tout ce qui s'en suit (explosion(s), échange
-      interdit, etc ...) et celui qui recherche de vérifier la validité d'une grille pendant le jeu (ou encore recherche de solution).</p>
+      interdit, etc ...) et celui qui permet de vérifier la validité d'une grille pendant le jeu (ou encore recherche de solution).</p>
     <h2>Echange de diamants ... toute une histoire !</h2>
     <p>Echanger deux gemmes est votre unique façon d'intéragir avec la grille. Il est donc logique, dans le cadre de ce projet, d'en expliquer les rouages.
       Tout d'abord, il faut savoir que, dans notre jeu, l'échange de deux diamants se fait en plusieurs phases :</p>
@@ -98,10 +98,21 @@
     <p>On voit donc bien qu'ici, si l'on transforme l'indice du diamant d1 en deux composantes x et y, on obtient x1 et y2, ce qui n'est pas en accord
       avec les valeurs stockés par le diamant après l'échange graphique. Il faut donc reéchanger ces composantes avant de changer le type des diamants
       pour avoir un échange algorithmique correct.</p>
-      
-
-
-
+    <h3>Génération des explosions</h3>
+    <p>Cette phase est probablement la plus complexe de l'algorithme. L'idée naïve que l'on pourrait avoir est d'utiliser un booléen "doit exploser" par
+      diamant. Le problème de ce choix réside dans le fait que cela va fixer une complexité linéaire lors du retrait par explosion des diamants (puisqu'il
+      faudra parcourir toute la matrice pour savoir quel diamant doit exploser). Au lieu de cela, notre algorithme génére un tableau pseudo-dynamique
+      qui contient les indices des diamants à retirer de la grille. Pseudo dynamique car la taille statique de ce tableau est fixé, mais sa taille
+      en utilisation dépend du nombre de diamant à retirer du jeu. Ainsi, si 3 diamants doivent exploser, le tableau contiendra les 3 indices des
+      diamants. Cela nous permettra, lors du retrait des diamants, de ne pas parcourir toute la matrice à la recherche de diamants à exploser, mais
+      à plutôt parcourir le tableau contenant les indices des diamants qui doivent exploser, ce qui est bien plus rapide.</p>
+    <p>Afin de mener cette tâche à bien, il faut parcourir la matrice en horizontalement et verticalement, et pour chaque cas compter combien de diamants
+      se suivent. Si ce nombre est supérieur à 3, on stocke alors l'indice de ces diamants dans le tableau. Mais attention, il ne s'agit pas d'ajouter
+      les indices à la fin du tableau. Il faut au préalable vérifier la présence du diamant dans le tableau, car il n'est pas impossible qu'un diamant
+      se trouve à l'intersection de diamants horizontaux et verticaux. De plus, il faut garder un tableau trié (cela est nécessaire pour l'algorithme
+      permettant de faire chuter de nouveaux diamants, mais nous ne traiteront pas ce problème ici).</p>
+    <p>En bref, les solutions retenues pour cette phase sont l'utilisation d'un tri par insertion dichotomique refusant les doublons.</p>
+    <h2>Validité d'une grille ... tout un bazar !</h2>
         
   </body>
 </html>
