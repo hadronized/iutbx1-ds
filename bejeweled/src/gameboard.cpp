@@ -147,7 +147,7 @@ bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps) {
         draw_diamond_swap(gb, a, b, vx, vy, ps);
         diamond_swap(a, b);
 
-	if ( check_explode(gb) ) // si il y a eu au moins une explosion
+	if ( check_explode(gb) ) // si il y a eu au moins une explosion, peut-être il faudrait optimiser ça
             success = true;
         else { // si aucune explosion generee, on reechange les diamants
             draw_diamond_swap(gb, a, b, vx, vy, ps);
