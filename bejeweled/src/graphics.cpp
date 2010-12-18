@@ -170,36 +170,25 @@ void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SD
 void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     int x;
     int y;
-    int vy = 4; // un diamant chute de deux pixels à chaque frame
+    int vy = 1;
     diamond *pd;
 
-    SDL_Rect area;
-    
-    for (int i = 0; i < gb.nb_expl; ++i) {
-        index_1D2D(gb.expl[i], x, y);
-        pd = &query_diamond(gb, x, y);
-        pd->box.y = -DIAMOND_SIZE;
-        cout << "Position: (" << pd->box.x << ';' << pd->box.y << ')' << endl;
-        change_diamond_type(*pd, pd->type, pd->type);
-    }
-
-    for (int move = 0; move < DIAMOND_SIZE/4; ++move) {
+    for (int move = 0; move < DIAMOND_SIZE; ++move) {
         for (int i = 0; i < gb.nb_expl; ++i) {
             index_1D2D(gb.expl[i], x, y);
-	    
-	    area.x = DIAMOND_SIZE*x;
-	    area.y = 0;
-	    area.w = DIAMOND_SIZE;
-	    area.h = DIAMOND_SIZE*y;
-
-	    while (y >= 0) {
+            while (y >= 0) {
                 pd = &query_diamond(gb, x, y);
-		pd->box.y += vy;
-		--y;
+                pd->box.y += vy;
+                --y;
             }
-	}
-        
+        }
+
         show_gameboard(gb, ps);
         SDL_Flip(ps);
+        //cin.ignore(1024, '\n');
     }
+    
+    vy++;
+    //SDL_Rect area;
+
 }
