@@ -190,7 +190,7 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
     for (int i = 0; i < gb.nb_expl; ++i) {
         index_1D2D(gb.expl[i], x, y);
         query_diamond(gb, x, y).box.y = -DIAMOND_SIZE;
-        while (y > 0) {d
+        while (y > 0) {
             diamond_swap(query_diamond(gb, x, y), query_diamond(gb, x, y-1));
             sdlrect_swap(query_diamond(gb, x, y).box, query_diamond(gb, x, y-1).box);
             --y;
