@@ -179,6 +179,7 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
         index_1D2D(gb.expl[i], x, y);
         pd = &query_diamond(gb, x, y);
         pd->box.y = -DIAMOND_SIZE;
+        cout << "Position: (" << pd->box.x << ';' << pd->box.y << ')' << endl;
         change_diamond_type(*pd, pd->type, pd->type);
     }
 
@@ -196,9 +197,9 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
 		pd->box.y += vy;
 		--y;
             }
-
-	    show_gameboard(gb, ps);
-	    SDL_Flip(ps);
 	}
+        
+        show_gameboard(gb, ps);
+        SDL_Flip(ps);
     }
 }
