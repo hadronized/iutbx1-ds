@@ -19,40 +19,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <iostream>
-#include <cstdlib>
-#include <string>
-#include "gameplay.h"
-#include <cmath>
+#include "cipher.h"
 
-#include "cipher.h" // pour tests
-
-using namespace std;
-
-string const VERSION  = "0.1a";
-string const AUTHORS  = "Dimitri Sabadie <dimitri.sabadie@etu.u-bordeaux1.fr>\n"
-                        "Ludwig Raepsaet <ludwig.raepsaet@etu.u-bordeaux1.fr>";
-string const COPYING  = "GPL";
-int const YEAR        = 2010;
-
-int main() {
-    int rcode = 0;
-    SDL_Surface *ps = 0;
-
-    cout << SCREEN_TITLE << " version " << VERSION << endl;
-    cout << AUTHORS << endl;
-    cout << "Licence : " << COPYING << endl;
-    cout << "Annee   : " << YEAR << endl;
-    cout << endl;
-
-    srand(time(0)); // initialisation randomizer
-
-    if (init_gui()) {
-	ps = create_screen();
-	if (ps)
-	    rcode = main_loop(ps);
+void crypt(std::string &data) {
+    for (unsigned int i = 0, ikey = 0; i < data.size(); ++i, ++ikey) {
+        if (ikey >= xor_key.size()) ikey = 0;
+        data[i] ^= xor_key[ikey];
     }
+}
 
-    quit_gui();
-    return rcode;
+void decrypt(std::string &data) {
+    crypt(data);
 }

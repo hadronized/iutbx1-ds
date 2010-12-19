@@ -19,40 +19,15 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <iostream>
-#include <cstdlib>
+#ifndef CIPHER_H
+#define CIPHER_H
+
 #include <string>
-#include "gameplay.h"
-#include <cmath>
 
-#include "cipher.h" // pour tests
+std::string const xor_key = "This is a really funny key used to crypt and \
+decrypt data. PLEASE DO NOT MODIFY IT !";
 
-using namespace std;
+void crypt(std::string &data);
+void decrypt(std::string &data);
 
-string const VERSION  = "0.1a";
-string const AUTHORS  = "Dimitri Sabadie <dimitri.sabadie@etu.u-bordeaux1.fr>\n"
-                        "Ludwig Raepsaet <ludwig.raepsaet@etu.u-bordeaux1.fr>";
-string const COPYING  = "GPL";
-int const YEAR        = 2010;
-
-int main() {
-    int rcode = 0;
-    SDL_Surface *ps = 0;
-
-    cout << SCREEN_TITLE << " version " << VERSION << endl;
-    cout << AUTHORS << endl;
-    cout << "Licence : " << COPYING << endl;
-    cout << "Annee   : " << YEAR << endl;
-    cout << endl;
-
-    srand(time(0)); // initialisation randomizer
-
-    if (init_gui()) {
-	ps = create_screen();
-	if (ps)
-	    rcode = main_loop(ps);
-    }
-
-    quit_gui();
-    return rcode;
-}
+#endif // guard
