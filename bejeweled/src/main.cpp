@@ -50,6 +50,7 @@ int main() {
     gameboard g;
     init_gameboard(g);
     save_solo_game(g, 4);
+    load_solo_game(g, rcode);
 
     if (init_gui()) {
 	ps = create_screen();

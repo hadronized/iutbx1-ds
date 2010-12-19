@@ -38,14 +38,32 @@ void save_solo_game(gameboard const &gb, int score) {
         data << MATRIX_WIDTH << endl;
         for (int i = 0; i < MATRIX_HEIGHT*MATRIX_WIDTH; ++i)
             data << gb.dmds[i].type << ' ';
-        data << endl;
         // écrire le temps restant ici
+        data << endl;
         data << score << endl;
 
         cout << data.str() << endl;
         file << crypt(data.str());
         file.close();
     } else {
-        cerr << '[' << SOLO_SAVE_FILE << "] : fichier non accessible" << endl;
+        cerr << '[' << SOLO_SAVE_FILE << "] : fichier non accessible pour sauvegarde" << endl;
     }
 }
+
+void load_solo_game(gameboard &gb, int &score) {
+    ifstream file;
+    stringstream data;
+    string realData;
+
+    file.open(SOLO_SAVE_FILE.c_str());
+
+    if (file.is_open()) {
+        data << file.rdbuf();
+        file.close();
+        
+
+    } else {
+        cerr << '[' << SOLO_SAVE_FILE << "] : fichier non accessible pour chargement" << endl;
+    }
+}
+

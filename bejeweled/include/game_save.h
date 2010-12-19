@@ -28,5 +28,6 @@
 std::string const SOLO_SAVE_FILE = ".last.sbsvf"; // Solo Bejeweled Save file
 
 void save_solo_game(gameboard const &gb, int score);
+void load_solo_game(gameboard &gb, int &score);
 
 #endif // guard
