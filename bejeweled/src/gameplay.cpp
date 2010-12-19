@@ -47,24 +47,21 @@ bool main_loop(SDL_Surface *ps) {
                         pSelected->sub.y = DIAMOND_SIZE;
                     } else {
                         pSelected->sub.y = 0;
-                        try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps);
-                        do {
-                            show_gameboard(gb, ps);
-                            explode(gb, ps);
-                            get_down(gb, ps);
-                        } while ( check_explode(gb) );
+                        if ( try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps) ) {
+			    do {
+				show_gameboard(gb, ps);
+				explode(gb, ps);
+				get_down(gb, ps);
+			    } while ( check_explode(gb) );
 
-                        if (!check_solution(gb)) {
-                            #ifdef _DEBUG
-                            cout << "Plus aucune solution" << endl;
-                            #endif
-                        } else {
-                            #ifdef _DEBUG
-                            cout << '(' << gb.index_sol%8 << ';' << gb.index_sol/8 << ") est une solution" << endl;
-                            #endif
-                        }
-                        
-                        pSelected = 0;
+			    if (!check_solution(gb)) {
+				;
+			    } else {
+				cout << '(' << gb.index_sol%8 << ';' << gb.index_sol/8 << ") est une solution" << endl;
+			    }
+			}
+			
+			pSelected = 0;
                     }
                 }
             }

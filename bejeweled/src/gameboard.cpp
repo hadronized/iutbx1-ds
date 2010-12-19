@@ -147,7 +147,7 @@ bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps) {
         draw_diamond_swap(gb, a, b, vx, vy, ps);
         diamond_swap(a, b);
 
-	if ( check_explode(gb) ) // si il y a eu au moins une explosion
+	if ( check_explode(gb) ) // si il y a eu au moins une explosion, peut-être il faudrait optimiser ça
             success = true;
         else { // si aucune explosion generee, on reechange les diamants
             draw_diamond_swap(gb, a, b, vx, vy, ps);
@@ -189,14 +189,18 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
 
     for (int i = 0; i < gb.nb_expl; ++i) {
         index_1D2D(gb.expl[i], x, y);
+        //query_diamond(gb, x, y).box.y = -DIAMOND_SIZE;
         while (y > 0) {
             diamond_swap(query_diamond(gb, x, y), query_diamond(gb, x, y-1));
+            //sdlrect_swap(query_diamond(gb, x, y).box, query_diamond(gb, x, y-1).box);
             --y;
         }
         
         pd = &query_diamond(gb, x, 0);
         change_diamond_type(*pd, pd->type, pd->type);
     }
+
+    //draw_getdown(gb, ps);
 }
 
 bool equal(diamond a, diamond b, diamond c) {

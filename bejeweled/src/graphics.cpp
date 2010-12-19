@@ -144,16 +144,51 @@ void draw_diamond(gameboard &gb, diamond &d, SDL_Surface *ps) {
 }
 
 void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SDL_Surface *ps) {
-    for (int i = 0; i < DIAMOND_SIZE/DIAMOND_SPEED; ++i) {
-        a.box.x += DIAMOND_SPEED * vx;
-        a.box.y += DIAMOND_SPEED * vy;
-        b.box.x -= DIAMOND_SPEED * vx;
-        b.box.y -= DIAMOND_SPEED * vy;
+    SDL_Rect area;
+    area.x = min(a.box.x, b.box.x);
+    area.y = min(a.box.y, b.box.y);
+    area.w = a.box.x == b.box.x ? DIAMOND_SIZE : DIAMOND_SIZE*2;
+    area.h = a.box.y == b.box.y ? DIAMOND_SIZE : DIAMOND_SIZE*2;
+
+    for (int i = 0; i < DIAMOND_SIZE/2; ++i) {
+        a.box.x += 2 * vx;
+        a.box.y += 2 * vy;
+        b.box.x -= 2 * vx;
+        b.box.y -= 2 * vy;
         
-        show_gameboard(gb, ps);
-        SDL_Flip(ps);
+	draw_game_wp(gb, 0, ps);
+	draw_grid(gb, 0, ps);
+	draw_diamond(gb, a, ps);
+	draw_diamond(gb, b, ps);
+	
+	SDL_UpdateRect(ps, area.x, area.y, area.w, area.h);
     }
 
     sdlrect_swap(a.box, b.box);
 }
 
+void draw_getdown(gameboard &gb, SDL_Surface *ps) {
+    int x;
+    int y;
+    int vy = 1;
+    diamond *pd;
+
+    for (int move = 0; move < DIAMOND_SIZE; ++move) {
+        for (int i = 0; i < gb.nb_expl; ++i) {
+            index_1D2D(gb.expl[i], x, y);
+            while (y >= 0) {
+                pd = &query_diamond(gb, x, y);
+                pd->box.y += vy;
+                --y;
+            }
+        }
+
+        show_gameboard(gb, ps);
+        SDL_Flip(ps);
+        //cin.ignore(1024, '\n');
+    }
+    
+    vy++;
+    //SDL_Rect area;
+
+}
