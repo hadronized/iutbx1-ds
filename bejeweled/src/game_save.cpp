@@ -20,43 +20,32 @@
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <iostream>
-#include <cstdlib>
-#include <string>
-#include "gameplay.h"
-#include <cmath>
-
-#include "game_save.h" // pour tests
+#include <fstream>
+#include <sstream>
+#include "cipher.h"
+#include "game_save.h"
 
 using namespace std;
 
-string const VERSION  = "0.1a";
-string const AUTHORS  = "Dimitri Sabadie <dimitri.sabadie@etu.u-bordeaux1.fr>\n"
-                        "Ludwig Raepsaet <ludwig.raepsaet@etu.u-bordeaux1.fr>";
-string const COPYING  = "GPL";
-int const YEAR        = 2010;
+void save_solo_game(gameboard const &gb, int score) {
+    ofstream file;
+    stringstream data;
 
-int main() {
-    int rcode = 0;
-    SDL_Surface *ps = 0;
+    file.open(SOLO_SAVE_FILE.c_str());
 
-    cout << SCREEN_TITLE << " version " << VERSION << endl;
-    cout << AUTHORS << endl;
-    cout << "Licence : " << COPYING << endl;
-    cout << "Annee   : " << YEAR << endl;
-    cout << endl;
+    if (file.is_open()) {
+        data << MATRIX_HEIGHT << endl;
+        data << MATRIX_WIDTH << endl;
+        for (int i = 0; i < MATRIX_HEIGHT*MATRIX_WIDTH; ++i)
+            data << gb.dmds[i].type << ' ';
+        data << endl;
+        // écrire le temps restant ici
+        data << score << endl;
 
-    srand(time(0)); // initialisation randomizer
-
-    gameboard g;
-    init_gameboard(g);
-    save_solo_game(g, 4);
-
-    if (init_gui()) {
-	ps = create_screen();
-	if (ps)
-	    rcode = main_loop(ps);
+        cout << data.str() << endl;
+        file << crypt(data.str());
+        file.close();
+    } else {
+        cerr << '[' << SOLO_SAVE_FILE << "] : fichier non accessible" << endl;
     }
-
-    quit_gui();
-    return rcode;
 }

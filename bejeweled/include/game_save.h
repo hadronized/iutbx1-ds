@@ -19,44 +19,14 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <iostream>
-#include <cstdlib>
+#ifndef GAME_SAVE_H
+#define GAME_SAVE_H
+
 #include <string>
-#include "gameplay.h"
-#include <cmath>
+#include "gameboard.h"
 
-#include "game_save.h" // pour tests
+std::string const SOLO_SAVE_FILE = ".last.sbsvf"; // Solo Bejeweled Save file
 
-using namespace std;
+void save_solo_game(gameboard const &gb, int score);
 
-string const VERSION  = "0.1a";
-string const AUTHORS  = "Dimitri Sabadie <dimitri.sabadie@etu.u-bordeaux1.fr>\n"
-                        "Ludwig Raepsaet <ludwig.raepsaet@etu.u-bordeaux1.fr>";
-string const COPYING  = "GPL";
-int const YEAR        = 2010;
-
-int main() {
-    int rcode = 0;
-    SDL_Surface *ps = 0;
-
-    cout << SCREEN_TITLE << " version " << VERSION << endl;
-    cout << AUTHORS << endl;
-    cout << "Licence : " << COPYING << endl;
-    cout << "Annee   : " << YEAR << endl;
-    cout << endl;
-
-    srand(time(0)); // initialisation randomizer
-
-    gameboard g;
-    init_gameboard(g);
-    save_solo_game(g, 4);
-
-    if (init_gui()) {
-	ps = create_screen();
-	if (ps)
-	    rcode = main_loop(ps);
-    }
-
-    quit_gui();
-    return rcode;
-}
+#endif // guard

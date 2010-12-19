@@ -24,10 +24,12 @@
 
 #include <string>
 
-std::string const xor_key = "This is a really funny key used to crypt and \
+using namespace std;
+
+string const XOR_KEY = "This is a really funny key used to crypt and \
 decrypt data. PLEASE DO NOT MODIFY IT !";
 
-void crypt(std::string &data);
-void decrypt(std::string &data);
+string crypt(std::string const &data);
+string decrypt(std::string const &data);
 
 #endif // guard

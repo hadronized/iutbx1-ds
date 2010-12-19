@@ -21,13 +21,18 @@
 
 #include "cipher.h"
 
-void crypt(std::string &data) {
+string crypt(std::string const &data) {
+    string cstr;
+    cstr.resize(data.size());
+
     for (unsigned int i = 0, ikey = 0; i < data.size(); ++i, ++ikey) {
-        if (ikey >= xor_key.size()) ikey = 0;
-        data[i] ^= xor_key[ikey];
+        if (ikey >= XOR_KEY.size()) ikey = 0;
+        cstr[i] = data[i] ^ XOR_KEY[ikey];
     }
+
+    return cstr;
 }
 
-void decrypt(std::string &data) {
-    crypt(data);
+string decrypt(std::string const &data) {
+    return crypt(data);
 }
