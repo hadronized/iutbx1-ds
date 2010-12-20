@@ -67,7 +67,7 @@ struct gameboard {
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-void init_gameboard(gameboard &gb);
+void init_gameboard(gameboard &gb, int col, int row);
 
 /* ********************* query_diamond ***********************
    * diamond query_diamond(gameboard &gb, int x, int y);     *

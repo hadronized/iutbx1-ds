@@ -32,7 +32,7 @@ bool main_loop(SDL_Surface *ps) {
     diamond *pSelected = 0;
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb);
+    init_gameboard(gb, 8, 8);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
