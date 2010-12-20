@@ -95,26 +95,26 @@ bool quit_selected(menu m, SDL_Event e) {
 
 void menu_loop(SDL_Surface *ps) {
     SDL_Event event;
-    bool jeu=false;
+    bool quit = false;
     menu m;
     		
     initialisation_menu(m);
     		
-    while(!jeu){
+    while(!quit){
         SDL_PollEvent(&event);
         affiche_menu(m, ps, event);
             
         if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
         {
-            jeu=true;
             SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
             solo_loop(ps);
         } 
 	
         else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
         {
-            SDL_FreeSurface(ps);
-            SDL_Quit();
+            //SDL_FreeSurface(ps); ca n'a rien a foutre la
+            //SDL_Quit(); rien a foutre la non plus, LIS MON CODE PUTAIN (cf. quit_gui())
+            quit = true;
         }
 			
         SDL_Flip(ps);

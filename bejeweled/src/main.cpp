@@ -49,12 +49,11 @@ int main() {
 
     if (init_gui()) {
 	ps = create_screen();
-	if (ps)
-	{
-		menu_loop(ps);	 
+	if (ps) {
+            menu_loop(ps);
+            SDL_FreeSurface(ps);
+        }
+        quit_gui();
     }
-
-    quit_gui();
-}
     return rcode;
 }
