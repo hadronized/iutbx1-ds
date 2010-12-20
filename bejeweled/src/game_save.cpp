@@ -42,7 +42,6 @@ void save_solo_game(gameboard const &gb, int score) {
         data << endl;
         data << score << endl;
 
-        cout << data.str() << endl;
         file << crypt(data.str());
         file.close();
     } else {
@@ -54,7 +53,7 @@ void load_solo_game(gameboard &gb, int &score) {
     ifstream file;
     stringstream cdata;
     stringstream ddata;
-    int tmp;
+    diamond *pd;
 
     file.open(SOLO_SAVE_FILE.c_str());
 
@@ -64,13 +63,17 @@ void load_solo_game(gameboard &gb, int &score) {
         
         ddata << decrypt(cdata.str());
         ddata >> gb.col >> gb.row;
-        for (int i = 0; i < gb.col*gb.row; ++i) {
-            ddata >> tmp;
-            cout << tmp << ' ';
+        gb.dmds = new diamond[gb.col*gb.row];
+        for (int j = 0; j < gb.col; ++j) {
+            for (int i = 0; i < gb.row; ++i) {
+                pd = &query_diamond(gb, i, j),
+                init_diamond(*pd, i, j);
+                ddata >> pd->type;
+                pd->sub.x = pd->type*DIAMOND_SIZE;
+            }
         }
+            
         ddata >> score;
-        cout << "score : " << score << endl;
-        cout << endl;
     } else {
         cerr << '[' << SOLO_SAVE_FILE << "] : fichier non accessible pour chargement" << endl;
     }
