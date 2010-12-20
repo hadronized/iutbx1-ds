@@ -30,6 +30,8 @@ bool main_loop(SDL_Surface *ps) {
     bool quit = false;
     gameboard gb;
     diamond *pSelected = 0;
+    int score = 0;
+    int comboScore;
 
     load_theme("themes/fractal_cosmos/", gb);
     init_gameboard(gb, 8, 8);
@@ -48,12 +50,17 @@ bool main_loop(SDL_Surface *ps) {
                     } else {
                         pSelected->sub.y = 0;
                         if ( try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps) ) {
+                            comboScore = 1;
 			    do {
+                                score += gb.nb_expl * comboScore;
+                                cout << "score combo : " << comboScore << endl;
+                                ++comboScore;
 				show_gameboard(gb, ps);
-				explode(gb, ps);
+                                explode(gb, ps);
 				get_down(gb, ps);
 			    } while ( check_explode(gb) );
 
+                            cout << "score : " << score << endl;
 			    if (!check_solution(gb)) {
 				;
 			    } else {
