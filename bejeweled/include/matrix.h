@@ -28,8 +28,8 @@ int const MATRIX_WIDTH   = 8;
 int const MATRIX_HEIGHT  = 8;
 int const MATRIX_DIMENSION = MATRIX_WIDTH*MATRIX_HEIGHT;
 
-typedef diamond diamond_matrix[MATRIX_DIMENSION];
-typedef int diamond_indices[MATRIX_DIMENSION];
+typedef diamond *diamond_matrix;
+typedef int *diamond_indices;
 
 /* ************************ index_2D1D ***********************
    * int index_2D1D(int i, int j);                           *

@@ -28,7 +28,7 @@
 #include <iostream> // pour tests uniquement
 using namespace std;
 
-void init_gameboard(gameboard &gb) {
+void init_gameboard(gameboard &gb, int col, int row) {
     int index;
     diamond_type tmp;
 
