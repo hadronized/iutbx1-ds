@@ -96,29 +96,25 @@ bool quit_selected(menu m, SDL_Event e) {
 void menu_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool jeu=false;
-    bool quit=false;
     menu m;
 
-    initialisation_menu(m);
-
-    // mec, serieux, paye ton indention ...
-       while(!jeu){
-        SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-
-        SDL_WaitEvent(&event);
-        
-        if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT){
-            jeu=true; 
-            solo_loop(ps);
-		}
-            
-        else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-            {
-				quit=true;
-				SDL_Quit(); // ouais évidement le C++ c'est magique ... (1)
-			}
+		while(!jeu){
+	
+			SDL_PollEvent(&event);
             affiche_menu(m, ps, event);
-            SDL_Flip(ps); // après (1), ça va donner ... et heu c'est quoi l'interet de cet appel ?
+            SDL_Flip(ps);
+            
+			if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+			{
+				jeu=true;
+				solo_loop(ps);
+		    } 
+		    
+			else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT && event.type == SDL_QUIT)
+            {
+				SDL_FreeSurface(ps);
+				SDL_Quit();
+			}
 }
 }
 

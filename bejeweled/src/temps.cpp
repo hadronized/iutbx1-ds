@@ -12,6 +12,11 @@ TTF_Font * init_font() {
     return pf;
 }
 
+void free_font(TTF_Font *pf) {
+    if (pf)
+	TTF_CloseFont(pf);
+}
+
 void affiche_temps(TTF_Font *f, SDL_Surface *ps)
 {
 	
