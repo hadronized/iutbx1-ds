@@ -6,7 +6,6 @@
 
 void scores(TTF_Font *f, SDL_Surface *ps)
 {
-	gameboard gb;
     int score=0;
     
     SDL_Rect pos;
