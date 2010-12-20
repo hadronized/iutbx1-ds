@@ -4,7 +4,6 @@
 #include <SDL/SDL_ttf.h>
 #include "graphics.h"
 
-
 struct button {
     SDL_Rect box; // définit rectangle dans la feuille de bouttons
     SDL_Rect  at; // définit où positionner le boutton à l'écran
@@ -24,6 +23,8 @@ void initialisation_menu(menu &m);
 void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e);
 
 void liberer_menu(menu &m);
+
+bool mouse_in_rect(SDL_Rect r, SDL_Event e);
 
 bool play_selected(menu m, SDL_Event e);
 

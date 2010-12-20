@@ -98,28 +98,27 @@ void menu_loop(SDL_Surface *ps) {
     bool jeu=false;
     menu m;
     		
-	initialisation_menu(m);
+    initialisation_menu(m);
     		
-		while(!jeu){
-			
-			SDL_PollEvent(&event);
-            affiche_menu(m, ps, event);
+    while(!jeu){
+        SDL_PollEvent(&event);
+        affiche_menu(m, ps, event);
             
-			if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-			{
-				jeu=true;
-				SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-				solo_loop(ps);
-		    } 
-		    
-			else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-            {
-				SDL_FreeSurface(ps);
-				SDL_Quit();
-			}
+        if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+        {
+            jeu=true;
+            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+            solo_loop(ps);
+        } 
+	
+        else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+        {
+            SDL_FreeSurface(ps);
+            SDL_Quit();
+        }
 			
-            SDL_Flip(ps);
-}
+        SDL_Flip(ps);
+    }
 }
 
 /*
