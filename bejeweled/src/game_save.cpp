@@ -34,7 +34,8 @@ void save_solo_game(gameboard const &gb, int score) {
     file.open(SOLO_SAVE_FILE.c_str());
 
     if (file.is_open()) {
-        data << 3 << endl;// écrire la difficulté ici
+        data << gb.col << endl;
+        data << gb.row << endl;
         for (int i = 0; i < MATRIX_HEIGHT*MATRIX_WIDTH; ++i)
             data << gb.dmds[i].type << ' ';
         // écrire le temps restant ici
@@ -62,15 +63,14 @@ void load_solo_game(gameboard &gb, int &score) {
         file.close();
         
         ddata << decrypt(cdata.str());
-        ddata >> tmp;
-        cout << "La difficulté est : " << tmp << endl;
-        for (int i = 0; i < MATRIX_DIMENSION; ++i) {
+        ddata >> gb.col >> gb.row;
+        for (int i = 0; i < gb.col*gb.row; ++i) {
             ddata >> tmp;
             cout << tmp << ' ';
         }
+        ddata >> score;
+        cout << "score : " << score << endl;
         cout << endl;
-        
-
     } else {
         cerr << '[' << SOLO_SAVE_FILE << "] : fichier non accessible pour chargement" << endl;
     }
