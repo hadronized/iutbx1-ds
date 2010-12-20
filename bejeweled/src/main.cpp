@@ -38,7 +38,6 @@ int const YEAR        = 2010;
 int main() {
     int rcode = 0;
     SDL_Surface *ps = 0;
-    menu Menu_Titre;
     
     cout << SCREEN_TITLE << " version " << VERSION << endl;
     cout << AUTHORS << endl;
@@ -51,12 +50,11 @@ int main() {
     if (init_gui()) {
 	ps = create_screen();
 	if (ps)
-	
-		initialisation_menu(Menu_Titre);
+	{
 		menu_loop(ps);	 
     }
-    
+
     quit_gui();
-    
+}
     return rcode;
 }

@@ -33,7 +33,7 @@ void affiche_temps(TTF_Font *f, SDL_Surface *ps)
 	tps = time(0);
 	
 	temps_restant = temps - ( time(0) - tps);
-	
+
     sstr << "Temps : " << temps_restant;
     
 	tempsFont = TTF_RenderText_Solid( f, sstr.str().c_str(), colorFont );
@@ -45,6 +45,6 @@ void affiche_temps(TTF_Font *f, SDL_Surface *ps)
 	pos.y = 100;
     
     SDL_BlitSurface(tempsFont, 0, ps, &pos);
-    SDL_FreeSurface(tempsFont);
-
+    SDL_FreeSurface(tempsFont);   
 }
+
