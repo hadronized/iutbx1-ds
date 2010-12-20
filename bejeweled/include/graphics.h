@@ -40,7 +40,7 @@ SDL_Surface * create_screen(void);
 bool load_theme(string const &name, gameboard &gb);
 void free_theme(gameboard &gb);
 void draw_game_wp(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps);
-void draw_grid(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps);
+void draw_grid(gameboard &gb, SDL_Surface *ps);
 void draw_diamond(gameboard &gb, diamond &d, SDL_Surface *ps);
 void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SDL_Surface *ps);
 void draw_getdown(gameboard &gb, SDL_Surface *ps); // a compléter ! :)
