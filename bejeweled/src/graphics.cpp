@@ -175,7 +175,7 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
 
     for (int move = 0; move < DIAMOND_SIZE; ++move) {
         for (int i = 0; i < gb.nb_expl; ++i) {
-            index_1D2D(gb.expl[i], x, y);
+            index_1D2D(gb.expl[i], x, y, gb.row);
             while (y >= 0) {
                 pd = &query_diamond(gb, x, y);
                 pd->box.y += vy;

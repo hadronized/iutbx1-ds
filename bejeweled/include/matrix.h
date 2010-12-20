@@ -28,13 +28,13 @@ int const MATRIX_WIDTH   = 8;
 int const MATRIX_HEIGHT  = 8;
 int const MATRIX_DIMENSION = MATRIX_WIDTH*MATRIX_HEIGHT;
 
-typedef diamond diamond_matrix[MATRIX_DIMENSION];
-typedef int diamond_indices[MATRIX_DIMENSION];
+typedef diamond *diamond_matrix;
+typedef int *diamond_indices;
 
 /* ************************ index_2D1D ***********************
-   * int index_2D1D(int i, int j);                           *
+   * int index_2D1D(int i, int j, int w);                    *
    ********************* Auteur , Dates **********************
-   * Dimitri Sabadie, 11 novembre 2010, v0.1                 *
+   * Dimitri Sabadie, 20 Decembre 2010, v0.2                 *
    ********************** Description ************************
    * Cette fonction permet de transformer un couple          *
    * d'indices (i;j) referencant une case d'une matrice en   *
@@ -43,15 +43,16 @@ typedef int diamond_indices[MATRIX_DIMENSION];
    ************************ Entrees **************************
    * `i' : indice de la colonne                              *
    * `j' : indice de la ligne                                *
+   * `w' : longueur de la matrice ou transformer les indices *
    ************************ Sorties **************************
    * int : indice transforme du couple(i;j)                  *
    *********************************************************** */
-int index_2D1D(int i, int j);
+int index_2D1D(int i, int j, int w);
 
 /* ************************ index_1D2D ***********************
-   * int index_1D2D(int i, int j);                           *
+   * int index_1D2D(int i, int j, int w);                    *
    ********************* Auteur , Dates **********************
-   * Dimitri Sabadie, 18 novembre 2010, v0.1                 *
+   * Dimitri Sabadie, 20 Decemebre 2010, v0.2                *
    ********************** Description ************************
    * Cette fonction permet de transformer un indice          *
    * referencant une case d'une matricve en un couple        *
@@ -61,9 +62,10 @@ int index_2D1D(int i, int j);
    * `x' : indice à transformer                              *
    * `i' : reference sur l'indice de la colonne              *
    * `j' : reference sur l'indice de la ligne                *
+   * `w' : longueur de la matrice ou transformer les indices *
    ************************ Sorties **************************
-   * int : indice transforme du couple(i;j)                  *
+   * void                                                    *
    *********************************************************** */
-void index_1D2D(int x, int &i, int &j);
+void index_1D2D(int x, int &i, int &j, int w);
 
 #endif // guard

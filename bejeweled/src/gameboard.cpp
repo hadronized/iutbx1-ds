@@ -28,16 +28,22 @@
 #include <iostream> // pour tests uniquement
 using namespace std;
 
-void init_gameboard(gameboard &gb) {
+void init_gameboard(gameboard &gb, int col, int row) {
     int index;
     diamond_type tmp;
 
     gb.nb_expl = 0;
     gb.index_sol = -1;
 
-    for (int j = 0; j < MATRIX_HEIGHT; ++j) {
-        for (int i = 0; i < MATRIX_WIDTH; ++i) {
-            index = index_2D1D(i, j);
+    gb.dmds = new diamond[col*row];
+    gb.col = col;
+    gb.row = row;
+    
+    gb.expl = new int[col*row];
+
+    for (int j = 0; j < col; ++j) {
+        for (int i = 0; i < row; ++i) {
+            index = index_2D1D(i, j, row);
             tmp = init_diamond(gb.dmds[index], i, j);
 
             if (i >= 2) { // test horizontal
@@ -55,7 +61,7 @@ void init_gameboard(gameboard &gb) {
 }
 
 diamond & query_diamond(gameboard &gb, int x, int y) {
-    return gb.dmds[index_2D1D(x, y)];
+    return gb.dmds[index_2D1D(x, y, gb.row)];
 }
 
 void show_gameboard(gameboard &gb, SDL_Surface *ps) {
@@ -63,8 +69,8 @@ void show_gameboard(gameboard &gb, SDL_Surface *ps) {
     
     draw_game_wp(gb, 0, ps);
     draw_grid(gb, 0, ps);
-    for (int j = 0; j < MATRIX_HEIGHT; ++j) {
-        for (int i = 0; i < MATRIX_WIDTH; ++i) {
+    for (int j = 0; j < gb.col; ++j) {
+        for (int i = 0; i < gb.row; ++i) {
 	    d = query_diamond(gb, i, j);
             draw_diamond(gb, d, ps);
         }
@@ -81,13 +87,13 @@ bool check_explode(gameboard &gb) {
 
     gb.nb_expl = 0;
     
-    for (int j = 0; j < MATRIX_HEIGHT; ++j) {
+    for (int j = 0; j < gb.col; ++j) {
         rooth = -1; // reinitialisation diamant en debut de ligne
         rootv = -1; // reinitialisation diamant en debut de colonne
-        for (int i = 0; i < MATRIX_WIDTH; ++i) {
+        for (int i = 0; i < gb.row; ++i) {
             // test horizontal
-            index = index_2D1D(i, j);
-            tmp = query_diamond(gb, i, j);
+            index = index_2D1D(i, j, gb.row);
+            tmp = gb.dmds[index];//query_diamond(gb, i, j);
 
             if (tmp.type == rooth) {
                 ++counth;
@@ -95,26 +101,26 @@ bool check_explode(gameboard &gb) {
                 if (counth >= 3) {
                     --index;
                     for (int y = 0; y < counth; ++y)
-                        array_insert(index-y, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
+                        array_insert(index-y, gb.expl, gb.nb_expl, gb.col*gb.row);
                 }
                 rooth = tmp.type;
                 counth = 1;
             }
 
             // test vertical
-            index = index_2D1D(j, i);
-            tmp = query_diamond(gb, j, i);
+            index = index_2D1D(j, i, gb.row);
+            tmp = gb.dmds[index];//query_diamond(gb, j, i);
 
             if (tmp.type == rootv) {
                 ++countv;
             } else {
                 if (countv >= 3) {
                     if (i == 0)
-                        index = index_2D1D(j-1, MATRIX_HEIGHT-1);
+                        index = index_2D1D(j-1, gb.col-1, gb.row);
                     else
-                        index -= MATRIX_WIDTH;
+                        index -= gb.row;
                     for (int y = 0; y < countv; ++y)
-                        array_insert(index-y*MATRIX_WIDTH, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
+                        array_insert(index-y*gb.row, gb.expl, gb.nb_expl, gb.col*gb.row);
                 }
                 rootv = tmp.type;
                 countv = 1;
@@ -124,12 +130,12 @@ bool check_explode(gameboard &gb) {
 
     if (counth >= 3) {
         for (int y = 0; y < counth; ++y)
-            array_insert(index-y, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
+            array_insert(index-y, gb.expl, gb.nb_expl, gb.col*gb.row);
     }
 
     if (countv >= 3) {
         for (int y = 0; y < countv; ++y)
-            array_insert(index-y*MATRIX_WIDTH, gb.expl, gb.nb_expl, MATRIX_DIMENSION);
+            array_insert(index-y*gb.row, gb.expl, gb.nb_expl, gb.col*gb.row);
     }
 
     return gb.nb_expl != 0;
@@ -170,7 +176,7 @@ void explode(gameboard &gb, SDL_Surface *ps) {
     for (int y = 0; y < 9; ++y) {
         sub.x = y*DIAMOND_SIZE;
         for (int i = 0; i < gb.nb_expl; ++i) {
-            index_1D2D(gb.expl[i], tmpx, tmpy);
+            index_1D2D(gb.expl[i], tmpx, tmpy, gb.row);
             
             pos.x = tmpx*DIAMOND_SIZE;
             pos.y = tmpy*DIAMOND_SIZE;
@@ -188,7 +194,7 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
     diamond *pd;
 
     for (int i = 0; i < gb.nb_expl; ++i) {
-        index_1D2D(gb.expl[i], x, y);
+        index_1D2D(gb.expl[i], x, y, gb.row);
         //query_diamond(gb, x, y).box.y = -DIAMOND_SIZE;
         while (y > 0) {
             diamond_swap(query_diamond(gb, x, y), query_diamond(gb, x, y-1));
@@ -226,7 +232,7 @@ bool check_hpattern_3x2(gameboard &gb, int i, int j) {
         }
 
         if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(i+1, j+relj);
+            gb.index_sol = index_2D1D(i+1, j+relj, gb.row);
             return true;
         }
     }
@@ -246,7 +252,7 @@ bool check_hpattern_3x2(gameboard &gb, int i, int j) {
         }
 
         if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(i+(off%2)*2, j+relj);
+            gb.index_sol = index_2D1D(i+(off%2)*2, j+relj, gb.row);
             return true;
         }
     }
@@ -273,7 +279,7 @@ bool check_vpattern_3x2(gameboard &gb, int i, int j) {
         }
 
         if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(j+relj, i+1);
+            gb.index_sol = index_2D1D(j+relj, i+1, gb.row);
             return true;
         }
     }
@@ -293,7 +299,7 @@ bool check_vpattern_3x2(gameboard &gb, int i, int j) {
         }
 
         if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(j+relj, i+(off%2)*2);
+            gb.index_sol = index_2D1D(j+relj, i+(off%2)*2, gb.row);
             return true;
         }
     }
@@ -311,7 +317,7 @@ bool check_hpattern_4x1(gameboard &gb, int i, int j) {
         abc[2] = query_diamond(gb, i+off+1, j);
 
         if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(i+(1-off)*3, j);
+            gb.index_sol = index_2D1D(i+(1-off)*3, j, gb.row);
             return true;
         }
     }
@@ -329,7 +335,7 @@ bool check_vpattern_4x1(gameboard &gb, int i, int j) {
         abc[2] = query_diamond(gb, i, j+off+1);
 
         if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(i, j+(1-off)*3);
+            gb.index_sol = index_2D1D(i, j+(1-off)*3, gb.row);
             return true;
         }
     }
@@ -339,13 +345,13 @@ bool check_vpattern_4x1(gameboard &gb, int i, int j) {
 
 bool check_solution(gameboard &gb) {
     // test horizontal
-    for (int j = 0; j < MATRIX_HEIGHT-1; ++j) {
-        for (int i = 0; i < MATRIX_WIDTH-2; ++i) {
+    for (int j = 0; j < gb.col-1; ++j) {
+        for (int i = 0; i < gb.row-2; ++i) {
             if ( check_hpattern_3x2(gb, i, j) ) {
                 return true;
             } else if ( check_vpattern_3x2(gb, j, i) ) {
                 return true;
-            } else if (i < MATRIX_WIDTH-3 && j < MATRIX_HEIGHT) {
+            } else if (i < gb.row-3 && j < gb.col) {
                 if ( check_hpattern_4x1(gb, i, j) ) {
                     return true;
                 } else if ( check_vpattern_4x1(gb, j, i) ) {

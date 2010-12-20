@@ -21,11 +21,11 @@
 
 #include "matrix.h"
 
-int index_2D1D(int i, int j) {
-    return i+MATRIX_WIDTH*j;
+int index_2D1D(int i, int j, int w) {
+    return i+w*j;
 }
 
-void index_1D2D(int x, int &i, int &j) {
-    i = x % MATRIX_WIDTH;
-    j = x / MATRIX_WIDTH;
+void index_1D2D(int x, int &i, int &j, int w) {
+    i = x % w;
+    j = x / w;
 }

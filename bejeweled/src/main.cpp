@@ -48,7 +48,7 @@ int main() {
     srand(time(0)); // initialisation randomizer
 
     gameboard g;
-    init_gameboard(g);
+    init_gameboard(g, 8, 8);
     save_solo_game(g, 4);
     load_solo_game(g, rcode);
 

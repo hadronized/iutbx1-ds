@@ -34,15 +34,14 @@ void save_solo_game(gameboard const &gb, int score) {
     file.open(SOLO_SAVE_FILE.c_str());
 
     if (file.is_open()) {
-        data << MATRIX_HEIGHT << endl;
-        data << MATRIX_WIDTH << endl;
+        data << gb.col << endl;
+        data << gb.row << endl;
         for (int i = 0; i < MATRIX_HEIGHT*MATRIX_WIDTH; ++i)
             data << gb.dmds[i].type << ' ';
         // écrire le temps restant ici
         data << endl;
         data << score << endl;
 
-        cout << data.str() << endl;
         file << crypt(data.str());
         file.close();
     } else {
@@ -52,16 +51,29 @@ void save_solo_game(gameboard const &gb, int score) {
 
 void load_solo_game(gameboard &gb, int &score) {
     ifstream file;
-    stringstream data;
-    string realData;
+    stringstream cdata;
+    stringstream ddata;
+    diamond *pd;
 
     file.open(SOLO_SAVE_FILE.c_str());
 
     if (file.is_open()) {
-        data << file.rdbuf();
+        cdata << file.rdbuf();
         file.close();
         
-
+        ddata << decrypt(cdata.str());
+        ddata >> gb.col >> gb.row;
+        gb.dmds = new diamond[gb.col*gb.row];
+        for (int j = 0; j < gb.col; ++j) {
+            for (int i = 0; i < gb.row; ++i) {
+                pd = &query_diamond(gb, i, j),
+                init_diamond(*pd, i, j);
+                ddata >> pd->type;
+                pd->sub.x = pd->type*DIAMOND_SIZE;
+            }
+        }
+            
+        ddata >> score;
     } else {
         cerr << '[' << SOLO_SAVE_FILE << "] : fichier non accessible pour chargement" << endl;
     }
