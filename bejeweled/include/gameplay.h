@@ -31,6 +31,6 @@ int const GRID_HEIGHT  = 480;
 // Fonction qui contient la boule de jeu principale
 bool main_loop(SDL_Surface *ps);
 
-bool cursor_in_grid(SDL_Event m);
+bool cursor_in_grid(SDL_Event m, gameboard const &gb);
 
 #endif // guard
