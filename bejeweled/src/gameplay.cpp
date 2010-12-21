@@ -30,9 +30,11 @@ bool main_loop(SDL_Surface *ps) {
     bool quit = false;
     gameboard gb;
     diamond *pSelected = 0;
+    int score = 0;
+    int comboScore;
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb, 8, 8);
+    init_gameboard(gb, 4, 6);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
@@ -41,19 +43,24 @@ bool main_loop(SDL_Surface *ps) {
 	    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
                 quit = true;
             if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
-                if (cursor_in_grid(event)) {
+                if (cursor_in_grid(event, gb)) {
                     if (!pSelected) {
                         pSelected = &query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE);
                         pSelected->sub.y = DIAMOND_SIZE;
                     } else {
                         pSelected->sub.y = 0;
                         if ( try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps) ) {
+                            comboScore = 1;
 			    do {
+                                score += gb.nb_expl * comboScore;
+                                ++comboScore;
+
 				show_gameboard(gb, ps);
-				explode(gb, ps);
+                                explode(gb, ps);
 				get_down(gb, ps);
 			    } while ( check_explode(gb) );
 
+                            cout << "score : " << score << endl;
 			    if (!check_solution(gb)) {
 				;
 			    } else {
@@ -75,7 +82,7 @@ bool main_loop(SDL_Surface *ps) {
     return true;
 }
 
-bool cursor_in_grid(SDL_Event e) {
-    return (e.motion.x >= 0 && e.motion.x <= GRID_WIDTH)
-        && (e.motion.y >= 0 && e.motion.y <= GRID_HEIGHT);
+bool cursor_in_grid(SDL_Event e, gameboard const &gb) {
+    return (e.motion.x >= 0 && e.motion.x <= gb.row*DIAMOND_SIZE)
+        && (e.motion.y >= 0 && e.motion.y <= gb.col*DIAMOND_SIZE);
 }

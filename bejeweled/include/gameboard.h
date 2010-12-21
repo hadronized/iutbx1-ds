@@ -46,6 +46,7 @@ struct gameboard {
     int index_sol;         // indice d'une solution
     SDL_Surface *pieces;   // les 8 diamants
     SDL_Surface *grid;     // la grille
+    SDL_Rect grid_rect;   // dimension de la grille et ou la placer à l'écran
     SDL_Surface *title_wp; // fond d'ecran titre
     SDL_Surface *game_wp;  // fond d'ecran jeu
     SDL_Surface *explode;  // les phases d'explosion

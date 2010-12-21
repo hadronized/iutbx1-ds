@@ -19,18 +19,4 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#ifndef GAMEPLAY_H
-#define GAMEPLAY_H
-
-#include "gameboard.h"
-#include "graphics.h"
-
-int const GRID_WIDTH   = 480;
-int const GRID_HEIGHT  = 480;
-
-// Fonction qui contient la boule de jeu principale
-bool main_loop(SDL_Surface *ps);
-
-bool cursor_in_grid(SDL_Event m, gameboard const &gb);
-
-#endif // guard
+#include "score.h"

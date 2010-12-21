@@ -40,6 +40,11 @@ void init_gameboard(gameboard &gb, int col, int row) {
     gb.row = row;
     
     gb.expl = new int[col*row];
+    
+    gb.grid_rect.x = 0;
+    gb.grid_rect.y = 0;
+    gb.grid_rect.w = row*DIAMOND_SIZE;
+    gb.grid_rect.h = col*DIAMOND_SIZE;
 
     for (int j = 0; j < col; ++j) {
         for (int i = 0; i < row; ++i) {
@@ -68,7 +73,7 @@ void show_gameboard(gameboard &gb, SDL_Surface *ps) {
     diamond d;
     
     draw_game_wp(gb, 0, ps);
-    draw_grid(gb, 0, ps);
+    draw_grid(gb, ps);
     for (int j = 0; j < gb.col; ++j) {
         for (int i = 0; i < gb.row; ++i) {
 	    d = query_diamond(gb, i, j);

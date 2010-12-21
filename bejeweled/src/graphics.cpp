@@ -135,8 +135,8 @@ void draw_game_wp(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps) {
     SDL_BlitSurface(gb.game_wp, sub, ps, sub);
 }
 
-void draw_grid(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps) {
-    SDL_BlitSurface(gb.grid, sub, ps, sub);
+void draw_grid(gameboard &gb, SDL_Surface *ps) {
+    SDL_BlitSurface(gb.grid, &gb.grid_rect, ps, &gb.grid_rect);
 }
 
 void draw_diamond(gameboard &gb, diamond &d, SDL_Surface *ps) {
@@ -157,7 +157,7 @@ void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SD
         b.box.y -= 2 * vy;
         
 	draw_game_wp(gb, 0, ps);
-	draw_grid(gb, 0, ps);
+	draw_grid(gb, ps);
 	draw_diamond(gb, a, ps);
 	draw_diamond(gb, b, ps);
 	
