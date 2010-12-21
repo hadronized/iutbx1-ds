@@ -51,61 +51,65 @@ bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps) {
 bool check_explode(gameboard &gb) {
     int index;
     diamond tmp;
-    diamond_type rooth;
-    diamond_type rootv;
-    int counth = 1;
-    int countv = 1;
+    diamond_type root;
+    int count = 1;
 
     gb.nb_expl = 0;
     
+    // test horizontal
     for (int j = 0; j < gb.col; ++j) {
-        rooth = -1; // reinitialisation diamant en debut de ligne
-        rootv = -1; // reinitialisation diamant en debut de colonne
+        root = -1; // reinitialisation diamant en debut de ligne
         for (int i = 0; i < gb.row; ++i) {
-            // test horizontal
             index = index_2D1D(i, j, gb.row);
             tmp = gb.dmds[index];
 
-            if (tmp.type == rooth) {
-                ++counth;
+            if (tmp.type == root) {
+                ++count;
             } else {
-                if (counth >= 3) {
+                if (count >= 3) {
                     --index;
-                    for (int y = 0; y < counth; ++y)
+                    for (int y = 0; y < count; ++y)
                         array_insert(index-y, gb.expl, gb.nb_expl, gb.col*gb.row);
                 }
-                rooth = tmp.type;
-                counth = 1;
-            }
-
-            // test vertical
-            index = index_2D1D(j, i, gb.row);
-            tmp = gb.dmds[index];
-
-            if (tmp.type == rootv) {
-                ++countv;
-            } else {
-                if (countv >= 3) {
-                    if (i == 0)
-                        index = index_2D1D(j-1, gb.col-1, gb.row);
-                    else
-                        index -= gb.row;
-                    for (int y = 0; y < countv; ++y)
-                        array_insert(index-y*gb.row, gb.expl, gb.nb_expl, gb.col*gb.row);
-                }
-                rootv = tmp.type;
-                countv = 1;
+                root = tmp.type;
+                count = 1;
             }
         }
     }
 
-    if (counth >= 3) {
-        for (int y = 0; y < counth; ++y)
+    if (count >= 3) {
+        for (int y = 0; y < count; ++y)
             array_insert(index-y, gb.expl, gb.nb_expl, gb.col*gb.row);
     }
 
-    if (countv >= 3) {
-        for (int y = 0; y < countv; ++y)
+    count = 1;
+
+    // test vertical
+    for (int i = 0; i < gb.row; ++i) {
+        root = -1;
+        for (int j = 0; j < gb.col; ++j) {
+            index = index_2D1D(i, j, gb.row);
+            tmp = gb.dmds[index];
+
+            if (tmp.type == root) {
+                ++count;
+            } else {
+                if (count >= 3) {
+                    if (j == 0)
+                        index = index_2D1D(i-1, gb.col-1, gb.row);
+                    else
+                        index = index_2D1D(i, j-1, gb.row);
+                    for (int y = 0; y < count; ++y)
+                        array_insert(index-y*gb.row, gb.expl, gb.nb_expl, gb.col*gb.row);
+                }
+                root = tmp.type;
+                count = 1;
+            }
+        }
+    }
+
+    if (count >= 3) {
+        for (int y = 0; y < count; ++y)
             array_insert(index-y*gb.row, gb.expl, gb.nb_expl, gb.col*gb.row);
     }
 
@@ -243,6 +247,7 @@ bool check_vpattern_3x2(gameboard &gb, int i, int j) {
         }
 
         if (equal(abc[0], abc[1], abc[2])) {
+            cout << "hihihihi" << endl;
             gb.index_sol = index_2D1D(j+relj, i+(off%2)*2, gb.row);
             return true;
         }
@@ -313,7 +318,7 @@ void solo_loop(SDL_Surface *ps) {
     int comboScore;
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb, 5, 5);
+    init_gameboard(gb, 6, 4);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
@@ -340,11 +345,11 @@ void solo_loop(SDL_Surface *ps) {
 			    } while ( check_explode(gb) );
 
                             cout << "score : " << score << endl;
-			    if (!check_solution(gb)) {
+			    /*if (!check_solution(gb)) {
 				;
 			    } else {
 				cout << '(' << gb.index_sol%8 << ';' << gb.index_sol/8 << ") est une solution" << endl;
-			    }
+                                }*/
 			}
 			
 			pSelected = 0;
