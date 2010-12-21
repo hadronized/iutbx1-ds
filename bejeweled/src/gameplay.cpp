@@ -339,7 +339,7 @@ void solo_loop(SDL_Surface *ps) {
     int comboScore;
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb, 8, 8);
+    init_gameboard(gb, 5, 12);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
@@ -369,7 +369,7 @@ void solo_loop(SDL_Surface *ps) {
 			    if (!check_solution(gb)) {
 				;
 			    } else {
-				cout << '(' << gb.index_sol%8 << ';' << gb.index_sol/8 << ") est une solution" << endl;
+				cout << '(' << gb.index_sol%gb.row << ';' << gb.index_sol/gb.row << ") est une solution" << endl;
                             }
 			}
 			
