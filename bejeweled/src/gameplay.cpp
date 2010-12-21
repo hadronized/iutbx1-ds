@@ -64,7 +64,7 @@ bool check_explode(gameboard &gb) {
         for (int i = 0; i < gb.row; ++i) {
             // test horizontal
             index = index_2D1D(i, j, gb.row);
-            tmp = gb.dmds[index];//query_diamond(gb, i, j);
+            tmp = gb.dmds[index];
 
             if (tmp.type == rooth) {
                 ++counth;
@@ -80,7 +80,7 @@ bool check_explode(gameboard &gb) {
 
             // test vertical
             index = index_2D1D(j, i, gb.row);
-            tmp = gb.dmds[index];//query_diamond(gb, j, i);
+            tmp = gb.dmds[index];
 
             if (tmp.type == rootv) {
                 ++countv;
@@ -313,7 +313,7 @@ void solo_loop(SDL_Surface *ps) {
     int comboScore;
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb, 8, 8);
+    init_gameboard(gb, 8, 5);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
