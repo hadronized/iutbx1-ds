@@ -172,7 +172,6 @@ bool check_pattern_h1(gameboard &gb, int i, int j) {
 
         if (equal(a, b, c)) {
             gb.index_sol = index_2D1D(i+1, j+1-symx, gb.row);
-            cout << "\th1" << endl;
             return true;
         }
     }
@@ -192,7 +191,6 @@ bool check_pattern_h2(gameboard &gb, int i, int j) {
             
         if (equal(a, b, c)) {
             gb.index_sol = index_2D1D(i+2, j+1-symx, gb.row);
-            cout << "\th2" << endl;
             return true;
         }
     }
@@ -206,7 +204,6 @@ bool check_pattern_h2(gameboard &gb, int i, int j) {
             
         if (equal(a, b, c)) {
             gb.index_sol = index_2D1D(i, j+1-symx, gb.row);
-            cout << "\th2" << endl;
             return true;
         }
     }
@@ -223,10 +220,9 @@ bool check_pattern_h3(gameboard &gb, int i, int j) {
     b = query_diamond(gb, i+3, j);
     for (int symy = 0; symy < 2; ++symy) { // symetrie sur l'axe y
         c = query_diamond(gb, i+2-symy, j);
-            
+
         if (equal(a, b, c)) {
             gb.index_sol = index_2D1D(i+3*symy, j, gb.row);
-            cout << "\th3" << endl;
             return true;
         }
     }
@@ -246,7 +242,6 @@ bool check_pattern_v1(gameboard &gb, int i, int j) {
 
         if (equal(a, b, c)) {
             gb.index_sol = index_2D1D(i+1-symy, j+1, gb.row);
-            cout << "\tv1" << endl;
             return true;
         }
     }
@@ -266,7 +261,6 @@ bool check_pattern_v2(gameboard &gb, int i, int j) {
             
         if (equal(a, b, c)) {
             gb.index_sol = index_2D1D(i+1-symy, j+2, gb.row);
-            cout << "\tv2" << endl;
             return true;
         }
     }
@@ -280,7 +274,6 @@ bool check_pattern_v2(gameboard &gb, int i, int j) {
             
         if (equal(a, b, c)) {
             gb.index_sol = index_2D1D(i+1-symy, j, gb.row);
-            cout << "\tv2" << endl;
             return true;
         }
     }
@@ -300,7 +293,6 @@ bool check_pattern_v3(gameboard &gb, int i, int j) {
             
         if (equal(a, b, c)) {
             gb.index_sol = index_2D1D(i, j+3*symx, gb.row);
-            cout << "\tv3" << endl;
             return true;
         }
     }
@@ -314,7 +306,8 @@ bool check_solution(gameboard &gb) {
             if (j < gb.col-1) {
                 if (check_pattern_h1(gb, i, j) || check_pattern_h2(gb, i, j))
                     return true;
-            } else if (i < gb.row-3) {
+            } 
+            if (i < gb.row-3) {
                 if (check_pattern_h3(gb, i, j))
                     return true;
             }
@@ -326,7 +319,8 @@ bool check_solution(gameboard &gb) {
             if (i < gb.row-1) {
                 if (check_pattern_v1(gb, i, j) || check_pattern_v2(gb, i, j))
                     return true;
-            } else if (j < gb.col-3) {
+            }
+            if (j < gb.col-3) {
                 if (check_pattern_h3(gb, i, j))
                     return true;
             }
