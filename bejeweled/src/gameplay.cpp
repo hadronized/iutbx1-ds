@@ -288,20 +288,16 @@ bool check_vpattern_4x1(gameboard &gb, int i, int j) {
 }
 
 bool check_solution(gameboard &gb) {
-    // test horizontal
-    for (int j = 0; j < gb.col-1; ++j) {
+    for (int j = 0; j < gb.col; ++j) {
         for (int i = 0; i < gb.row-2; ++i) {
-            if ( check_hpattern_3x2(gb, i, j) ) {
-                return true;
-            } else if ( check_vpattern_3x2(gb, j, i) ) {
-                return true;
-            } else if (i < gb.row-3 && j < gb.col) {
-                if ( check_hpattern_4x1(gb, i, j) ) {
+            if (j < gb.col-1) {
+                if ( check_hpattern_3x2(gb, i, j) || check_vpattern_3x2(gb, j, i))
                     return true;
-                } else if ( check_vpattern_4x1(gb, j, i) ) {
+            }
+            if (i < gb.row-3) {
+                if ( check_hpattern_4x1(gb, i, j) || check_vpattern_4x1(gb, j, i) )
                     return true;
-                }
-            } 
+            }
         }
     }
 
@@ -317,7 +313,7 @@ void solo_loop(SDL_Surface *ps) {
     int comboScore;
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb, 4, 6);
+    init_gameboard(gb, 8, 8);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));

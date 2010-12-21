@@ -211,7 +211,7 @@ bool check_vpattern_4x1(gameboard &gb, int i, int j);
 /* ******************** check_solution ***********************
    * bool check_solution(gameboard &gb);                     *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 12 Decembre 2010, v0.2                 *
+   * Dimitri Sabadie, 21 Decembre 2010, v0.3                 *
    ********************* Description *************************
    * Cette fonction permet de savoir si il existe encore une *
    * solution possible dans le jeu. Lorsque cette fonction   *
