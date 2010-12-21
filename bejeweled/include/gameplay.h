@@ -176,35 +176,35 @@ bool check_vpattern_4x1(gameboard &gb, int i, int j);
        i:0 1 2 3    0 1 2 3
     j	 
     :
-    0    D X D      X D X      Motif 3x2 : 1 (1 et 2)
+    0    D X D      X D X      Motif 3x2 : 1 (1 et 2) -> h11 et h12
     1    X D X      D X D
 
-    0    X X D      D D X      Motif 3x2 : 2 (1 et 2)
-    1    D D X      X X D
+    0    D D X      X X D      Motif 3x2 : 2 (1 et 2) -> h21 et h22
+    1    X X D      D D X
 
-    0    D X X      X D D      Motif 3x2 : 2 (3 et 4)
-    1    X D D      D X X
+    0    X D D      D X X      Motif 3x2 : 2 (3 et 4) -> h23 et h24
+    1    D X X      X D D
 
-    0    X D X X    X X D X    Motif 4x1 : 3 (1 et 2)
+    0    D X D D    D D X D    Motif 4x1 : 3 (1 et 2) -> h31 et h32
 
     -------------------------
 
-    0    X D        D X        Motif 3x2 : 1 (1 et 2)
-    1    D X        X D
-    2    X D        D X
-
-    0    D X        X D        Motif 3x2 : 2 (1 et 2)
-    1    D X        X D
-    2    X D        D X
-
-    0    D X        X D        Motif 3x2 : 2 (3 et 4)
+    0    D X        X D        Motif 3x2 : 1 (1 et 2) -> v11 et v12
     1    X D        D X
+    2    D X        X D
+
+    0    D X        X D        Motif 3x2 : 2 (1 et 2) -> v21 et v22
+    1    D X        X D
     2    X D        D X
 
-    0    X          X          Motif 4x1 : 3 (1 et 2)
-    1    D          X
-    2    X          D
-    3    X          X
+    0    X D        D X        Motif 3x2 : 2 (3 et 4) -> v23 et v24
+    1    D X        X D
+    2    D X        X D
+
+    0    D          D          Motif 4x1 : 3 (1 et 2) -> v31 et v32
+    1    X          D
+    2    D          X
+    3    D          D
 
    ========== MOTIFS ========= */
 

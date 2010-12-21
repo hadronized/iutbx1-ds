@@ -160,46 +160,19 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
     //draw_getdown(gb, ps);
 }
 
-bool check_hpattern_3x2(gameboard &gb, int i, int j) {
-    diamond abc[3];
-    int reli;
-    int relj;
-    int a = 0;
-    int b = 0;
+bool check_pattern_h1(gameboard &gb, int i, int j) {
+    diamond a, b, c;
 
-    // D X D  et  X D X
-    // X D X      D X D
-    for (int off = 0; off < 2; ++off) {
-        reli = 0;
-        relj = off;
-        while (reli < 3) {
-            abc[reli] = query_diamond(gb, i+reli, j+relj);
-            ++reli;
-            relj = 1-relj;
-        }
+    // premier passage dans la boucle : on teste le motif h11
+    // deuxieme passage dans la boucle : on teste le motif h12
+    for (int symx = 0; symx < 2; ++symx) { // symetrie sur l'axe x
+        a = query_diamond(gb, i, j+symx);
+        b = query_diamond(gb, i+1, j+1-symx);
+        c = query_diamond(gb, i+2, j+symx);
 
-        if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(i+1, j+relj, gb.row);
-            return true;
-        }
-    }
-
-    // X X D  et  D X X  et  X D D  et  D D X
-    // D D X      X D D      D X X      X X D
-    relj = 0;
-    for (int off = 0; off < 4; ++off) {
-        reli = 0;
-        
-        while (reli < 3) {
-            abc[reli] = query_diamond(gb, i+reli, j+relj);
-            ++reli;
-            relj = 1-a;
-            a = b;
-            b = relj;
-        }
-
-        if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(i+(off%2)*2, j+relj, gb.row);
+        if (equal(a, b, c)) {
+            gb.index_sol = index_2D1D(i+1, j+1-symx, gb.row);
+            cout << "\th1" << endl;
             return true;
         }
     }
@@ -207,47 +180,33 @@ bool check_hpattern_3x2(gameboard &gb, int i, int j) {
     return false;
 }
 
-bool check_vpattern_3x2(gameboard &gb, int i, int j) {
-    diamond abc[3];
-    int reli;
-    int relj;
-    int a = 0;
-    int b = 0;
+bool check_pattern_h2(gameboard &gb, int i, int j) {
+    diamond a, b, c;
 
-    // D X D  et  X D X
-    // X D X      D X D
-    for (int off = 0; off < 2; ++off) {
-        reli = 0;
-        relj = off;
-        while (reli < 3) {
-            abc[reli] = query_diamond(gb, j+relj, i+reli);
-            ++reli;
-            relj = 1-relj;
-        }
-
-        if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(j+relj, i+1, gb.row);
+    // premier passage dans la boucle : on teste le motif h21
+    // deuxieme passage dans la boucle : on teste le motif h22
+    for (int symx = 0; symx < 2; ++symx) { // symetrie sur l'axe x
+        a = query_diamond(gb, i, j+symx);
+        b = query_diamond(gb, i+1, j+symx);
+        c = query_diamond(gb, i+2, j+1-symx);
+            
+        if (equal(a, b, c)) {
+            gb.index_sol = index_2D1D(i+2, j+1-symx, gb.row);
+            cout << "\th2" << endl;
             return true;
         }
     }
 
-    // X X D  et  D X X  et  X D D  et  D D X
-    // D D X      X D D      D X X      X X D
-    relj = 0;
-    for (int off = 0; off < 4; ++off) {
-        reli = 0;
-        
-        while (reli < 3) {
-            abc[reli] = query_diamond(gb, j+relj, i+reli);
-            ++reli;
-            relj = 1-a;
-            a = b;
-            b = relj;
-        }
-
-        if (equal(abc[0], abc[1], abc[2])) {
-            cout << "hihihihi" << endl;
-            gb.index_sol = index_2D1D(j+relj, i+(off%2)*2, gb.row);
+    // premier passage dans la boucle : on teste le motif h23
+    // deuxieme passage dans la boucle : on teste le motif h24
+    for (int symx = 0; symx < 2; ++symx) { // symetrie sur l'axe x
+        a = query_diamond(gb, i, j+1-symx);
+        b = query_diamond(gb, i+1, j+symx);
+        c = query_diamond(gb, i+2, j+symx);
+            
+        if (equal(a, b, c)) {
+            gb.index_sol = index_2D1D(i, j+1-symx, gb.row);
+            cout << "\th2" << endl;
             return true;
         }
     }
@@ -255,17 +214,19 @@ bool check_vpattern_3x2(gameboard &gb, int i, int j) {
     return false;
 }
 
-bool check_hpattern_4x1(gameboard &gb, int i, int j) {
-    diamond abc[3];
+bool check_pattern_h3(gameboard &gb, int i, int j) {
+    diamond a, b, c;
 
-    // D X D D  et  D D X D
-    for (int off = 0; off < 2; ++off) {
-        abc[0] = query_diamond(gb, i, j);
-        abc[1] = query_diamond(gb, i+3, j);
-        abc[2] = query_diamond(gb, i+off+1, j);
-
-        if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(i+(1-off)*3, j, gb.row);
+    // premier passage dans la boucle : on teste le motif h31
+    // deuxieme passage dans la boucle : on teste le motif h32
+    a = query_diamond(gb, i, j);
+    b = query_diamond(gb, i+3, j);
+    for (int symy = 0; symy < 2; ++symy) { // symetrie sur l'axe y
+        c = query_diamond(gb, i+2-symy, j);
+            
+        if (equal(a, b, c)) {
+            gb.index_sol = index_2D1D(i+3*symy, j, gb.row);
+            cout << "\th3" << endl;
             return true;
         }
     }
@@ -273,17 +234,73 @@ bool check_hpattern_4x1(gameboard &gb, int i, int j) {
     return false;
 }
 
-bool check_vpattern_4x1(gameboard &gb, int i, int j) {
-    diamond abc[3];
+bool check_pattern_v1(gameboard &gb, int i, int j) {
+    diamond a, b, c;
 
-    // D X D D  et  D D X D
-    for (int off = 0; off < 2; ++off) {
-        abc[0] = query_diamond(gb, i, j);
-        abc[1] = query_diamond(gb, i, j+3);
-        abc[2] = query_diamond(gb, i, j+off+1);
+    // premier passage dans la boucle : on teste le motif v11
+    // deuxieme passage dans la boucle : on teste le motif v12
+    for (int symy = 0; symy < 2; ++symy) { // symetrie sur l'axe y
+        a = query_diamond(gb, i+symy, j);
+        b = query_diamond(gb, i+1-symy, j+1);
+        c = query_diamond(gb, i+symy, j+2);
 
-        if (equal(abc[0], abc[1], abc[2])) {
-            gb.index_sol = index_2D1D(i, j+(1-off)*3, gb.row);
+        if (equal(a, b, c)) {
+            gb.index_sol = index_2D1D(i+1-symy, j+1, gb.row);
+            cout << "\tv1" << endl;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool check_pattern_v2(gameboard &gb, int i, int j) {
+    diamond a, b, c;
+
+    // premier passage dans la boucle : on teste le motif v21
+    // deuxieme passage dans la boucle : on teste le motif v22
+    for (int symy = 0; symy < 2; ++symy) { // symetrie sur l'axe y
+        a = query_diamond(gb, i+symy, j);
+        b = query_diamond(gb, i+symy, j+1);
+        c = query_diamond(gb, i+1-symy, j+2);
+            
+        if (equal(a, b, c)) {
+            gb.index_sol = index_2D1D(i+1-symy, j+2, gb.row);
+            cout << "\tv2" << endl;
+            return true;
+        }
+    }
+
+    // premier passage dans la boucle : on teste le motif v23
+    // deuxieme passage dans la boucle : on teste le motif v24
+    for (int symy = 0; symy < 2; ++symy) { // symetrie sur l'axe y
+        a = query_diamond(gb, i+1-symy, j);
+        b = query_diamond(gb, i+symy, j+1);
+        c = query_diamond(gb, i+symy, j+2);
+            
+        if (equal(a, b, c)) {
+            gb.index_sol = index_2D1D(i+1-symy, j, gb.row);
+            cout << "\tv2" << endl;
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool check_pattern_v3(gameboard &gb, int i, int j) {
+    diamond a, b, c;
+
+    // premier passage dans la boucle : on teste le motif v31
+    // deuxieme passage dans la boucle : on teste le motif v32
+    a = query_diamond(gb, i, j);
+    b = query_diamond(gb, i, j+3);
+    for (int symx = 0; symx < 2; ++symx) { // symetrie sur l'axe x
+        c = query_diamond(gb, i, j+2-symx);
+            
+        if (equal(a, b, c)) {
+            gb.index_sol = index_2D1D(i, j+3*symx, gb.row);
+            cout << "\tv3" << endl;
             return true;
         }
     }
@@ -295,11 +312,22 @@ bool check_solution(gameboard &gb) {
     for (int j = 0; j < gb.col; ++j) {
         for (int i = 0; i < gb.row-2; ++i) {
             if (j < gb.col-1) {
-                if ( check_hpattern_3x2(gb, i, j) || check_vpattern_3x2(gb, j, i))
+                if (check_pattern_h1(gb, i, j) || check_pattern_h2(gb, i, j))
+                    return true;
+            } else if (i < gb.row-3) {
+                if (check_pattern_h3(gb, i, j))
                     return true;
             }
-            if (i < gb.row-3) {
-                if ( check_hpattern_4x1(gb, i, j) || check_vpattern_4x1(gb, j, i) )
+        }
+    }
+
+    for (int i = 0; i < gb.row; ++i) {
+        for (int j = 0; j < gb.col-2; ++j) {
+            if (i < gb.row-1) {
+                if (check_pattern_v1(gb, i, j) || check_pattern_v2(gb, i, j))
+                    return true;
+            } else if (j < gb.col-3) {
+                if (check_pattern_h3(gb, i, j))
                     return true;
             }
         }
@@ -344,11 +372,11 @@ void solo_loop(SDL_Surface *ps) {
 			    } while ( check_explode(gb) );
 
                             cout << "score : " << score << endl;
-			    /*if (!check_solution(gb)) {
+			    if (!check_solution(gb)) {
 				;
 			    } else {
 				cout << '(' << gb.index_sol%8 << ';' << gb.index_sol/8 << ") est une solution" << endl;
-                                }*/
+                            }
 			}
 			
 			pSelected = 0;
