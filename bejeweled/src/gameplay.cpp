@@ -308,7 +308,7 @@ bool check_solution(gameboard &gb) {
     return false;
 }
 
-bool main_loop(SDL_Surface *ps) {
+void solo_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
     gameboard gb;
@@ -362,7 +362,6 @@ bool main_loop(SDL_Surface *ps) {
     }
 
     free_theme(gb);
-    return true;
 }
 
 bool cursor_in_grid(SDL_Event e, gameboard const &gb) {

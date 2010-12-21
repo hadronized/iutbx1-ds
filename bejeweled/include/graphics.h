@@ -29,6 +29,7 @@
 #include "gameplay.h"
 
 using namespace std;
+
 int const  SCREEN_WIDTH   = 720;
 int const  SCREEN_HEIGHT  = 480;
 int const  SCREEN_DEPTH   = 32;
