@@ -81,10 +81,9 @@ bool check_explode(gameboard &gb) {
         for (int y = 0; y < count; ++y)
             array_insert(index-y, gb.expl, gb.nb_expl, gb.col*gb.row);
     }
-
-    count = 1;
-
+    
     // test vertical
+    count = 1;
     for (int i = 0; i < gb.row; ++i) {
         root = -1;
         for (int j = 0; j < gb.col; ++j) {
@@ -95,7 +94,7 @@ bool check_explode(gameboard &gb) {
                 ++count;
             } else {
                 if (count >= 3) {
-                    if (j == 0)
+                    if (j == 0) // j-1 risque de ne pas etre apprecie ici, d'ou ce test ;)
                         index = index_2D1D(i-1, gb.col-1, gb.row);
                     else
                         index = index_2D1D(i, j-1, gb.row);
@@ -125,7 +124,7 @@ void explode(gameboard &gb, SDL_Surface *ps) {
     sub.w = DIAMOND_SIZE;
     sub.h = DIAMOND_SIZE;
 
-    for (int y = 0; y < 9; ++y) {
+    for (int y = 0; y < 9; ++y) { // attention constante magique moche : 9, car 9 frames par explosion ...
         sub.x = y*DIAMOND_SIZE;
         for (int i = 0; i < gb.nb_expl; ++i) {
             index_1D2D(gb.expl[i], tmpx, tmpy, gb.row);
@@ -318,7 +317,7 @@ void solo_loop(SDL_Surface *ps) {
     int comboScore;
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb, 6, 4);
+    init_gameboard(gb, 8, 8);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
