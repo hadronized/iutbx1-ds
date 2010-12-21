@@ -101,6 +101,6 @@ bool is_near(diamond const &a, diamond const &b);
    *********************************************************** */
 void diamond_swap(diamond &a, diamond &b);
 
-void move_diamond(diamond &d, int x, int y);
+bool equal(diamond a, diamond b, diamond c);
 
 #endif // guard

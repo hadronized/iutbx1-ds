@@ -131,6 +131,19 @@ void free_theme(gameboard &gb) {
     }
 }
 
+void show_gameboard(gameboard &gb, SDL_Surface *ps) {
+    diamond d;
+    
+    draw_game_wp(gb, 0, ps);
+    draw_grid(gb, ps);
+    for (int j = 0; j < gb.col; ++j) {
+        for (int i = 0; i < gb.row; ++i) {
+	    d = query_diamond(gb, i, j);
+            draw_diamond(gb, d, ps);
+        }
+    }
+}
+
 void draw_game_wp(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps) {
     SDL_BlitSurface(gb.game_wp, sub, ps, sub);
 }

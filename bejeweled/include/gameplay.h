@@ -28,6 +28,91 @@
 int const GRID_WIDTH   = 480;
 int const GRID_HEIGHT  = 480;
 
+/* ********************* check_explode ***********************
+   * void check_explode(gameboard &gb);                      *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 21 novembre 2010, v0.3                 *
+   ********************* Description *************************
+   * Cette fonction parcourt la matrice de diamants et       *
+   * marque les diamants a faire exploser.                   *
+   *********************** Entrees ***************************
+   * `gb' : reference sur le plateau ou chercher les         *
+   *        diamants pouvant generer une explosion           *
+   *********************** Sorties ***************************
+   * `bool' : si aucun diamant n'a ete marque, cette         *
+   *          fonction retourne false, sinon true            *
+   *********************************************************** */
+bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps);
+
+/* ********************* check_explode ***********************
+   * void check_explode(gameboard &gb);                      *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 21 novembre 2010, v0.3                 *
+   ********************* Description *************************
+   * Cette fonction parcourt la matrice de diamants et       *
+   * marque les diamants a faire exploser.                   *
+   *********************** Entrees ***************************
+   * `gb' : reference sur le plateau ou chercher les         *
+   *        diamants pouvant generer une explosion           *
+   *********************** Sorties ***************************
+   * `bool' : si aucun diamant n'a ete marque, cette         *
+   *          fonction retourne false, sinon true            *
+   *********************************************************** */
+bool check_explode(gameboard &gb);
+
+void explode(gameboard &gb, SDL_Surface *ps);
+
+void get_down(gameboard &gb, SDL_Surface *ps);
+
+
+bool check_hpattern_3x2(gameboard &gb, int i, int j);
+
+bool check_vpattern_3x2(gameboard &gb, int i, int j);
+
+bool check_hpattern_4x1(gameboard &gb, int i, int j);
+
+bool check_vpattern_4x1(gameboard &gb, int i, int j);
+
+/*
+       i:0 1 2 3    0 1 2 3
+    j	 
+    :
+    0    D X D      X D X
+    1    X D X      D X D
+
+    0    X X D      D D X
+    1    D D X      X X D
+
+    0    D X X      X D D
+    1    X D D      D X X
+
+    0    X D X X    X X D X
+
+    -------------------------
+
+    0    X D        D X
+    1    D X        X D
+    2    X D        D X
+
+    0    D X        X D
+    1    D X        X D
+    2    X D        D X
+
+    0    D X        X D
+    1    X D        D X
+    2    X D        D X
+
+    0    X          X
+    1    D          X
+    2    X          D
+    3    X          X
+
+
+    16 combinaisons possibles
+*/
+
+bool check_solution(gameboard &gb);
+
 // Fonction qui contient la boule de jeu principale
 bool main_loop(SDL_Surface *ps);
 
