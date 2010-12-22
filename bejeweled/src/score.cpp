@@ -27,7 +27,7 @@
 
 TTF_Font * init_font() {
     TTF_Font *pf;
-    pf = TTF_OpenFont("themes/default/Hawaii_Killer.ttf", 40);
+    pf = TTF_OpenFont("themes/default/Starjedi.ttf", 32);
 
     if (!pf)
 	cerr << "Erreur de chargement de la police !" << endl;
