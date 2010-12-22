@@ -384,8 +384,8 @@ void solo_loop(SDL_Surface *ps) {
 	}
 	
         if (SDL_GetTicks() - t0 >= MS_BEFORE_SOLUTION) {
+            draw_solution(gb, ps);
             t0 = SDL_GetTicks();
-            cout << "une solution ? : (" << gb.index_sol%gb.row << ';' << gb.index_sol/gb.row << ')' << endl;
         }
 
 	show_gameboard(gb, ps);

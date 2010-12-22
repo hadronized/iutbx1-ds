@@ -212,4 +212,20 @@ void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SD
    *********************************************************** */
 void draw_getdown(gameboard &gb, SDL_Surface *ps); // a compléter ! :)
 
+/* ******************** draw_solution ************************
+   * A COMPLETER
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 22 Decembre 2010, v0.1                 *
+   ********************* Description *************************
+   * Attire l'attention du joueur sur un diamant en          *
+   * particulier dans le but de lui indiquer qu'il s'agit    *
+   * d'une solution.                                         *
+   *********************** Entrees ***************************
+   * `gb'  : plateau contenant une solution                  *
+   * `ps'  : pointeur sur la surface ou dessiner la solution *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+void draw_solution(gameboard &gb, SDL_Surface *ps);
+
 #endif // guard
