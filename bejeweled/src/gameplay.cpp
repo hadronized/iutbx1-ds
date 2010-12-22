@@ -23,7 +23,6 @@
 #include "gameplay.h"
 #include "array.h"
 #include "menu.h"
-#include "temps.h"
 
 
 using namespace std;

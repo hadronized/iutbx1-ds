@@ -24,7 +24,6 @@
 #include <string>
 #include "gameplay.h"
 #include "menu.h"
-#include "temps.h"
 #include <cmath>
 
 using namespace std;
