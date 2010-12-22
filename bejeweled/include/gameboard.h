@@ -106,7 +106,7 @@ bool check_explode(gameboard &gb);
 
 bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps);
 
-void show_gameboard(gameboard &gb, SDL_Surface *ps);
+void show_gameboard(gameboard &gb, SDL_Surface *ps, int score);
 
 void explode(gameboard &gb, SDL_Surface *ps);
 

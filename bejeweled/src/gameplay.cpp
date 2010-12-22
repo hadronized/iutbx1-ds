@@ -34,7 +34,7 @@ bool main_loop(SDL_Surface *ps) {
     int comboScore;
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb, 4, 6);
+    init_gameboard(gb, 8, 8);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
@@ -55,7 +55,7 @@ bool main_loop(SDL_Surface *ps) {
                                 score += gb.nb_expl * comboScore;
                                 ++comboScore;
 
-				show_gameboard(gb, ps);
+				show_gameboard(gb, ps, score);
                                 explode(gb, ps);
 				get_down(gb, ps);
 			    } while ( check_explode(gb) );
@@ -74,7 +74,7 @@ bool main_loop(SDL_Surface *ps) {
             }
 	}
 	
-	show_gameboard(gb, ps);
+	show_gameboard(gb, ps, score);
         SDL_Flip(ps);
     }
 

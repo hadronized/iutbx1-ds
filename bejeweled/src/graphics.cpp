@@ -22,6 +22,8 @@
 #include <iostream> // cerr
 #include "algorithm.h"
 #include "graphics.h"
+#include "gameboard.h"
+
 
 using namespace std;
 
@@ -171,6 +173,7 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     int x;
     int y;
     int vy = 1;
+    int score=0;
     diamond *pd;
 
     for (int move = 0; move < DIAMOND_SIZE; ++move) {
@@ -183,7 +186,7 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
             }
         }
 
-        show_gameboard(gb, ps);
+        show_gameboard(gb, ps, score);
         SDL_Flip(ps);
         //cin.ignore(1024, '\n');
     }

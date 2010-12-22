@@ -20,12 +20,14 @@
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <cstdlib> // pour rand()
+#include <sstream>
+#include <iostream> // pour tests uniquement
 #include "algorithm.h"
 #include "gameboard.h"
 #include "graphics.h"
 #include "array.h"
+#include "score.h"
 
-#include <iostream> // pour tests uniquement
 using namespace std;
 
 void init_gameboard(gameboard &gb, int col, int row) {
@@ -69,9 +71,8 @@ diamond & query_diamond(gameboard &gb, int x, int y) {
     return gb.dmds[index_2D1D(x, y, gb.row)];
 }
 
-void show_gameboard(gameboard &gb, SDL_Surface *ps) {
+void show_gameboard(gameboard &gb, SDL_Surface *ps, int score) {
     diamond d;
-    
     draw_game_wp(gb, 0, ps);
     draw_grid(gb, ps);
     for (int j = 0; j < gb.col; ++j) {
@@ -80,6 +81,15 @@ void show_gameboard(gameboard &gb, SDL_Surface *ps) {
             draw_diamond(gb, d, ps);
         }
     }
+    
+    TTF_Font *pFont = 0;
+    TTF_Init();
+    pFont = init_font();
+    if (!pFont)
+	cerr << "Police non initialisée" << endl;
+	scores(pFont,ps,score);
+	 
+	
 }
 
 bool check_explode(gameboard &gb) {

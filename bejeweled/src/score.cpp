@@ -20,3 +20,44 @@
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include "score.h"
+#include "graphics.h"
+#include "gameboard.h"
+#include <iostream>
+#include <sstream>
+
+TTF_Font * init_font() {
+    TTF_Font *pf;
+    pf = TTF_OpenFont("themes/default/Hawaii_Killer.ttf", 40);
+
+    if (!pf)
+	cerr << "Erreur de chargement de la police !" << endl;
+    return pf;
+}
+
+void free_font(TTF_Font *pf) {
+    if (pf)
+	TTF_CloseFont(pf);
+}
+
+void scores(TTF_Font *f, SDL_Surface *ps, int score)
+{
+ 
+    SDL_Rect pos;
+	SDL_Surface *scoreFont;
+	SDL_Color colorFont = {255,255,255,255};
+	stringstream sstr;
+
+    sstr << "Score : " << score;
+    
+	scoreFont = TTF_RenderText_Solid( f, sstr.str().c_str(), colorFont );
+	
+	if (!scoreFont)
+	cerr << "Surface score non generee" << endl;
+	scoreFont = TTF_RenderText_Solid( f, sstr.str().c_str(), colorFont );
+	
+	pos.x = 500;
+	pos.y = 200;
+    
+    SDL_BlitSurface(scoreFont, 0, ps, &pos);
+    SDL_FreeSurface(scoreFont);   
+}

@@ -21,5 +21,11 @@
 
 #ifndef SCORE_H
 #define SCORE_H
+#include "graphics.h"
+
+
+TTF_Font * init_font();
+void free_font(TTF_Font *pf);
+void scores(TTF_Font *f, SDL_Surface *ps, int score);
 
 #endif // guard
