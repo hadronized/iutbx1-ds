@@ -98,15 +98,14 @@ void explode(gameboard &gb, SDL_Surface *ps);
    *********************************************************** */
 void get_down(gameboard &gb, SDL_Surface *ps);
 
-/* ******************* check_hpattern_3x2 ********************
-   * bool check_hpattern_3x2(gameboard &gb, int i, int j);   *
+/* ******************** check_pattern_h1 *********************
+   * bool check_pattern_h1(gameboard &gb, int i, int j);     *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 12 Decembre 2010, v0.6                 *
+   * Dimitri Sabadie, 22 Decembre 2010, v0.6                 *
    ********************* Description *************************
-   * Cette fonction permet de determiner si il existe au     *
-   * moins une solution horizontale en se basant sur les     *
-   * motifs 3*2. Voir la section "Motifs" plus bas dans le   *
-   * code pour plus d'informations.                          *
+   * Cette fonction permet de determiner si il existe un     *
+   * motif h11 ou h12 à la position demandée dans la         *
+   * matrice de diamants.                                    *
    *********************** Entrees ***************************
    * `gb' : plateau ou chercher une solution                 *
    * `i'  : indice ligne debut motif                         *
@@ -114,17 +113,16 @@ void get_down(gameboard &gb, SDL_Surface *ps);
    *********************** Sorties ***************************
    * `bool' : true si un motif est trouve, false sinon       *
    *********************************************************** */
-bool check_hpattern_3x2(gameboard &gb, int i, int j);
+bool check_pattern_h1(gameboard &gb, int i, int j);
 
-/* ******************* check_vpattern_3x2 ********************
-   * bool check_vpattern_3x2(gameboard &gb, int i, int j);   *
+/* ******************** check_pattern_h2 *********************
+   * bool check_pattern_h2(gameboard &gb, int i, int j);     *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 12 Decembre 2010, v0.6                 *
+   * Dimitri Sabadie, 22 Decembre 2010, v0.6                 *
    ********************* Description *************************
-   * Cette fonction permet de determiner si il existe au     *
-   * moins une solution verticale en se basant sur les       *
-   * motifs 3*2. Voir la section "Motifs" plus bas dans le   *
-   * code pour plus d'informations.                          *
+   * Cette fonction permet de determiner si il existe un     *
+   * motif h21, h22, h23 et h24 à la position demandée dans  *
+   * la matrice de diamants.                                 *
    *********************** Entrees ***************************
    * `gb' : plateau ou chercher une solution                 *
    * `i'  : indice ligne debut motif                         *
@@ -132,17 +130,16 @@ bool check_hpattern_3x2(gameboard &gb, int i, int j);
    *********************** Sorties ***************************
    * `bool' : true si un motif est trouve, false sinon       *
    *********************************************************** */
-bool check_vpattern_3x2(gameboard &gb, int i, int j);
+bool check_pattern_h2(gameboard &gb, int i, int j);
 
-/* ******************* check_hpattern_4x1 ********************
-   * bool check_hpattern_4x1(gameboard &gb, int i, int j);   *
+/* ******************** check_pattern_h3 *********************
+   * bool check_pattern_h3(gameboard &gb, int i, int j);     *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 12 Decembre 2010, v0.6                 *
+   * Dimitri Sabadie, 22 Decembre 2010, v0.6                 *
    ********************* Description *************************
-   * Cette fonction permet de determiner si il existe au     *
-   * moins une solution horizontale en se basant sur les     *
-   * motifs 4*1. Voir la section "Motifs" plus bas dans le   *
-   * code pour plus d'informations.                          *
+   * Cette fonction permet de determiner si il existe un     *
+   * motif h31, h32 à la position demandée dans la matrice   *
+   * de diamants.                                            *
    *********************** Entrees ***************************
    * `gb' : plateau ou chercher une solution                 *
    * `i'  : indice ligne debut motif                         *
@@ -150,17 +147,16 @@ bool check_vpattern_3x2(gameboard &gb, int i, int j);
    *********************** Sorties ***************************
    * `bool' : true si un motif est trouve, false sinon       *
    *********************************************************** */
-bool check_hpattern_4x1(gameboard &gb, int i, int j);
+bool check_pattern_h3(gameboard &gb, int i, int j);
 
-/* ******************* check_vpattern_4x1 ********************
-   * bool check_vpattern_4x1(gameboard &gb, int i, int j);   *
+/* ******************** check_pattern_v1 *********************
+   * bool check_pattern_v1(gameboard &gb, int i, int j);     *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 12 Decembre 2010, v0.6                 *
+   * Dimitri Sabadie, 22 Decembre 2010, v0.6                 *
    ********************* Description *************************
-   * Cette fonction permet de determiner si il existe au     *
-   * moins une solution verticale en se basant sur les       *
-   * motifs 4*1. Voir la section "Motifs" plus bas dans le   *
-   * code pour plus d'informations.                          *
+   * Cette fonction permet de determiner si il existe un     *
+   * motif v11 ou v12 à la position demandée dans la         *
+   * matrice de diamants.                                    *
    *********************** Entrees ***************************
    * `gb' : plateau ou chercher une solution                 *
    * `i'  : indice ligne debut motif                         *
@@ -168,8 +164,41 @@ bool check_hpattern_4x1(gameboard &gb, int i, int j);
    *********************** Sorties ***************************
    * `bool' : true si un motif est trouve, false sinon       *
    *********************************************************** */
-bool check_vpattern_4x1(gameboard &gb, int i, int j);
+bool check_pattern_v1(gameboard &gb, int i, int j);
 
+/* ******************** check_pattern_v2 *********************
+   * bool check_pattern_v2(gameboard &gb, int i, int j);     *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 22 Decembre 2010, v0.6                 *
+   ********************* Description *************************
+   * Cette fonction permet de determiner si il existe un     *
+   * motif v21, v22, v23 et v24 à la position demandée dans  *
+   * la matrice de diamants.                                 *
+   *********************** Entrees ***************************
+   * `gb' : plateau ou chercher une solution                 *
+   * `i'  : indice ligne debut motif                         *
+   * `j'  : indice colonne debut motif                       *
+   *********************** Sorties ***************************
+   * `bool' : true si un motif est trouve, false sinon       *
+   *********************************************************** */
+bool check_pattern_v2(gameboard &gb, int i, int j);
+
+/* ******************** check_pattern_v3 *********************
+   * bool check_pattern_v3(gameboard &gb, int i, int j);     *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 22 Decembre 2010, v0.6                 *
+   ********************* Description *************************
+   * Cette fonction permet de determiner si il existe un     *
+   * motif v31, v32 à la position demandée dans la matrice   *
+   * de diamants.                                            *
+   *********************** Entrees ***************************
+   * `gb' : plateau ou chercher une solution                 *
+   * `i'  : indice ligne debut motif                         *
+   * `j'  : indice colonne debut motif                       *
+   *********************** Sorties ***************************
+   * `bool' : true si un motif est trouve, false sinon       *
+   *********************************************************** */
+bool check_pattern_v3(gameboard &gb, int i, int j);
 
 /* ========== MOTIFS =========
 

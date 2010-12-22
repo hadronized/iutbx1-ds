@@ -65,4 +65,3 @@ void init_gameboard(gameboard &gb, int col, int row) {
 diamond & query_diamond(gameboard &gb, int x, int y) {
     return gb.dmds[index_2D1D(x, y, gb.row)];
 }
-
