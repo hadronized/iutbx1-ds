@@ -25,6 +25,8 @@
 #include "gameboard.h"
 #include "graphics.h"
 
+Uint32 const MS_BEFORE_SOLUTION = 10000; // 10 secondes avant de montrer une solution
+
 /* *********************** try_swap **************************
    * bool try_swap(gameboard &gb, diamond &a, diamond &b,    *
    *               SDL_Surface *ps);                         *

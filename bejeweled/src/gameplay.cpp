@@ -337,22 +337,25 @@ void solo_loop(SDL_Surface *ps) {
     diamond *pSelected = 0;
     int score = 0;
     int comboScore;
+    Uint32 t0;
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb, 5, 12);
+    init_gameboard(gb, 8, 8);
+
+    t0 = SDL_GetTicks();
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
 
 	while (SDL_PollEvent(&event)) {
 	    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-                quit = true;
+                quit = true; // on quitte le jeu -> retour au menu principal
             if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
                 if (cursor_in_grid(event, gb)) {
-                    if (!pSelected) {
+                    if (!pSelected) { // si aucun diamant n'était selectionné prealablement ...
                         pSelected = &query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE);
                         pSelected->sub.y = DIAMOND_SIZE;
-                    } else {
+                    } else { // sinon, c'est que l'on en selectionne un deuxième -> on tente donc un echange
                         pSelected->sub.y = 0;
                         if ( try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps) ) {
                             comboScore = 1;
@@ -361,15 +364,16 @@ void solo_loop(SDL_Surface *ps) {
                                 ++comboScore;
 
 				show_gameboard(gb, ps);
+                                // afficher le score uniquement ici
+                                cout << "score : " << score << endl;
                                 explode(gb, ps);
 				get_down(gb, ps);
 			    } while ( check_explode(gb) );
 
-                            cout << "score : " << score << endl;
-			    if (!check_solution(gb)) {
-				;
+			    if (check_solution(gb)) {
+				t0 = SDL_GetTicks();
 			    } else {
-				cout << '(' << gb.index_sol%gb.row << ';' << gb.index_sol/gb.row << ") est une solution" << endl;
+				;
                             }
 			}
 			
@@ -379,6 +383,11 @@ void solo_loop(SDL_Surface *ps) {
             }
 	}
 	
+        if (SDL_GetTicks() - t0 >= MS_BEFORE_SOLUTION) {
+            t0 = SDL_GetTicks();
+            cout << "une solution ? : (" << gb.index_sol%gb.row << ';' << gb.index_sol/gb.row << ')' << endl;
+        }
+
 	show_gameboard(gb, ps);
         SDL_Flip(ps);
     }
