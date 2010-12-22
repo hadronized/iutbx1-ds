@@ -371,10 +371,14 @@ void solo_loop(SDL_Surface *ps) {
                                     get_down(gb, ps);
                                 } while ( check_explode(gb) );
 
-                                if (check_solution(gb)) {
-                                    t0 = SDL_GetTicks();
-                                } else {
+                                t0 = SDL_GetTicks();
+
+                                if (check_solution(gb)) { // il reste des solutions
                                     ;
+                                } else { // plus de solution
+                                    // verifier la presence de bonus reanimation
+                                    // si pas de bonus
+                                    quit = true;
                                 }
                             }
 			
