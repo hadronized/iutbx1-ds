@@ -210,12 +210,13 @@ void draw_solution(gameboard &gb, SDL_Surface *ps) {
     diamond *pd = &gb.dmds[gb.index_sol];
 
     for (int blink = 1; blink < 11; ++blink) {
-        pd->sub.y = (blink%2)*DIAMOND_SIZE;
+        pd->sub.y = DIAMOND_SIZE - pd->sub.y;
         draw_game_wp(gb, 0, ps);
         draw_grid(gb, ps);
         draw_diamond(gb, *pd, ps);
         SDL_UpdateRect(ps, pd->box.x, pd->box.y, pd->box.w, pd->box.h);
         SDL_Delay(150);
     }
-        
+    
+    pd->sub.y = 0;
 }
