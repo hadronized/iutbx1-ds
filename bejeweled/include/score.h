@@ -24,8 +24,35 @@
 #include "graphics.h"
 
 
-TTF_Font * init_font();
-void free_font(TTF_Font *pf);
 void scores(TTF_Font *f, SDL_Surface *ps, int score);
+
+void free_font(TTF_Font *pf);
+
+/* *********************** free_font *************************
+   * void free_font(TTF_Font *pf);                           *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 13  Decembre 2010, v0.1                *
+   *********************** Description ***********************
+   * Cette fonction libere une police deja initialisée      *
+   *********************** Entrees ***************************
+   * `pf'  : pointeur sur la police precedement initialisée  *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+
+TTF_Font * init_font();
+
+/* *********************** init_font()   *********************
+   * TTF_Font * init_font();                                *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 13  Decembre 2010, v0.1                *
+   *********************** Description ***********************
+   * Cette fonction d'initialiser une police                 *
+   *********************** Entrees ***************************
+   *                                                         *
+   *********************** Sorties ***************************
+   * `pf' : retourne la police initialisée                   *
+   *********************************************************** */
+
 
 #endif // guard

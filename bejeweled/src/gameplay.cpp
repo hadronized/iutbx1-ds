@@ -32,12 +32,21 @@ bool main_loop(SDL_Surface *ps) {
     diamond *pSelected = 0;
     int score = 0;
     int comboScore;
+    int temps; 	 
+	int temps_restant;
+	int tps ;
+	
+	temps = 180;
+	tps = time(0);
+	
+	temps_restant = temps - ( time(0) - tps);
 
     load_theme("themes/fractal_cosmos/", gb);
     init_gameboard(gb, 8, 8);
 
     while (!quit) {
         SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+        temps_restant = temps - ( time(0) - tps);
 
 	while (SDL_PollEvent(&event)) {
 	    if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
@@ -53,9 +62,9 @@ bool main_loop(SDL_Surface *ps) {
                             comboScore = 1;
 			    do {
                                 score += gb.nb_expl * comboScore;
-                                ++comboScore;
+                                ++comboScore;                                
 
-				show_gameboard(gb, ps, score);
+				show_gameboard(gb, ps, score, temps_restant);
                                 explode(gb, ps);
 				get_down(gb, ps);
 			    } while ( check_explode(gb) );
@@ -74,7 +83,7 @@ bool main_loop(SDL_Surface *ps) {
             }
 	}
 	
-	show_gameboard(gb, ps, score);
+	show_gameboard(gb, ps, score, temps_restant);
         SDL_Flip(ps);
     }
 

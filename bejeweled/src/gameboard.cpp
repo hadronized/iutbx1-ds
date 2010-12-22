@@ -26,6 +26,7 @@
 #include "gameboard.h"
 #include "graphics.h"
 #include "array.h"
+#include "temps.h"
 #include "score.h"
 
 using namespace std;
@@ -71,7 +72,7 @@ diamond & query_diamond(gameboard &gb, int x, int y) {
     return gb.dmds[index_2D1D(x, y, gb.row)];
 }
 
-void show_gameboard(gameboard &gb, SDL_Surface *ps, int score) {
+void show_gameboard(gameboard &gb, SDL_Surface *ps, int score, int temps_restant) {
     diamond d;
     draw_game_wp(gb, 0, ps);
     draw_grid(gb, ps);
@@ -87,6 +88,7 @@ void show_gameboard(gameboard &gb, SDL_Surface *ps, int score) {
     pFont = init_font();
     if (!pFont)
 	cerr << "Police non initialisée" << endl;
+	affiche_temps(pFont,ps,temps_restant);
 	scores(pFont,ps,score);
 	 
 	
