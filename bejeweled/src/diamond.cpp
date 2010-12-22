@@ -53,7 +53,6 @@ void diamond_swap(diamond &a, diamond &b) {
     sdlrect_swap(a.sub, b.sub);
 }
 
-void move_diamond(diamond &d, int x, int y) {
-    d.box.x = y;
-    d.box.y = y;
+bool equal(diamond a, diamond b, diamond c) {
+    return a.type == b.type && b.type == c.type;
 }

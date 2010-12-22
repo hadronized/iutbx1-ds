@@ -14,7 +14,7 @@
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-n
+
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
@@ -46,7 +46,7 @@ struct gameboard {
     int index_sol;         // indice d'une solution
     SDL_Surface *pieces;   // les 8 diamants
     SDL_Surface *grid;     // la grille
-    SDL_Rect grid_rect;   // dimension de la grille et ou la placer à l'écran
+    SDL_Rect grid_rect;    // dimension de la grille et ou la placer à l'écran
     SDL_Surface *title_wp; // fond d'ecran titre
     SDL_Surface *game_wp;  // fond d'ecran jeu
     SDL_Surface *explode;  // les phases d'explosion
@@ -87,70 +87,5 @@ void init_gameboard(gameboard &gb, int col, int row);
    * diamond : le diamant demande                            *
    *********************************************************** */
 diamond & query_diamond(gameboard &gb, int x, int y);
-
-/* ********************* check_explode ***********************
-   * void check_explode(gameboard &gb);                      *
-   ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 21 novembre 2010, v0.3                 *
-   ********************* Description *************************
-   * Cette fonction parcourt la matrice de diamants et       *
-   * marque les diamants a faire exploser.                   *
-   *********************** Entrees ***************************
-   * `gb' : reference sur le plateau ou chercher les         *
-   *        diamants pouvant generer une explosion           *
-   *********************** Sorties ***************************
-   * `bool' : si aucun diamant n'a ete marque, cette         *
-   *          fonction retourne false, sinon true            *
-   *********************************************************** */
-bool check_explode(gameboard &gb);
-
-bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps);
-
-void show_gameboard(gameboard &gb, SDL_Surface *ps, int score, int temps_restant);
-
-void explode(gameboard &gb, SDL_Surface *ps);
-
-void get_down(gameboard &gb, SDL_Surface *ps);
-
-/*
-       i:0 1 2 3    0 1 2 3
-    j	 
-    :
-    0    D X D      X D X
-    1    X D X      D X D
-
-    0    X X D      D D X
-    1    D D X      X X D
-
-    0    D X X      X D D
-    1    X D D      D X X
-
-    0    X D X X    X X D X
-
-    -------------------------
-
-    0    X D        D X
-    1    D X        X D
-    2    X D        D X
-
-    0    D X        X D
-    1    D X        X D
-    2    X D        D X
-
-    0    D X        X D
-    1    X D        D X
-    2    X D        D X
-
-    0    X          X
-    1    D          X
-    2    X          D
-    3    X          X
-
-
-    16 combinaisons possibles
-
-
- */
-bool check_solution(gameboard &gb);
 
 #endif // guard

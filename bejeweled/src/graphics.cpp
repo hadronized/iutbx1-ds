@@ -133,6 +133,19 @@ void free_theme(gameboard &gb) {
     }
 }
 
+void show_gameboard(gameboard &gb, SDL_Surface *ps) {
+    diamond d;
+    
+    draw_game_wp(gb, 0, ps);
+    draw_grid(gb, ps);
+    for (int j = 0; j < gb.col; ++j) {
+        for (int i = 0; i < gb.row; ++i) {
+	    d = query_diamond(gb, i, j);
+            draw_diamond(gb, d, ps);
+        }
+    }
+}
+
 void draw_game_wp(gameboard &gb, SDL_Rect *sub, SDL_Surface *ps) {
     SDL_BlitSurface(gb.game_wp, sub, ps, sub);
 }
@@ -173,8 +186,8 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     int x;
     int y;
     int vy = 1;
-    int score=0;
-    int temps_restant=180;
+    //int score=0;
+    //int temps_restant=180;
     diamond *pd;
 
     for (int move = 0; move < DIAMOND_SIZE; ++move) {
@@ -187,7 +200,8 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
             }
         }
 
-        show_gameboard(gb, ps, score, temps_restant);
+        //show_gameboard(gb, ps, score, temps_restant);
+        show_gameboard(gb, ps);
         SDL_Flip(ps);
         //cin.ignore(1024, '\n');
     }
@@ -195,4 +209,19 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     vy++;
     //SDL_Rect area;
 
+}
+
+void draw_solution(gameboard &gb, SDL_Surface *ps) {
+    diamond *pd = &gb.dmds[gb.index_sol];
+
+    for (int blink = 1; blink < 11; ++blink) {
+        pd->sub.y = DIAMOND_SIZE - pd->sub.y;
+        draw_game_wp(gb, 0, ps);
+        draw_grid(gb, ps);
+        draw_diamond(gb, *pd, ps);
+        SDL_UpdateRect(ps, pd->box.x, pd->box.y, pd->box.w, pd->box.h);
+        SDL_Delay(150);
+    }
+    
+    pd->sub.y = 0;
 }
