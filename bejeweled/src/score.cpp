@@ -40,6 +40,7 @@ void free_font(TTF_Font *pf) {
 }
 
 void scores(TTF_Font *f, SDL_Surface *ps, int score)
+
 {
  
     SDL_Rect pos;
@@ -53,7 +54,6 @@ void scores(TTF_Font *f, SDL_Surface *ps, int score)
 	
 	if (!scoreFont)
 	cerr << "Surface score non generee" << endl;
-	scoreFont = TTF_RenderText_Solid( f, sstr.str().c_str(), colorFont );
 	
 	pos.x = 500;
 	pos.y = 200;
