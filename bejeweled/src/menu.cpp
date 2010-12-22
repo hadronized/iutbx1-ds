@@ -104,16 +104,34 @@ void menu_loop(SDL_Surface *ps) {
         SDL_PollEvent(&event);
         affiche_menu(m, ps, event);
             
-        if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+        if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) // a modifier en 1 joueur
         {
             SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
             solo_loop(ps);
         } 
 	
+	 /* else if (vs_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+        {
+            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+            vs_loop(ps);
+        } 
+        
+        else if (coop_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+        {
+            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+            coop_loop(ps);
+        } 
+        
+        else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+        {
+            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+            options_loop(ps);
+        } 
+        
+     */
+     
         else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
         {
-            //SDL_FreeSurface(ps); ca n'a rien a foutre la
-            //SDL_Quit(); rien a foutre la non plus, LIS MON CODE PUTAIN (cf. quit_gui())
             quit = true;
         }
 			
@@ -129,8 +147,5 @@ void menu_loop(SDL_Surface *ps) {
        dans la grille, pas très cool ... ;).
 
    Donc occupe toi de ce petit menu.
-
-   Ca segfault toujours ... Je te conseille de te grouiller à corriger ça, parce que je souhaite pouvoir
-   commencer les tests avant la fin des vacances. Donc arrête de te branler et code ce menu ...
 
 */
