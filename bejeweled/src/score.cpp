@@ -19,11 +19,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "score.h"
-#include "graphics.h"
-#include "gameboard.h"
 #include <iostream>
+#include <fstream>
 #include <sstream>
+#include "cipher.h"
+#include "score.h"
 
 TTF_Font * init_font() {
     TTF_Font *pf;
@@ -127,4 +127,36 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
     SDL_EnableUNICODE(1);
 
     return nick;
+}
+
+void in_top_ten_solo(TTF_Font *pf, SDL_Surface *ps, int score) {
+    ifstream file;
+    stringstream cdata;
+    stringstream ddata;
+    stringstream towrite;
+    string strtmp;
+    int scoretmp;
+
+    file.open(TOP_TEN_SOLO_FILE.c_str());
+
+    if (file.is_open()) {
+        cdata << file.rdbuf();
+        file.close();
+        ddata << decrypt(cdata.str());
+        
+        for (int i = 0; i < 10; ++i) {
+            ddata >> strtmp >> scoretmp;
+            if (score > scoretmp) {
+                towrite << get_username(pf, ps) << ' ' << score << endl;
+                score = -1;
+            }
+            
+            towrite << strtmp << ' ' << scoretmp << endl;
+        }
+
+        cout << "et voici la liste !" << endl;
+        cout << towrite.str() << endl;
+    } else {
+        cerr << '[' << TOP_TEN_SOLO_FILE << "] fichier inaccessible en lecture" << endl;
+    }
 }

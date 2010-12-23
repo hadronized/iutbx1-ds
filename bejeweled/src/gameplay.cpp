@@ -350,10 +350,6 @@ void solo_loop(SDL_Surface *ps) {
     if (!pFont)
         cerr << "Police non initialisée" << endl;
 
-    // - - - - - - - tests - - - - - - -
-    get_username(pFont, ps);
-    // - - - - - - - tests - - - - - - -
-    
     temps = 180;
     tps = time(0);
 	
@@ -398,7 +394,7 @@ void solo_loop(SDL_Surface *ps) {
                                 if (check_solution(gb)) { // il reste des solutions
                                     ;
                                 } else { // plus de solution
-                                    // verifier la presence de bonus reanimation
+                                    // pverifier la presence de bonus reanimation
                                     // si pas de bonus
                                     quit = true;
                                 }
@@ -421,7 +417,9 @@ void solo_loop(SDL_Surface *ps) {
 
             SDL_Flip(ps);
         }
-    } 
+    }
+
+    in_top_ten_solo(pFont, ps, score);
 
     free_theme(gb);
     free_font(pFont);

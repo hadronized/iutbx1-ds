@@ -27,6 +27,9 @@
 
 using namespace std;
 
+string const TOP_TEN_SOLO_FILE = ".sbt10f"; // Solo Bejeweled Top 10 file
+string const TOP_TEN_COOP_FILE = ".cbt10f"; // Cooperation Bejeweled Top 10 file
+
 void scores(TTF_Font *f, SDL_Surface *ps, int score);
 
 /* *********************** free_font *************************
@@ -69,5 +72,23 @@ TTF_Font * init_font();
    * `string' : le nom d'utilisateur entre                   *
    *********************************************************** */
 string get_username(TTF_Font *pf, SDL_Surface *ps);
+
+/* *********************** in_top_ten_solo *******************
+   * void in_top_ten_solo(TTF_Font *pf, SDL_Surface *ps,     *
+   *                      int score);                        *
+   *********************** Auteur , Dates ********************
+   * Dimitri Sabadie, 23 Decembre 2010, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si un joueur a battu    *
+   * un record et rentre donc dans le Top 10 en mode Solo.   *
+   * Si tel est le cas, il est invite a rentrer son pseudo.  *
+   *********************** Entrees ***************************
+   * `pf' : pointeur sur la police a utiliser pour la saisie *
+   * `ps' : pointeur sur la surface ou afficher la saisie    *
+   * `score' : score du joueur                               *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+void in_top_ten_solo(TTF_Font *pf, SDL_Surface *ps, int score);
 
 #endif // guard
