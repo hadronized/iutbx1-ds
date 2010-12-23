@@ -22,6 +22,8 @@
 #include <iostream> // pour tests
 #include "gameplay.h"
 #include "array.h"
+#include "score.h"
+#include "temps.h"
 
 using namespace std;
 
@@ -341,7 +343,13 @@ void solo_loop(SDL_Surface *ps) {
     int temps; 	 
     int temps_restant;
     int tps ;
-	
+    
+    TTF_Font *pFont = 0;
+	TTF_Init();
+	pFont = init_font();
+    if (!pFont)
+    cerr << "Police non initialisée" << endl;
+
     temps = 180;
     tps = time(0);
 	
@@ -356,7 +364,7 @@ void solo_loop(SDL_Surface *ps) {
         while (!quit) {
             SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
             temps_restant = temps - ( time(0) - tps);
-
+            
             while (SDL_PollEvent(&event)) {
                 if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
                     quit = true; // on quitte le jeu -> retour au menu principal
@@ -372,14 +380,13 @@ void solo_loop(SDL_Surface *ps) {
                                 do {
                                     score += gb.nb_expl * comboScore;
                                     ++comboScore;
-
-                                    //show_gameboard(gb, ps, score, temps_restant);
                                     show_gameboard(gb, ps);
+                                    
                                     // afficher le score uniquement ici
                                     cout << "score : " << score << endl;
                                     explode(gb, ps);
                                     get_down(gb, ps);
-                                } while ( check_explode(gb) );
+                                } while ( check_explode(gb));
 
                                 t0 = SDL_GetTicks();
 
@@ -403,12 +410,16 @@ void solo_loop(SDL_Surface *ps) {
                 t0 = SDL_GetTicks();
             }
             
-            show_gameboard(gb, ps);
+			show_gameboard(gb, ps);
+			scores(pFont,ps,score);
+			affiche_temps(pFont,ps,temps_restant);
+
             SDL_Flip(ps);
         }
-    }
+    } 
 
     free_theme(gb);
+    free_font(pFont);
 }
 
 bool cursor_in_grid(SDL_Event e, gameboard const &gb) {

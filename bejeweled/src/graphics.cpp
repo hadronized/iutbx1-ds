@@ -186,8 +186,6 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     int x;
     int y;
     int vy = 1;
-    //int score=0;
-    //int temps_restant=180;
     diamond *pd;
 
     for (int move = 0; move < DIAMOND_SIZE; ++move) {
@@ -199,8 +197,7 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
                 --y;
             }
         }
-
-        //show_gameboard(gb, ps, score, temps_restant);
+        
         show_gameboard(gb, ps);
         SDL_Flip(ps);
         //cin.ignore(1024, '\n');
