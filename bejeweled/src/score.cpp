@@ -39,8 +39,7 @@ void free_font(TTF_Font *pf) {
 	TTF_CloseFont(pf);
 }
 
-void scores(TTF_Font *f, SDL_Surface *ps, int score)
-
+void scores(TTF_Font *f, SDL_Surface *ps, int score) // nom de fonction pas du tout explicite, a modifier
 {
  
     SDL_Rect pos;
@@ -60,4 +59,38 @@ void scores(TTF_Font *f, SDL_Surface *ps, int score)
     
     SDL_BlitSurface(scoreFont, 0, ps, &pos);
     SDL_FreeSurface(scoreFont);   
+}
+
+string get_username(TTF_Font *pf, SDL_Surface *ps) {
+    string nick = "___";
+    unsigned int i = 0;
+    SDL_Event event;
+    bool done = false;
+
+    SDL_EnableUNICODE(1);
+
+    while (!done) {
+        SDL_WaitEvent(&event);
+
+        if (event.type == SDL_KEYDOWN) {
+            if (event.key.keysym.sym == SDLK_BACKSPACE) {
+                nick[i] = '_';
+                if (i > 0)
+                    --i;
+                nick[i] = '_';
+            } else if (event.key.keysym.sym == SDLK_RETURN) {
+                done = true;
+            } else {
+                nick[i] = event.key.keysym.unicode;
+                if (i < nick.size())
+                    ++i;
+            }
+            cout << nick << endl;
+        }
+    }
+
+    ++i;
+    SDL_EnableUNICODE(1);
+
+    return nick;
 }

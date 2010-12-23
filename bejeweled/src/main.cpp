@@ -26,6 +26,7 @@
 #include <cmath>
 
 #include "game_save.h" // pour tests
+#include "score.h"
 
 using namespace std;
 
@@ -47,10 +48,10 @@ int main() {
 
     srand(time(0)); // initialisation randomizer
 
-    gameboard g;
+    /*gameboard g;
     init_gameboard(g, 8, 8);
     save_solo_game(g, 4);
-    load_solo_game(g, rcode);
+    load_solo_game(g, rcode);*/
 
     if (init_gui()) {
 	ps = create_screen();

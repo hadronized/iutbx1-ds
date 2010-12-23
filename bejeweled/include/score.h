@@ -21,38 +21,53 @@
 
 #ifndef SCORE_H
 #define SCORE_H
+
+#include <string>
 #include "graphics.h"
 
+using namespace std;
 
 void scores(TTF_Font *f, SDL_Surface *ps, int score);
-
-void free_font(TTF_Font *pf);
 
 /* *********************** free_font *************************
    * void free_font(TTF_Font *pf);                           *
    *********************** Auteur , Dates ********************
    * Ludwig Raepsaet, 13  Decembre 2010, v0.1                *
    *********************** Description ***********************
-   * Cette fonction libere une police deja initialisée      *
+   * Cette fonction libere une police deja initialisee       *
    *********************** Entrees ***************************
    * `pf'  : pointeur sur la police precedement initialisée  *
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-
-TTF_Font * init_font();
+void free_font(TTF_Font *pf);
 
 /* *********************** init_font()   *********************
-   * TTF_Font * init_font();                                *
+   * TTF_Font * init_font();                                 *
    *********************** Auteur , Dates ********************
    * Ludwig Raepsaet, 13  Decembre 2010, v0.1                *
    *********************** Description ***********************
-   * Cette fonction d'initialiser une police                 *
+   * Cette fonction permet d'initialiser une police          *
    *********************** Entrees ***************************
    *                                                         *
    *********************** Sorties ***************************
-   * `pf' : retourne la police initialisée                   *
+   * `pf' : retourne la police initialisee                   *
    *********************************************************** */
+TTF_Font * init_font();
 
+/* *********************** get_username **********************
+   * string get_username(SDL_Surface *ps);                   *
+   *********************** Auteur , Dates ********************
+   * Dimitri Sabadie, 23 Decembre 2010, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet de recuperer le nom d'utilisateur *
+   * d'un joueur sous forme de 3 caracteres.                 *
+   *********************** Entrees ***************************
+   * `pf' : pointeur sur la police a utiliser pour la saisie *
+   * `ps' : pointeur sur la surface ou afficher la saisie    *
+   *********************** Sorties ***************************
+   * `string' : le nom d'utilisateur entre                   *
+   *********************************************************** */
+string get_username(TTF_Font *pf, SDL_Surface *ps);
 
 #endif // guard
