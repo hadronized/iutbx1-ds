@@ -345,11 +345,15 @@ void solo_loop(SDL_Surface *ps) {
     int tps ;
     
     TTF_Font *pFont = 0;
-	TTF_Init();
-	pFont = init_font();
+    TTF_Init();
+    pFont = init_font();
     if (!pFont)
-    cerr << "Police non initialisée" << endl;
+        cerr << "Police non initialisée" << endl;
 
+    // - - - - - - - tests - - - - - - -
+    get_username(pFont, ps);
+    // - - - - - - - tests - - - - - - -
+    
     temps = 180;
     tps = time(0);
 	

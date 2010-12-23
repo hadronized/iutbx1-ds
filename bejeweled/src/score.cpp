@@ -27,7 +27,7 @@
 
 TTF_Font * init_font() {
     TTF_Font *pf;
-    pf = TTF_OpenFont("themes/default/Starjedi.ttf", 32);
+    pf = TTF_OpenFont("themes/default/NEUROPOL.ttf", 32);
 
     if (!pf)
 	cerr << "Erreur de chargement de la police !" << endl;
@@ -49,7 +49,7 @@ void scores(TTF_Font *f, SDL_Surface *ps, int score) // nom de fonction pas du t
 
     sstr << "Score : " << score;
     
-	scoreFont = TTF_RenderText_Solid( f, sstr.str().c_str(), colorFont );
+	scoreFont = TTF_RenderText_Blended( f, sstr.str().c_str(), colorFont );
 	
 	if (!scoreFont)
 	cerr << "Surface score non generee" << endl;
@@ -65,7 +65,13 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
     string nick = "___";
     unsigned int i = 0;
     SDL_Event event;
+    SDL_Surface *typeArea = 0;
+    SDL_Color white = { 255, 255, 255 };
     bool done = false;
+    SDL_Rect pos;
+
+    pos.w = 0;
+    pos.h = 0;
 
     SDL_EnableUNICODE(1);
 
@@ -73,23 +79,51 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
         SDL_WaitEvent(&event);
 
         if (event.type == SDL_KEYDOWN) {
-            if (event.key.keysym.sym == SDLK_BACKSPACE) {
-                nick[i] = '_';
-                if (i > 0)
-                    --i;
-                nick[i] = '_';
-            } else if (event.key.keysym.sym == SDLK_RETURN) {
-                done = true;
-            } else {
-                nick[i] = event.key.keysym.unicode;
-                if (i < nick.size())
-                    ++i;
+            switch (event.key.keysym.sym) {
+                case SDLK_LEFT :
+                    if (i > 0)
+                        --i;
+                    break;
+
+                case SDLK_RIGHT :
+                    if (i < nick.size()-1)
+                        ++i;
+                    break;
+
+                case SDLK_DELETE :
+                    nick[i] = '_';
+                    break;
+
+                case SDLK_BACKSPACE :
+                    nick[i] = '_';
+                    if (i > 0) --i;
+                    nick[i] = '_';
+                    break;
+
+                case SDLK_RETURN :
+                    done = true;
+                    break;
+
+                default :
+                    nick[i] = event.key.keysym.unicode;
+                    if (i < nick.size()-1) {
+                        ++i;
+                    }
             }
+            
             cout << nick << endl;
+            typeArea = TTF_RenderText_Blended(pf, nick.c_str(), white);
+            
+            pos.x = (SCREEN_WIDTH-typeArea->w)/2;
+            pos.y = (SCREEN_HEIGHT-typeArea->h)/2;
+
+            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 0, 0, 0));
+            SDL_BlitSurface(typeArea, 0, ps, &pos);
+            SDL_Flip(ps);
+            SDL_FreeSurface(typeArea);
         }
     }
 
-    ++i;
     SDL_EnableUNICODE(1);
 
     return nick;
