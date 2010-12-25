@@ -6,7 +6,7 @@
 
 struct button {
     SDL_Rect box; // définit rectangle dans la feuille de bouttons
-    SDL_Rect  at; // définit où positionner le boutton à l'écran
+    SDL_Rect  at; // définit où positionner le boutton à l'ecran
 };
 
 struct menu {
@@ -15,8 +15,6 @@ struct menu {
     SDL_Surface *wallpaper; // fond d'ecran du menu
     SDL_Surface *sheet;     // feuille du menu
 };
-
-void menu_loop(SDL_Surface *ps);
 
 /* *********************** menu_loop *************************
    * menu_loop(SDL_Surface *ps);                             *
@@ -29,8 +27,7 @@ void menu_loop(SDL_Surface *ps);
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-
-void initialisation_menu(menu &m);
+void menu_loop(SDL_Surface *ps);
 
 /* *********************** initialisation_menu ***************
    * initialisation_menu(menu &m);                           *
@@ -43,8 +40,7 @@ void initialisation_menu(menu &m);
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-
-void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e);
+void initialisation_menu(menu &m);
 
 /* *********************** affiche_menu **********************
    * affiche_menu(menu m, SDL_Surface *ps, SDL_Event e);     *
@@ -62,8 +58,7 @@ void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e);
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-
-void liberer_menu(menu &m);
+void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e);
 
 /* *********************** liberer_menu **********************
    * initialisation_menu(menu &m);                           *
@@ -76,9 +71,8 @@ void liberer_menu(menu &m);
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
+void liberer_menu(menu &m);
 
-
-bool mouse_in_rect(SDL_Rect r, SDL_Event e);
 
 /* *********************** mouse_in_rect *********************
    * bool mouse_in_rect(SDL_Rect r, SDL_Event e);            *
@@ -95,8 +89,7 @@ bool mouse_in_rect(SDL_Rect r, SDL_Event e);
    *********************** Sorties ***************************
    * bool                                                    *
    *********************************************************** */
-
-bool play_selected(menu m, SDL_Event e);
+bool mouse_in_rect(SDL_Rect r, SDL_Event e);
 
 /* *********************** play_selected *********************
    * bool play_selected(menu m, SDL_Event e);                *
@@ -113,7 +106,7 @@ bool play_selected(menu m, SDL_Event e);
    *********************** Sorties ***************************
    * bool                                                    *
    *********************************************************** */
-bool quit_selected(menu m, SDL_Event e);
+bool play_selected(menu m, SDL_Event e);
 
 /* *********************** quit_selected *********************
    * bool quit_selected(menu m, SDL_Event e);                *
@@ -130,5 +123,6 @@ bool quit_selected(menu m, SDL_Event e);
    *********************** Sorties ***************************
    * bool                                                    *
    *********************************************************** */
+bool quit_selected(menu m, SDL_Event e);
 
 
