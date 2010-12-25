@@ -382,11 +382,11 @@ void solo_loop(SDL_Surface *ps) {
                                 do {
                                     score += gb.nb_expl * comboScore;
                                     ++comboScore;
+                                    
                                     show_gameboard(gb, ps);
                                     scores(pFont,ps,score);
                                     affiche_temps(pFont,ps,temps_restant);
 
-                                    cout << "score : " << score << endl;
                                     explode(gb, ps);
                                     get_down(gb, ps);
                                 } while ( check_explode(gb));
