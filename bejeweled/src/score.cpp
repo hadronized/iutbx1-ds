@@ -148,14 +148,16 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
 }
 
 void in_top_ten_solo(TTF_Font *pf, SDL_Surface *ps, int score) {
-    ifstream file;
+    fstream file;
     stringstream cdata;
     stringstream ddata;
     stringstream towrite;
     string strtmp;
     int scoretmp;
 
-    file.open(TOP_TEN_SOLO_FILE.c_str());
+    file.open(TOP_TEN_SOLO_FILE.c_str(), ios::out | ios::app);
+    file.close();
+    file.open(TOP_TEN_SOLO_FILE.c_str(), ios::in);
 
     if (file.is_open()) {
         cdata << file.rdbuf();
@@ -170,10 +172,19 @@ void in_top_ten_solo(TTF_Font *pf, SDL_Surface *ps, int score) {
             }
             
             towrite << strtmp << ' ' << scoretmp << endl;
+            
         }
 
         cout << "et voici la liste !" << endl;
         cout << towrite.str() << endl;
+        file.open(TOP_TEN_SOLO_FILE.c_str(), ios::out | ios::trunc);
+        
+        if (file.is_open()) {
+            file << towrite.str() << endl;
+            file.close();
+        } else {
+            cerr << '[' << TOP_TEN_SOLO_FILE << "] fichier inaccessible en écriture" << endl;
+        }
     } else {
         cerr << '[' << TOP_TEN_SOLO_FILE << "] fichier inaccessible en lecture" << endl;
     }
