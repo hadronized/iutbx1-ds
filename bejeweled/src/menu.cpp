@@ -30,8 +30,6 @@ SDL_Surface * load_img_key(string const &fn, int r, int g, int b) {
     return optimizedImage;
 }
 
-
-// Initialise un menu.
 void initialisation_menu(menu &m) {
     // initialisation bouton play
     m.play.box.x = 0;
@@ -56,6 +54,7 @@ void initialisation_menu(menu &m) {
     m.wallpaper = load_img("themes/default/title.png");
     m.sheet = load_img_key("themes/default/button.bmp", 0, 0, 0);
 }
+
 void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e) {
     if ( play_selected(m, e) ) // si la souris selectionne "Play"
         m.play.box.x = SHEET_WIDTH-BUTTON_WIDTH;
@@ -66,7 +65,6 @@ void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e) {
     SDL_BlitSurface(m.sheet, &m.quit.box, ps, &m.quit.at); // affichage du bouton quit
 }
 
-// Libère les bouttons d'un menu si initialisés.
 void liberer_menu(menu &m) {
     if (m.wallpaper)
 	SDL_FreeSurface(m.wallpaper);
@@ -78,12 +76,10 @@ bool mouse_in_rect(SDL_Rect r, SDL_Event e) {
     return ( (e.motion.x >= r.x && e.motion.x <= r.x+r.w) && (e.motion.y >= r.y && e.motion.y <= r.y+r.h) );
 }
 
-// Détermine si le joueur selectionne le boutton Play.
 bool play_selected(menu m, SDL_Event e) {
     return mouse_in_rect(m.play.at, e);
 }
 
-// Détermine si le joueur selectionne le boutton Quit.
 bool quit_selected(menu m, SDL_Event e) {
     return mouse_in_rect(m.quit.at, e);
 }
@@ -97,7 +93,6 @@ void menu_loop(SDL_Surface *ps) {
     		
     while(!quit){
         SDL_PollEvent(&event);
-        affiche_menu(m, ps, event);
             
         if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) // a modifier en 1 joueur
         {
@@ -130,6 +125,7 @@ void menu_loop(SDL_Surface *ps) {
             quit = true;
         }
 			
+        affiche_menu(m, ps, event);
         SDL_Flip(ps);
     }
 }
