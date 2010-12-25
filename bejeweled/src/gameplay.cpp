@@ -358,6 +358,8 @@ void solo_loop(SDL_Surface *ps) {
     load_theme("themes/fractal_cosmos/", gb);
     init_gameboard(gb, 8, 8);
 
+    get_username(pFont, ps);
+    
     if (check_solution(gb)) {
         t0 = SDL_GetTicks();
 

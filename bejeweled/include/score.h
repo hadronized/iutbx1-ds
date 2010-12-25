@@ -58,6 +58,21 @@ void free_font(TTF_Font *pf);
    *********************************************************** */
 TTF_Font * init_font();
 
+/* ************************ is_alphanum **********************
+   * bool is_alphanum(Uint16 unicode);                       *
+   *********************** Auteur , Dates ********************
+   * Dimitri Sabadie, 25 Decembre 2010, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet de determiner si un caractere     *
+   * donne est alphanumerique (A-Za-z0-9).                   *
+   *********************** Entrees ***************************
+   * `unicode' : le caractere a teste                        *
+   *********************** Sorties ***************************
+   * `bool' : true si le caractere est alphanumerique, false *
+   *          sinon                                          *
+   *********************************************************** */
+bool is_alphanum(Uint16 unicode);
+
 /* *********************** get_username **********************
    * string get_username(SDL_Surface *ps);                   *
    *********************** Auteur , Dates ********************

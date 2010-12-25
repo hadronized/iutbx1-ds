@@ -61,6 +61,12 @@ void scores(TTF_Font *f, SDL_Surface *ps, int score) // nom de fonction pas du t
     SDL_FreeSurface(scoreFont);   
 }
 
+bool is_alphanum(Uint16 unicode) {
+    return (unicode >= 'A' && unicode <= 'Z') ||
+        (unicode >= 'a' && unicode <= 'z') ||
+        (unicode >= '0' && unicode <= '9');
+}
+
 string get_username(TTF_Font *pf, SDL_Surface *ps) {
     string nick = "___";
     unsigned int i = 0;
@@ -74,6 +80,16 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
     pos.h = 0;
 
     SDL_EnableUNICODE(1);
+
+    typeArea = TTF_RenderText_Blended(pf, nick.c_str(), white);
+            
+    pos.x = (SCREEN_WIDTH-typeArea->w)/2;
+    pos.y = (SCREEN_HEIGHT-typeArea->h)/2;
+
+    SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 0, 0, 0));
+    SDL_BlitSurface(typeArea, 0, ps, &pos);
+    SDL_Flip(ps);
+    SDL_FreeSurface(typeArea);
 
     while (!done) {
         SDL_WaitEvent(&event);
@@ -96,7 +112,8 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
 
                 case SDLK_BACKSPACE :
                     nick[i] = '_';
-                    if (i > 0) --i;
+                    if (i > 0)
+                        --i;
                     nick[i] = '_';
                     break;
 
@@ -105,13 +122,14 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
                     break;
 
                 default :
-                    nick[i] = event.key.keysym.unicode;
-                    if (i < nick.size()-1) {
-                        ++i;
+                    if (is_alphanum(event.key.keysym.unicode)) {
+                        nick[i] = event.key.keysym.unicode;
+                        if (i < nick.size()-1) {
+                            ++i;
+                        }
                     }
             }
             
-            cout << nick << endl;
             typeArea = TTF_RenderText_Blended(pf, nick.c_str(), white);
             
             pos.x = (SCREEN_WIDTH-typeArea->w)/2;
