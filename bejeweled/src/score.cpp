@@ -41,21 +41,20 @@ void free_font(TTF_Font *pf) {
 
 void scores(TTF_Font *f, SDL_Surface *ps, int score) // nom de fonction pas du tout explicite, a modifier
 {
- 
     SDL_Rect pos;
-	SDL_Surface *scoreFont;
-	SDL_Color colorFont = {255,255,255,255};
-	stringstream sstr;
+    SDL_Surface *scoreFont;
+    SDL_Color colorFont = {255,255,255,255};
+    stringstream sstr;
 
     sstr << "Score : " << score;
     
-	scoreFont = TTF_RenderText_Blended( f, sstr.str().c_str(), colorFont );
+    scoreFont = TTF_RenderText_Blended( f, sstr.str().c_str(), colorFont );
 	
-	if (!scoreFont)
+    if (!scoreFont)
 	cerr << "Surface score non generee" << endl;
 	
-	pos.x = 500;
-	pos.y = 200;
+    pos.x = 500;
+    pos.y = 200;
     
     SDL_BlitSurface(scoreFont, 0, ps, &pos);
     SDL_FreeSurface(scoreFont);   

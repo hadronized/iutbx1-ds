@@ -222,3 +222,5 @@ void draw_solution(gameboard &gb, SDL_Surface *ps) {
     
     pd->sub.y = 0;
 }
+
+

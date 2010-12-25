@@ -284,6 +284,6 @@ void solo_loop(SDL_Surface *ps);
    * `bool' : true si le curseur est dans la grille, false   *
    *          sinon                                          *
    *********************************************************** */
-bool cursor_in_grid(SDL_Event m, gameboard const &gb);
+bool cursor_in_grid(SDL_Event m, gameboard const &gb); // a deplacer dans graphics.h
 
 #endif // guard
