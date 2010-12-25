@@ -6,11 +6,6 @@
 
 using namespace std;
 
-int const SHEET_WIDTH   = 350; // longueur feuille bouttons
-int const SHEET_HEIGHT  = 160; // largeur feuille bouttons
-int const BUTTON_WIDTH  = 150; // longueur d'un boutton
-int const BUTTON_HEIGHT =  60; // hauteur d'un boutton
-
 SDL_Surface * load_img(string const &fn) {
     SDL_Surface *ptmp = IMG_Load(fn.c_str());
     SDL_Surface *p = 0;

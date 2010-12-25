@@ -4,6 +4,12 @@
 #include <SDL/SDL_ttf.h>
 #include "graphics.h"
 
+int const SHEET_WIDTH   = 350; // longueur feuille bouttons
+int const SHEET_HEIGHT  = 160; // largeur feuille bouttons
+int const BUTTON_WIDTH  = 150; // longueur d'un boutton
+int const BUTTON_HEIGHT =  60; // hauteur d'un boutton
+
+
 struct button {
     SDL_Rect box; // définit rectangle dans la feuille de bouttons
     SDL_Rect  at; // définit où positionner le boutton à l'ecran
