@@ -24,7 +24,6 @@
 #include "graphics.h"
 #include "gameboard.h"
 
-
 using namespace std;
 
 bool init_gui() {
@@ -222,5 +221,4 @@ void draw_solution(gameboard &gb, SDL_Surface *ps) {
     
     pd->sub.y = 0;
 }
-
 
