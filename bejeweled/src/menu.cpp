@@ -33,35 +33,77 @@ SDL_Surface * load_img_key(string const &fn, int r, int g, int b) {
 void initialisation_menu(menu &m) {
     // initialisation bouton play
     m.play.box.x = 0;
-    m.play.box.y = BUTTON_HEIGHT+(SHEET_HEIGHT-2*BUTTON_HEIGHT);
+    m.play.box.y = 0;
     m.play.box.w = BUTTON_WIDTH;
     m.play.box.h = BUTTON_HEIGHT;
-    m.play.at.x  = (SCREEN_WIDTH-BUTTON_WIDTH)/2;
-    m.play.at.y  = SCREEN_HEIGHT/2 + BUTTON_WIDTH/6;
+    m.play.at.x  = 100;
+    m.play.at.y  = 300;
     m.play.at.w  = BUTTON_WIDTH;
     m.play.at.h  = BUTTON_HEIGHT;
-
+    
+    //initialisation bouton cooperation
+    
+    m.coop.box.x = 235;
+    m.coop.box.y =   0;
+    m.coop.box.w = BUTTON_WIDTH;
+    m.coop.box.h = BUTTON_HEIGHT;
+    m.coop.at.x  = 320;
+    m.coop.at.y  = 300;
+    m.coop.at.w  = BUTTON_WIDTH;
+    m.coop.at.h  = BUTTON_HEIGHT;
+    
+    //initialisation bouton versus
+    
+    m.versus.box.x = 475;
+    m.versus.box.y =   0;
+    m.versus.box.w = BUTTON_WIDTH;
+    m.versus.box.h = BUTTON_HEIGHT;
+    m.versus.at.x  = 550;
+    m.versus.at.y  = 300;
+    m.versus.at.w  = BUTTON_WIDTH;
+    m.versus.at.h  = BUTTON_HEIGHT;
+    
+    // initialisation bouton options
+    m.options.box.x = 110;
+    m.options.box.y = BUTTON_HEIGHT+(SHEET_HEIGHT-2*BUTTON_HEIGHT);;
+    m.options.box.w = BUTTON_WIDTH;
+    m.options.box.h = BUTTON_HEIGHT;
+    m.options.at.x  = 200;
+    m.options.at.y  = 390;
+    m.options.at.w  = BUTTON_WIDTH;
+    m.options.at.h  = BUTTON_HEIGHT;
+    
     // initialisation bouton quit
-    m.quit.box.x = 0;
-    m.quit.box.y = 0;
+    m.quit.box.x = 350;
+    m.quit.box.y = BUTTON_HEIGHT+(SHEET_HEIGHT-2*BUTTON_HEIGHT);;
     m.quit.box.w = BUTTON_WIDTH;
     m.quit.box.h = BUTTON_HEIGHT;
-    m.quit.at.x  = (SCREEN_WIDTH-BUTTON_WIDTH)/2;
-    m.quit.at.y  = m.play.box.h+m.play.at.y+(SHEET_HEIGHT-2*BUTTON_HEIGHT);
+    m.quit.at.x  = 450;
+    m.quit.at.y  = 390;
     m.quit.at.w  = BUTTON_WIDTH;
     m.quit.at.h  = BUTTON_HEIGHT;
     
     m.wallpaper = load_img("themes/default/title.png");
-    m.sheet = load_img_key("themes/default/button.bmp", 0, 0, 0);
+    m.sheet = load_img_key("themes/default/buttons.png", 0, 0, 0);
 }
 
 void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e) {
-    if ( play_selected(m, e) ) // si la souris selectionne "Play"
+    if ( play_selected(m, e) ) // si la souris selectionne "1joueur"
         m.play.box.x = SHEET_WIDTH-BUTTON_WIDTH;
-    else if ( quit_selected(m, e) ) // si la souris selectionne "Quit"
+    else if( quit_selected(m, e) ) // si la souris selectionne "Quit"
         m.quit.box.x = SHEET_WIDTH-BUTTON_WIDTH;
+    else if( coop_selected(m, e) ) // si la souris selectionne "Coop"
+        m.coop.box.x = SHEET_WIDTH-BUTTON_WIDTH;
+    else if( versus_selected(m, e) ) // si la souris selectionne "Versus"
+        m.versus.box.x = SHEET_WIDTH-BUTTON_WIDTH;
+    else if( options_selected(m, e) ) // si la souris selectionne "Versus"
+        m.options.box.x = SHEET_WIDTH-BUTTON_WIDTH;
+        
     SDL_BlitSurface(m.wallpaper, 0, ps, 0); // affichage du fond de menu
     SDL_BlitSurface(m.sheet, &m.play.box, ps, &m.play.at); // affichage du bouton play
+    SDL_BlitSurface(m.sheet, &m.coop.box, ps, &m.coop.at); // affichage du bouton cooperation
+    SDL_BlitSurface(m.sheet, &m.versus.box, ps, &m.versus.at); // affichage du bouton versus
+    SDL_BlitSurface(m.sheet, &m.options.box, ps, &m.options.at); // affichage du bouton versus
     SDL_BlitSurface(m.sheet, &m.quit.box, ps, &m.quit.at); // affichage du bouton quit
 }
 
@@ -82,6 +124,18 @@ bool play_selected(menu m, SDL_Event e) {
 
 bool quit_selected(menu m, SDL_Event e) {
     return mouse_in_rect(m.quit.at, e);
+}
+
+bool coop_selected(menu m, SDL_Event e) {
+    return mouse_in_rect(m.coop.at, e);
+}
+
+bool versus_selected(menu m, SDL_Event e) {
+    return mouse_in_rect(m.versus.at, e);
+}
+
+bool options_selected(menu m, SDL_Event e) {
+    return mouse_in_rect(m.options.at, e);
 }
 
 void menu_loop(SDL_Surface *ps) {

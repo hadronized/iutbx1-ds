@@ -4,10 +4,10 @@
 #include <SDL/SDL_ttf.h>
 #include "graphics.h"
 
-int const SHEET_WIDTH   = 350; // longueur feuille bouttons
-int const SHEET_HEIGHT  = 160; // largeur feuille bouttons
-int const BUTTON_WIDTH  = 150; // longueur d'un boutton
-int const BUTTON_HEIGHT =  60; // hauteur d'un boutton
+int const SHEET_WIDTH   = 695; // longueur feuille bouttons
+int const SHEET_HEIGHT  = 190; // largeur feuille bouttons
+int const BUTTON_WIDTH  = 102; // longueur d'un boutton
+int const BUTTON_HEIGHT =  83; // hauteur d'un boutton
 
 
 struct button {
@@ -18,6 +18,9 @@ struct button {
 struct menu {
     button play;
     button quit;
+    button coop;
+    button versus;
+    button options;
     SDL_Surface *wallpaper; // fond d'ecran du menu
     SDL_Surface *sheet;     // feuille du menu
 };
@@ -131,4 +134,53 @@ bool play_selected(menu m, SDL_Event e);
    *********************************************************** */
 bool quit_selected(menu m, SDL_Event e);
 
+/* *********************** coop_selected *********************
+   * bool coop_selected(menu m, SDL_Event e);                *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 13  Decembre 2010, v0.1                *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton coop                              *
+   *********************** Entrees ***************************
+   * `m' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
+bool coop_selected(menu m, SDL_Event e);
 
+/* *********************** versus_selected *******************
+   * bool versus_selected(menu m, SDL_Event e);              *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 13  Decembre 2010, v0.1                *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton versus                            *
+   *********************** Entrees ***************************
+   * `m' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
+bool versus_selected(menu m, SDL_Event e);
+
+/* *********************** options_selected ******************
+   * bool options_selected(menu m, SDL_Event e);             *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 13  Decembre 2010, v0.1                *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton options                           *
+   *********************** Entrees ***************************
+   * `m' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
+bool options_selected(menu m, SDL_Event e);
