@@ -24,12 +24,9 @@
 #include "array.h"
 #include "menu.h"
 
-
 using namespace std;
 
 bool solo_loop(SDL_Surface *ps) {
-	
-	
     SDL_Event event;
     bool quit = false;
     gameboard gb;
@@ -66,9 +63,10 @@ bool solo_loop(SDL_Surface *ps) {
 	}
 	
 	show_gameboard(gb, ps);
-    SDL_Flip(ps);
+        SDL_Flip(ps);
 	        
     }
+
     free_theme(gb);
     return true;
 }

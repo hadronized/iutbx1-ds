@@ -146,38 +146,43 @@ void menu_loop(SDL_Surface *ps) {
     initialisation_menu(m);
     		
     while(!quit){
-        SDL_PollEvent(&event);
-            
-        if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) // a modifier en 1 joueur
-        {
-            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-            solo_loop(ps);
-        } 
+        SDL_WaitEvent(&event); // pas besoin de SDL_PollEvent ici
+
+        if (event.type == SDL_MOUSEBUTTONUP) {
+            if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) // a modifier en 1 joueur
+            {
+                SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                solo_loop(ps);
+            } 
 	
-	 /* else if (vs_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
-        {
-            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-            vs_loop(ps);
-        } 
+            /* else if (vs_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+               {
+               SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+               vs_loop(ps);
+               } 
         
-        else if (coop_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
-        {
-            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-            coop_loop(ps);
-        } 
+               else if (coop_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+               {
+               SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+               coop_loop(ps);
+               } 
         
-        else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
-        {
-            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-            options_loop(ps);
-        } 
+               else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+               {
+               SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+               options_loop(ps);
+               } 
         
-     */
+            */
      
-        else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-        {
-            quit = true;
+            else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+            {
+                quit = true;
+            }
         }
+
+        else if ( event.type == SDL_QUIT || (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE) )
+            quit = true;
 			
         affiche_menu(m, ps, event);
         SDL_Flip(ps);
