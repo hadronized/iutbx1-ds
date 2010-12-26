@@ -286,6 +286,6 @@ void solo_loop(SDL_Surface *ps);
    *********************************************************** */
 bool cursor_in_grid(SDL_Event m, gameboard const &gb); // a deplacer dans graphics.h
 
-void game_over(gameboard &gb, int score, TTF_Font *pf, SDL_Surface *ps);
+void game_over(gameboard &gb, TTF_Font *pf, SDL_Surface *ps);
 
 #endif // guard

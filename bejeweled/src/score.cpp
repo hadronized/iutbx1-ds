@@ -71,21 +71,25 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
     unsigned int i = 0;
     SDL_Event event;
     SDL_Surface *typeArea = 0;
+    SDL_Surface *congrats;
     SDL_Color white = { 255, 255, 255 };
+    SDL_Color red = { 255, 0, 0 };
     bool done = false;
     SDL_Rect pos;
-
-    pos.w = 0;
-    pos.h = 0;
+    SDL_Rect posCongrats;
 
     SDL_EnableUNICODE(1);
 
     typeArea = TTF_RenderText_Blended(pf, nick.c_str(), white);
+    congrats = TTF_RenderText_Blended(pf, "Vous avez battu un record !", red);
             
     pos.x = (SCREEN_WIDTH-typeArea->w)/2;
     pos.y = (SCREEN_HEIGHT-typeArea->h)/2;
+    posCongrats.x = (SCREEN_WIDTH-congrats->w)/2;
+    posCongrats.y = SCREEN_HEIGHT/4 - congrats->h/2;
 
     SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 0, 0, 0));
+    SDL_BlitSurface(congrats, 0, ps, &posCongrats);
     SDL_BlitSurface(typeArea, 0, ps, &pos);
     SDL_Flip(ps);
     SDL_FreeSurface(typeArea);
@@ -135,6 +139,7 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
             pos.y = (SCREEN_HEIGHT-typeArea->h)/2;
 
             SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 0, 0, 0));
+            SDL_BlitSurface(congrats, 0, ps, &posCongrats);
             SDL_BlitSurface(typeArea, 0, ps, &pos);
             SDL_Flip(ps);
             SDL_FreeSurface(typeArea);

@@ -357,8 +357,6 @@ void solo_loop(SDL_Surface *ps) {
 
     load_theme("themes/fractal_cosmos/", gb);
     init_gameboard(gb, 8, 8);
-
-    game_over(gb, 65, pFont, ps);
     
     if (check_solution(gb)) {
         t0 = SDL_GetTicks();
@@ -398,6 +396,7 @@ void solo_loop(SDL_Surface *ps) {
                                 } else { // plus de solution
                                     // pverifier la presence de bonus reanimation
                                     // si pas de bonus
+                                    game_over(gb, pFont, ps);
                                     quit = true;
                                 }
                             }
@@ -432,7 +431,7 @@ bool cursor_in_grid(SDL_Event e, gameboard const &gb) {
         && (e.motion.y >= 0 && e.motion.y <= gb.col*DIAMOND_SIZE);
 }
 
-void game_over(gameboard &gb, int score, TTF_Font *pf, SDL_Surface *ps) {
+void game_over(gameboard &gb, TTF_Font *pf, SDL_Surface *ps) {
     diamond *pd = &gb.dmds[gb.index_sol];
     SDL_Color red = { 255, 0, 0 };
     SDL_Rect pos;
@@ -463,4 +462,5 @@ void game_over(gameboard &gb, int score, TTF_Font *pf, SDL_Surface *ps) {
         SDL_Delay(5);
     }
 }
+
 
