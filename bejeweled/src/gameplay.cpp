@@ -27,6 +27,11 @@
 
 using namespace std;
 
+void init_player(player &p) {
+    p.score = 0;
+    p.reanim = 0;
+}
+
 bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps) {
     bool success = false;
     int vx;
@@ -337,12 +342,12 @@ void solo_loop(SDL_Surface *ps) {
     bool quit = false;
     gameboard gb;
     diamond *pSelected = 0;
-    int score = 0;
+    player user;
     int comboScore;
     Uint32 t0;
     int temps; 	 
     int temps_restant;
-    int tps ;
+    int tps;
     
     TTF_Font *pFont = 0;
     TTF_Init();
@@ -378,11 +383,11 @@ void solo_loop(SDL_Surface *ps) {
                             if ( try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps) ) {
                                 comboScore = 1;
                                 do {
-                                    score += gb.nb_expl * comboScore;
+                                    user.score += gb.nb_expl * comboScore;
                                     ++comboScore;
                                     
                                     show_gameboard(gb, ps);
-                                    scores(pFont,ps,score);
+                                    scores(pFont,ps,user.score);
                                     affiche_temps(pFont,ps,temps_restant);
 
                                     explode(gb, ps);
@@ -413,14 +418,14 @@ void solo_loop(SDL_Surface *ps) {
             }
             
             show_gameboard(gb, ps);
-            scores(pFont,ps,score);
+            scores(pFont,ps,user.score);
             affiche_temps(pFont,ps,temps_restant);
 
             SDL_Flip(ps);
         }
     }
 
-    in_top_ten_solo(pFont, ps, score);
+    in_top_ten_solo(pFont, ps, user.score);
 
     free_theme(gb);
     free_font(pFont);

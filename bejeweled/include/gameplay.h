@@ -28,6 +28,30 @@
 Uint32 const MS_BEFORE_SOLUTION = 10000; // 10 secondes avant de montrer une solution
 
 /* *********************** try_swap **************************
+   * Dimitri Sabadie, 27 Decembre 2010, v0.1                 *
+   ********************* Description *************************
+   * Cette structure represente un joueur, lequel possede un *
+   * score et d'eventuels bonus Reanimations.                *
+   *********************************************************** */
+struct player {
+    int score;
+    int reanim;
+};
+
+/* ********************** init_player ************************
+   * void init_player(player &p);                            *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 27 Decembre 2010, v0.1                 *
+   ********************* Description *************************
+   * Cette fonction permet d'initialiser un joueur.          *
+   *********************** Entrees ***************************
+   * `p' : joueur a initialiser                              *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+void init_player(player &p);
+
+/* *********************** try_swap **************************
    * bool try_swap(gameboard &gb, diamond &a, diamond &b,    *
    *               SDL_Surface *ps);                         *
    ******************** Auteur , Dates ***********************
