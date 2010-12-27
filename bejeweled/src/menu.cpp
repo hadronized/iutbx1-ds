@@ -152,7 +152,7 @@ bool options_selected(menu m, SDL_Event e) {
 }
 
 bool score_selected(menu m, SDL_Event e) {
-    return mouse_in_rect(m.options.at, e);
+    return mouse_in_rect(m.score.at, e);
 }
 
 void menu_loop(SDL_Surface *ps) {
