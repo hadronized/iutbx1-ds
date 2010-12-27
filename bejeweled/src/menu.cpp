@@ -198,10 +198,7 @@ void menu_loop(SDL_Surface *ps) {
             }
         }
 
-        else if ( (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE) )
-            menu_loop(ps);
-            
-		else if (event.type == SDL_QUIT)
+        else if ( event.type == SDL_QUIT || (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE) )
 		    quit=true;
 		 
         affiche_menu(m, ps, event);
