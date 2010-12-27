@@ -4,9 +4,9 @@
 #include <SDL/SDL_ttf.h>
 #include "graphics.h"
 
-int const SHEET_WIDTH   = 695; // longueur feuille bouttons
-int const SHEET_HEIGHT  = 190; // largeur feuille bouttons
-int const BUTTON_WIDTH  = 102; // longueur d'un boutton
+int const SHEET_WIDTH   = 966; // longueur feuille bouttons
+int const SHEET_HEIGHT  = 172; // largeur feuille bouttons
+int const BUTTON_WIDTH  = 157; // longueur d'un boutton
 int const BUTTON_HEIGHT =  83; // hauteur d'un boutton
 
 
@@ -21,6 +21,7 @@ struct menu {
     button coop;
     button versus;
     button options;
+    button score;
     SDL_Surface *wallpaper; // fond d'ecran du menu
     SDL_Surface *sheet;     // feuille du menu
 };
@@ -184,3 +185,21 @@ bool versus_selected(menu m, SDL_Event e);
    * bool                                                    *
    *********************************************************** */
 bool options_selected(menu m, SDL_Event e);
+
+/* *********************** score_selected   ******************
+   * bool score_selected(menu m, SDL_Event e);               *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 13  Decembre 2010, v0.1                *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton scores                            *
+   *********************** Entrees ***************************
+   * `m' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
+bool score_selected(menu m, SDL_Event e);
+ 

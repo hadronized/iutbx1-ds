@@ -43,7 +43,7 @@ void initialisation_menu(menu &m) {
     
     //initialisation bouton cooperation
     
-    m.coop.box.x = 235;
+    m.coop.box.x = 325;
     m.coop.box.y =   0;
     m.coop.box.w = BUTTON_WIDTH;
     m.coop.box.h = BUTTON_HEIGHT;
@@ -54,7 +54,7 @@ void initialisation_menu(menu &m) {
     
     //initialisation bouton versus
     
-    m.versus.box.x = 475;
+    m.versus.box.x = 645;
     m.versus.box.y =   0;
     m.versus.box.w = BUTTON_WIDTH;
     m.versus.box.h = BUTTON_HEIGHT;
@@ -64,27 +64,37 @@ void initialisation_menu(menu &m) {
     m.versus.at.h  = BUTTON_HEIGHT;
     
     // initialisation bouton options
-    m.options.box.x = 110;
-    m.options.box.y = BUTTON_HEIGHT+(SHEET_HEIGHT-2*BUTTON_HEIGHT);;
+    m.options.box.x = 0;
+    m.options.box.y = 95;
     m.options.box.w = BUTTON_WIDTH;
     m.options.box.h = BUTTON_HEIGHT;
-    m.options.at.x  = 200;
+    m.options.at.x  = 100;
     m.options.at.y  = 390;
     m.options.at.w  = BUTTON_WIDTH;
     m.options.at.h  = BUTTON_HEIGHT;
     
+    // initialisation bouton scores
+    m.score.box.x = 325;
+    m.score.box.y =  95;
+    m.score.box.w = BUTTON_WIDTH;
+    m.score.box.h = BUTTON_HEIGHT;
+    m.score.at.x  = 320;
+    m.score.at.y  = 390;
+    m.score.at.w  = BUTTON_WIDTH;
+    m.score.at.h  = BUTTON_HEIGHT;
+    
     // initialisation bouton quit
-    m.quit.box.x = 350;
-    m.quit.box.y = BUTTON_HEIGHT+(SHEET_HEIGHT-2*BUTTON_HEIGHT);;
+    m.quit.box.x = 645;
+    m.quit.box.y =  95;
     m.quit.box.w = BUTTON_WIDTH;
     m.quit.box.h = BUTTON_HEIGHT;
-    m.quit.at.x  = 450;
+    m.quit.at.x  = 550;
     m.quit.at.y  = 390;
     m.quit.at.w  = BUTTON_WIDTH;
     m.quit.at.h  = BUTTON_HEIGHT;
     
     m.wallpaper = load_img("themes/default/title.png");
-    m.sheet = load_img_key("themes/default/buttons.png", 0, 0, 0);
+    m.sheet = load_img_key("themes/default/button.png", 0, 0, 0);
 }
 
 void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e) {
@@ -96,14 +106,17 @@ void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e) {
         m.coop.box.x = SHEET_WIDTH-BUTTON_WIDTH;
     else if( versus_selected(m, e) ) // si la souris selectionne "Versus"
         m.versus.box.x = SHEET_WIDTH-BUTTON_WIDTH;
-    else if( options_selected(m, e) ) // si la souris selectionne "Versus"
+    else if( options_selected(m, e) ) // si la souris selectionne "Options"
         m.options.box.x = SHEET_WIDTH-BUTTON_WIDTH;
+    else if( score_selected(m, e) ) // si la souris selectionne "Scores"
+        m.score.box.x = SHEET_WIDTH-BUTTON_WIDTH;
         
     SDL_BlitSurface(m.wallpaper, 0, ps, 0); // affichage du fond de menu
     SDL_BlitSurface(m.sheet, &m.play.box, ps, &m.play.at); // affichage du bouton play
     SDL_BlitSurface(m.sheet, &m.coop.box, ps, &m.coop.at); // affichage du bouton cooperation
     SDL_BlitSurface(m.sheet, &m.versus.box, ps, &m.versus.at); // affichage du bouton versus
-    SDL_BlitSurface(m.sheet, &m.options.box, ps, &m.options.at); // affichage du bouton versus
+    SDL_BlitSurface(m.sheet, &m.options.box, ps, &m.options.at); // affichage du bouton options
+    SDL_BlitSurface(m.sheet, &m.score.box, ps, &m.score.at); // affichage du bouton scores
     SDL_BlitSurface(m.sheet, &m.quit.box, ps, &m.quit.at); // affichage du bouton quit
 }
 
@@ -138,6 +151,10 @@ bool options_selected(menu m, SDL_Event e) {
     return mouse_in_rect(m.options.at, e);
 }
 
+bool score_selected(menu m, SDL_Event e) {
+    return mouse_in_rect(m.options.at, e);
+}
+
 void menu_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
@@ -149,13 +166,13 @@ void menu_loop(SDL_Surface *ps) {
         SDL_WaitEvent(&event); // pas besoin de SDL_PollEvent ici
 
         if (event.type == SDL_MOUSEBUTTONUP) {
-            if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) // a modifier en 1 joueur
+            if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
             {
                 SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
                 solo_loop(ps);
             } 
 	
-            /* else if (vs_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+            /* else if (versus_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
                {
                SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
                vs_loop(ps);
