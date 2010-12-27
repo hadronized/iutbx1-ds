@@ -132,6 +132,11 @@ void free_theme(gameboard &gb) {
     }
 }
 
+bool cursor_in_grid(SDL_Event e, gameboard const &gb) {
+    return (e.motion.x >= 0 && e.motion.x <= gb.row*DIAMOND_SIZE)
+        && (e.motion.y >= 0 && e.motion.y <= gb.col*DIAMOND_SIZE);
+}
+
 void show_gameboard(gameboard &gb, SDL_Surface *ps) {
     diamond d;
     
@@ -203,7 +208,6 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
     }
     
     vy++;
-    //SDL_Rect area;
 
 }
 
