@@ -19,8 +19,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#ifndef GUI_H
-#define GUI_H
+#ifndef GRAPHICS_H
+#define GRAPHICS_H
 
 #include <string>
 #include <SDL/SDL.h>
@@ -227,5 +227,22 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps); // a compléter ! :)
    * void                                                    *
    *********************************************************** */
 void draw_solution(gameboard &gb, SDL_Surface *ps);
+
+/* *********************** game_over *************************
+   * void game_over(gameboard &gb, TTF_Font *pf,             *
+   *                SDL_Surface *ps);                        *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 21 Decembre 2010, v0.2                 *
+   ********************* Description *************************
+   * Cette fonction permet d'afficher l'animation de         *
+   * game over.                                              *
+   *********************** Entrees ***************************
+   * `gb' : reference sur le plateau de jeu fini             *
+   * `pf' : pointeur sur la police a utiliser                *
+   * `ps' : pointeur sur la surface a utiliser               *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+void game_over(gameboard &gb, TTF_Font *pf, SDL_Surface *ps);
 
 #endif // guard

@@ -445,36 +445,5 @@ bool cursor_in_grid(SDL_Event e, gameboard const &gb) {
         && (e.motion.y >= 0 && e.motion.y <= gb.col*DIAMOND_SIZE);
 }
 
-void game_over(gameboard &gb, TTF_Font *pf, SDL_Surface *ps) {
-    diamond *pd = &gb.dmds[gb.index_sol];
-    SDL_Color red = { 255, 0, 0 };
-    SDL_Rect pos;
-    SDL_Surface *pgo = TTF_RenderText_Blended(pf, "Game Over", red);
-
-    pos.x = (SCREEN_WIDTH-pgo->w)/2;
-    pos.y = (SCREEN_HEIGHT-pgo->h)/2;
-
-    for (int blink = 1; blink < 11; ++blink) {
-        for (int col = 0; col < gb.col; ++col) {
-            for (int row = 0; row < gb.row; ++row) {
-                pd = &query_diamond(gb, col, row);
-                pd->sub.y = DIAMOND_SIZE - pd->sub.y;
-            }
-        }
-
-        show_gameboard(gb, ps);
-        SDL_Flip(ps);
-        SDL_Delay(150);
-    }
-
-    for (int yrel = 0; yrel < SCREEN_HEIGHT/4+pgo->h/2; ++yrel) {
-        pos.y -= 1;
-        //show_gameboard(gb, ps);
-        draw_game_wp(gb, 0, ps);
-        SDL_BlitSurface(pgo, 0, ps, &pos);
-        SDL_Flip(ps);
-        SDL_Delay(5);
-    }
-}
 
 

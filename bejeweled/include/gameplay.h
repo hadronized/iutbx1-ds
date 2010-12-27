@@ -318,22 +318,4 @@ void solo_loop(SDL_Surface *ps);
    *********************************************************** */
 bool cursor_in_grid(SDL_Event m, gameboard const &gb); // a deplacer dans graphics.h
 
-// A COMPLETER !!!
-/* ******************** cursor_in_grid ***********************
-   * bool cursor_in_grid(SDL_Event m, gameboard const &gb);  *
-   ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 21 Decembre 2010, v0.2                 *
-   ********************* Description *************************
-   * Cette fonction permet de savoir si le curseur de la     *
-   * souris se situe bien dans une grille jouable.           *
-   *********************** Entrees ***************************
-   * `m'  : evenement par laquelle l'etat de la souris peut  *
-   *        etre recupere                                    *
-   * `gb' : reference sur le plateau contenant la grille     *
-   *********************** Sorties ***************************
-   * `bool' : true si le curseur est dans la grille, false   *
-   *          sinon                                          *
-   *********************************************************** */
-void game_over(gameboard &gb, TTF_Font *pf, SDL_Surface *ps);
-
 #endif // guard
