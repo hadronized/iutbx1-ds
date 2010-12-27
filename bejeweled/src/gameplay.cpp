@@ -341,10 +341,11 @@ bool check_solution(gameboard &gb) {
 void random_explode(gameboard &gb, SDL_Surface *ps) {
     int index;
 
+    gb.nb_expl = 0;
     while (gb.nb_expl < 10) {
         do {
             index = rand() % (gb.col*gb.row);
-        } while (!array_insert(index, gb.expl, gb.nb_expl, gb.col*gb.row)); // on ajoute des indices de diamant a exploser tant que l'insertion est refusee
+        } while (!array_insert(index, gb.expl, gb.nb_expl, gb.col*gb.row)); // on ajoute un indice aleatoire tant que l'insertion est refusee
     }
 
     explode(gb, ps);
@@ -409,25 +410,39 @@ void solo_loop(SDL_Surface *ps) {
 
                                     explode(gb, ps);
                                     get_down(gb, ps);
-                                } while ( check_explode(gb));
 
-                                if (user.action >= 10) { // a modifier en fonction de la difficulte choisie
-                                    random_explode(gb, ps);
-                                    user.score += BONUS_NB_EXPL;
-                                    user.action = 0;
-                                }
+                                    if (user.action >= 10) { // a modifier en fonction de la difficulte choisie
+                                        show_gameboard(gb, ps);
+                                        scores(pFont,ps,user.score);
+                                        affiche_temps(pFont,ps,temps_restant);
+
+                                        random_explode(gb, ps);
+                                        user.score += BONUS_NB_EXPL;
+                                        user.action = 0;
+                                    }
+                                } while ( check_explode(gb));
 
                                 t0 = SDL_GetTicks();
 
                                 if (check_solution(gb)) { // il reste des solutions
                                     ;
                                 } else { // plus de solution
-                                    // verifier la presence de bonus reanimation
-                                    // if ...
-                                    // else {
-                                    game_over(gb, pFont, ps);
-                                    quit = true;
-                                    // }
+                                    if (user.reanim >= 100) { // a modifier en fonction de la difficute choisie
+                                        show_gameboard(gb, ps);
+                                        scores(pFont,ps,user.score);
+                                        affiche_temps(pFont,ps,temps_restant);
+
+                                        random_explode(gb, ps);
+                                        user.reanim = 0;
+
+                                        if (!check_solution(gb)) {
+                                            game_over(gb, pFont, ps);
+                                            quit = true;
+                                        }
+                                    } else {
+                                        game_over(gb, pFont, ps);
+                                        quit = true;
+                                    }
                                 }
                             }
 			
