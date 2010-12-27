@@ -31,7 +31,7 @@ void save_solo_game(gameboard const &gb, int score) {
     ofstream file;
     stringstream data;
 
-    file.open(SOLO_SAVE_FILE.c_str());
+    file.open(SOLO_SAVE_FILE.c_str(), ios::trunc);
 
     if (file.is_open()) {
         data << gb.col << endl;

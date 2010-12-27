@@ -66,8 +66,9 @@ bool is_alphanum(Uint16 unicode) {
         (unicode >= '0' && unicode <= '9');
 }
 
-string get_username(TTF_Font *pf, SDL_Surface *ps) {
+string get_username(int place, TTF_Font *pf, SDL_Surface *ps) {
     string nick = "___";
+    stringstream message;
     unsigned int i = 0;
     SDL_Event event;
     SDL_Surface *typeArea = 0;
@@ -80,8 +81,10 @@ string get_username(TTF_Font *pf, SDL_Surface *ps) {
 
     SDL_EnableUNICODE(1);
 
+    message << "Bravo ! Vous etes " << place << "e !!";
+
     typeArea = TTF_RenderText_Blended(pf, nick.c_str(), white);
-    congrats = TTF_RenderText_Blended(pf, "Vous avez battu un record !", red);
+    congrats = TTF_RenderText_Blended(pf, message.str().c_str(), red);
             
     pos.x = (SCREEN_WIDTH-typeArea->w)/2;
     pos.y = (SCREEN_HEIGHT-typeArea->h)/2;
@@ -159,32 +162,40 @@ void in_top_ten_solo(TTF_Font *pf, SDL_Surface *ps, int score) {
     string strtmp;
     int scoretmp;
 
+    // petit hack pour s'assurer d'ouvrir un fichier existant par la suite
     file.open(TOP_TEN_SOLO_FILE.c_str(), ios::out | ios::app);
     file.close();
+
     file.open(TOP_TEN_SOLO_FILE.c_str(), ios::in);
 
     if (file.is_open()) {
         cdata << file.rdbuf();
         file.close();
-        ddata << decrypt(cdata.str());
+
+        if (cdata.str().empty()) { // si pas de scores encore references
+            towrite << get_username(1, pf, ps) << ' ' << score << endl;
+            for (int i = 0; i < 9; ++i)
+                towrite << "___ " << 0 << endl;
+        } else { // sinon, il y a deja eu des records
+            ddata << decrypt(cdata.str());
         
-        for (int i = 0; i < 10; ++i) {
-            ddata >> strtmp >> scoretmp;
-            if (score > scoretmp) {
-                towrite << get_username(pf, ps) << ' ' << score << endl;
-                score = -1;
+            for (int i = 0; i < 10; ++i) {
+                ddata >> strtmp >> scoretmp;
+                if (score > scoretmp) {
+                    towrite << get_username(i+1, pf, ps) << ' ' << score << endl;
+                    score = -1;
+                    ++i;
+                } 
+                
+                if (i < 10)
+                    towrite << strtmp << ' ' << scoretmp << endl;
             }
-            
-            towrite << strtmp << ' ' << scoretmp << endl;
-            
         }
 
-        cout << "et voici la liste !" << endl;
-        cout << towrite.str() << endl;
         file.open(TOP_TEN_SOLO_FILE.c_str(), ios::out | ios::trunc);
         
         if (file.is_open()) {
-            file << towrite.str() << endl;
+            file << crypt(towrite.str()) << endl;
             file.close();
         } else {
             cerr << '[' << TOP_TEN_SOLO_FILE << "] fichier inaccessible en écriture" << endl;

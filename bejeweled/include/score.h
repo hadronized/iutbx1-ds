@@ -74,19 +74,22 @@ TTF_Font * init_font();
 bool is_alphanum(Uint16 unicode);
 
 /* *********************** get_username **********************
-   * string get_username(SDL_Surface *ps);                   *
+   * string get_username(int place, TTF_Font *pf,            *
+   *                     SDL_Surface *ps);                   *
    *********************** Auteur , Dates ********************
-   * Dimitri Sabadie, 23 Decembre 2010, v0.1                 *
+   * Dimitri Sabadie, 27 Decembre 2010, v0.2                 *
    *********************** Description ***********************
    * Cette fonction permet de recuperer le nom d'utilisateur *
    * d'un joueur sous forme de 3 caracteres.                 *
    *********************** Entrees ***************************
-   * `pf' : pointeur sur la police a utiliser pour la saisie *
-   * `ps' : pointeur sur la surface ou afficher la saisie    *
+   * `place' : position du joueur dans le classement         *
+   * `pf'    : pointeur sur la police a utiliser pour la     *
+   *           saisie                                        *
+   * `ps'    : pointeur sur la surface ou afficher la saisie *
    *********************** Sorties ***************************
    * `string' : le nom d'utilisateur entre                   *
    *********************************************************** */
-string get_username(TTF_Font *pf, SDL_Surface *ps);
+string get_username(int place, TTF_Font *pf, SDL_Surface *ps);
 
 /* *********************** in_top_ten_solo *******************
    * void in_top_ten_solo(TTF_Font *pf, SDL_Surface *ps,     *
