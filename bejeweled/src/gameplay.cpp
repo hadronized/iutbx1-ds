@@ -338,6 +338,19 @@ bool check_solution(gameboard &gb) {
     return false;
 }
 
+void random_explode(gameboard &gb, SDL_Surface *ps) {
+    int index;
+
+    while (gb.nb_expl < 10) {
+        do {
+            index = rand() % (gb.col*gb.row);
+        } while (!array_insert(index, gb.expl, gb.nb_expl, gb.col*gb.row)); // on ajoute des indices de diamant a exploser tant que l'insertion est refusee
+    }
+
+    explode(gb, ps);
+    get_down(gb, ps);
+}
+
 void solo_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
@@ -386,7 +399,8 @@ void solo_loop(SDL_Surface *ps) {
                                 comboScore = 1;
                                 do {
                                     user.score += gb.nb_expl * comboScore;
-                                    user.reanim = user.action = user.score;
+                                    user.action += gb.nb_expl;
+                                    user.reanim += gb.nb_expl;
                                     ++comboScore;
                                     
                                     show_gameboard(gb, ps);
@@ -398,8 +412,8 @@ void solo_loop(SDL_Surface *ps) {
                                 } while ( check_explode(gb));
 
                                 if (user.action >= 10) { // a modifier en fonction de la difficulte choisie
-                                    // lancer le bonus action ici
-                                    cout << "ACTION !" << endl;
+                                    random_explode(gb, ps);
+                                    user.score += BONUS_NB_EXPL;
                                     user.action = 0;
                                 }
 
@@ -409,9 +423,11 @@ void solo_loop(SDL_Surface *ps) {
                                     ;
                                 } else { // plus de solution
                                     // verifier la presence de bonus reanimation
-                                    // si pas de bonus
+                                    // if ...
+                                    // else {
                                     game_over(gb, pFont, ps);
                                     quit = true;
+                                    // }
                                 }
                             }
 			

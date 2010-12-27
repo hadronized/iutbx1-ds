@@ -25,7 +25,8 @@
 #include "gameboard.h"
 #include "graphics.h"
 
-Uint32 const MS_BEFORE_SOLUTION = 10000; // 10 secondes avant de montrer une solution
+Uint32 const MS_BEFORE_SOLUTION = 10000;  // 10 secondes avant de montrer une solution
+int const BONUS_NB_EXPL = 10;             // 10 diamants explosent à chaque bonus active
 
 /* *********************** try_swap **************************
    * Dimitri Sabadie, 27 Decembre 2010, v0.1                 *
@@ -286,6 +287,8 @@ bool check_pattern_v3(gameboard &gb, int i, int j);
    * `bool' : true si un motif est trouve, false sinon       *
    *********************************************************** */
 bool check_solution(gameboard &gb);
+
+void random_explode(gameboard &gb, SDL_Surface *ps);
 
 /* *********************** solo_loop *************************
    * bool main_loop(SDL_Surface *ps);                        *

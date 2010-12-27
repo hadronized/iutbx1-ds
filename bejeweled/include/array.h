@@ -42,23 +42,6 @@
    *********************************************************** */
 bool array_insert(int x, int *a, int &n, int nmax);
 
-/* *********************** array_find ************************
-   * bool array_find(int *x, int *a, int n);                 *
-   ********************* Auteur , Dates **********************
-   * Dimitri Sabadie, 20 novembre 2010, v0.1                 *
-   ********************** Description ************************
-   * Cette fonction permet de rechercher dans un tableau     *
-   * d'entiers non trie un entier.                           *
-   ************************ Entrees **************************
-   * `x' : l'entier a rechercher                             *
-   * `a' : le tableau ou rechercher l'entier                 *
-   * `n' : la taille « pseudo dynamique » actuelle du        *
-   *       tableau                                           *
-   ************************ Sorties **************************
-   * `bool' : true si l'entier a ete trouve, false sinon     *
-   *********************************************************** */
-bool array_find(int x, int *a, int n);
-
 // Uniquement pour tests. Affiche un tableau dans la console.
 void show_array(int *a, int n);
 

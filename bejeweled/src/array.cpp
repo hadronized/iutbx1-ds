@@ -30,6 +30,7 @@ bool array_insert(int x, int *a, int &n, int nmax) {
 
     if (n >= nmax)
         return false;
+
     while (i < n) {
         if (a[i] == x) { // doublon, on refuse
             return false;
