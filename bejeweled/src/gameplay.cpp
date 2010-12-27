@@ -29,6 +29,7 @@ using namespace std;
 
 void init_player(player &p) {
     p.score = 0;
+    p.action = 0;
     p.reanim = 0;
 }
 
@@ -362,6 +363,7 @@ void solo_loop(SDL_Surface *ps) {
 
     load_theme("themes/fractal_cosmos/", gb);
     init_gameboard(gb, 8, 8);
+    init_player(user);
     
     if (check_solution(gb)) {
         t0 = SDL_GetTicks();
@@ -384,6 +386,7 @@ void solo_loop(SDL_Surface *ps) {
                                 comboScore = 1;
                                 do {
                                     user.score += gb.nb_expl * comboScore;
+                                    user.reanim = user.action = user.score;
                                     ++comboScore;
                                     
                                     show_gameboard(gb, ps);
@@ -394,12 +397,18 @@ void solo_loop(SDL_Surface *ps) {
                                     get_down(gb, ps);
                                 } while ( check_explode(gb));
 
+                                if (user.action >= 10) { // a modifier en fonction de la difficulte choisie
+                                    // lancer le bonus action ici
+                                    cout << "ACTION !" << endl;
+                                    user.action = 0;
+                                }
+
                                 t0 = SDL_GetTicks();
 
                                 if (check_solution(gb)) { // il reste des solutions
                                     ;
                                 } else { // plus de solution
-                                    // pverifier la presence de bonus reanimation
+                                    // verifier la presence de bonus reanimation
                                     // si pas de bonus
                                     game_over(gb, pFont, ps);
                                     quit = true;
