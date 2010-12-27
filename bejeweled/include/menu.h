@@ -4,10 +4,10 @@
 #include <SDL/SDL_ttf.h>
 #include "graphics.h"
 
-int const SHEET_WIDTH   = 966; // longueur feuille bouttons
-int const SHEET_HEIGHT  = 172; // largeur feuille bouttons
-int const BUTTON_WIDTH  = 157; // longueur d'un boutton
-int const BUTTON_HEIGHT =  83; // hauteur d'un boutton
+int const SHEET_WIDTH   = 776; // longueur feuille bouttons
+int const SHEET_HEIGHT  = 147; // largeur feuille bouttons
+int const BUTTON_WIDTH  = 125; // longueur d'un boutton
+int const BUTTON_HEIGHT =  70; // hauteur d'un boutton
 
 
 struct button {
