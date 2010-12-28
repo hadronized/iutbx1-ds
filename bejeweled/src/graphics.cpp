@@ -20,9 +20,13 @@
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
 #include <iostream> // cerr
+#include <fstream>
+#include <sstream>
 #include "algorithm.h"
+#include "cipher.h"
 #include "graphics.h"
 #include "gameboard.h"
+#include "score.h"
 
 using namespace std;
 
@@ -256,4 +260,45 @@ void game_over(gameboard &gb, TTF_Font *pf, SDL_Surface *ps) {
         SDL_Flip(ps);
         SDL_Delay(5);
     }
+}
+
+void draw_top_ten(TTF_Font *pf, SDL_Surface *ps) {
+    fstream file;
+    stringstream cdata;
+    stringstream ddata;
+    string name, score;
+    SDL_Surface *pHighscores[10];
+    SDL_Color white = { 255, 255, 255 };
+    SDL_Rect pos;
+    SDL_Event event;
+
+    // petit hack pour s'assurer que le fichier existe
+    file.open(TOP_TEN_SOLO_FILE.c_str(), ios::out | ios::app);
+    file.close();
+
+    file.open(TOP_TEN_SOLO_FILE.c_str(), ios::in);
+    if (file.is_open()) {
+        cdata << file.rdbuf();
+        file.close();
+
+        SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 0, 0, 0));
+
+        ddata << decrypt(cdata.str());
+        for (int i = 0; i < 10; ++i) {
+            ddata >> name >> score;
+            pHighscores[i] = TTF_RenderText_Blended(pf, (name+' '+score).c_str(), white);
+            pos.x = (SCREEN_WIDTH-pHighscores[i]->w)/2;
+            pos.y = i*pHighscores[i]->h;
+            SDL_BlitSurface(pHighscores[i], 0, ps, &pos);
+        }
+        
+        SDL_Flip(ps);
+
+        do {
+            SDL_WaitEvent(&event);
+        } while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_ESCAPE);
+    } else {
+        cerr << '[' << TOP_TEN_SOLO_FILE << "] inaccessible en lecture" << endl;
+    }
+    
 }

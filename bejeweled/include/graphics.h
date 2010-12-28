@@ -262,4 +262,19 @@ void draw_solution(gameboard &gb, SDL_Surface *ps);
    *********************************************************** */
 void game_over(gameboard &gb, TTF_Font *pf, SDL_Surface *ps);
 
+/* ********************* draw_top_ten ************************
+   * void draw_top_ten(TTF_Font *pf, SDL_Surface *ps);       *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 28 Decembre 2010, v0.1                 *
+   ********************* Description *************************
+   * Cette fonction permet d'afficher les 10 meilleurs       *
+   * scores du mode Solo.                                    *
+   *********************** Entrees ***************************
+   * `pf' : pointeur sur la police a utiliser                *
+   * `ps' : pointeur sur la surfouce ou afficher le top 10   *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+void draw_top_ten(TTF_Font *pf, SDL_Surface *ps);
+
 #endif // guard

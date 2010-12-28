@@ -387,7 +387,7 @@ void solo_loop(SDL_Surface *ps) {
             temps_restant = temps - ( time(0) - tps);
             
             while (SDL_PollEvent(&event)) {
-                if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+                if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE)
                     quit = true; // on quitte le jeu -> retour au menu principal
                 if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
                     if (cursor_in_grid(event, gb)) {
@@ -466,7 +466,7 @@ void solo_loop(SDL_Surface *ps) {
     }
 
     in_top_ten_solo(pFont, ps, user.score);
-
+    draw_top_ten(pFont, ps);
     free_theme(gb);
     free_font(pFont);
 }
