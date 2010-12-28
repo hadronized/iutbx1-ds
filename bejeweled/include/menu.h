@@ -68,10 +68,10 @@ void initialisation_menu(menu &m);
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e);
+void affiche_menu(menu m, TTF_Font *f, SDL_Surface *ps, SDL_Event e);
 
 /* *********************** liberer_menu **********************
-   * initialisation_menu(menu &m);                           *
+   * liberer_menu(menu &m);                                  *  
    *********************** Auteur , Dates ********************
    * Ludwig Raepsaet, 13  Decembre 2010, v0.1                *
    *********************** Description ***********************
@@ -82,7 +82,6 @@ void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e);
    * void                                                    *
    *********************************************************** */
 void liberer_menu(menu &m);
-
 
 /* *********************** mouse_in_rect *********************
    * bool mouse_in_rect(SDL_Rect r, SDL_Event e);            *

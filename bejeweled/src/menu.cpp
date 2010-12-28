@@ -1,4 +1,5 @@
 #include <iostream> // cerr
+#include <sstream>
 #include "graphics.h"
 #include "menu.h"
 #include "array.h"
@@ -28,6 +29,15 @@ SDL_Surface * load_img_key(string const &fn, int r, int g, int b) {
     optimizedImage = load_img(fn);
     SDL_SetColorKey(optimizedImage, SDL_SRCCOLORKEY, SDL_MapRGB(optimizedImage->format, r, g, b));
     return optimizedImage;
+}
+
+TTF_Font * init_font() {
+    TTF_Font *pf;
+    pf = TTF_OpenFont("themes/default/NEUROPOL.ttf", 150);
+
+    if (!pf)
+cerr << "Erreur de chargement de la police !" << endl;
+    return pf;
 }
 
 void initialisation_menu(menu &m) {
@@ -97,7 +107,7 @@ void initialisation_menu(menu &m) {
     m.sheet = load_img_key("themes/default/Buttons.png", 0,255,255);
 }
 
-void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e) {
+void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
     if ( play_selected(m, e) ) // si la souris selectionne "1joueur"
         m.play.box.x = 130;
     else if( quit_selected(m, e) ) // si la souris selectionne "Quit"
@@ -118,6 +128,25 @@ void affiche_menu(menu m, SDL_Surface *ps, SDL_Event e) {
     SDL_BlitSurface(m.sheet, &m.options.box, ps, &m.options.at); // affichage du bouton options
     SDL_BlitSurface(m.sheet, &m.score.box, ps, &m.score.at); // affichage du bouton scores
     SDL_BlitSurface(m.sheet, &m.quit.box, ps, &m.quit.at); // affichage du bouton quit
+    
+    SDL_Rect pos;
+	SDL_Surface *titreFont;
+	SDL_Color colorFont = {255,255,255,255};
+	string message = "Diamant";
+	
+    stringstream sstr;
+    sstr << message;
+    
+	titreFont = TTF_RenderText_Solid( f, sstr.str().c_str(), colorFont );
+	
+	if (!titreFont)
+	cerr << "Surface titre non generee" << endl;
+	
+	pos.x =  30;
+	pos.y = 100;
+    
+    SDL_BlitSurface(titreFont, 0, ps, &pos);
+    SDL_FreeSurface(titreFont);   
 }
 
 void liberer_menu(menu &m) {
@@ -159,6 +188,11 @@ void menu_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
     menu m;
+    TTF_Font *pFont = 0;
+    TTF_Init();
+    pFont = init_font();
+    if (!pFont)
+        cerr << "Police non initialisée" << endl;
     		
     initialisation_menu(m);
     		
@@ -201,7 +235,7 @@ void menu_loop(SDL_Surface *ps) {
         else if ( event.type == SDL_QUIT || (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE) )
 		    quit=true;
 		 
-        affiche_menu(m, ps, event);
+        affiche_menu(m, pFont, ps, event);
         SDL_Flip(ps);
     }
 }
