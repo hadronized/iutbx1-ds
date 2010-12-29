@@ -137,7 +137,7 @@ void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
     stringstream sstr;
     sstr << message;
     
-	titreFont = TTF_RenderText_Solid( f, sstr.str().c_str(), colorFont );
+	titreFont = TTF_RenderText_Blended( f, sstr.str().c_str(), colorFont );
 	
 	if (!titreFont)
 	cerr << "Surface titre non generee" << endl;
