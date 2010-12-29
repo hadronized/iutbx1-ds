@@ -68,8 +68,58 @@ game_param get_solo_param(difficulty diff) {
             gp.actPoints = 200;
             gp.reaPoints = 400;
             break;
+    }
+            
+    return gp;
+}
 
+game_param get_dual_param(difficulty diff) {
+    game_param gp;
 
+    switch (diff) {
+        case easy :
+            gp.nbKind = 4;
+            gp.endMult = 1;
+            gp.pPD = 1;
+            gp.time = 90;
+            gp.posTime = 20;
+            gp.negTime = 0;
+            gp.actPoints = 30;
+            gp.reaPoints = 100;
+            break;
+
+        case normal :
+            gp.nbKind = 5;
+            gp.endMult = 1;
+            gp.pPD = 1;
+            gp.time = 60;
+            gp.posTime = 15;
+            gp.negTime = 0;
+            gp.actPoints = 60;
+            gp.reaPoints = 175;
+            break;
+
+        case heroic :
+            gp.nbKind = 7;
+            gp.endMult = 1;
+            gp.pPD = 2;
+            gp.time = 20;
+            gp.posTime = 10;
+            gp.negTime = 5;
+            gp.actPoints = 120;
+            gp.reaPoints = 300;
+            break;
+
+        case legendary :
+            gp.nbKind = 8;
+            gp.endMult = 1;
+            gp.pPD = 2;
+            gp.time = 10;
+            gp.posTime = 5;
+            gp.negTime = 5;
+            gp.actPoints = 200;
+            gp.reaPoints = 400;
+            break;
     }
             
     return gp;
