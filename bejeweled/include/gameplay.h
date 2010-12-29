@@ -288,12 +288,26 @@ bool check_pattern_v3(gameboard &gb, int i, int j);
    *********************************************************** */
 bool check_solution(gameboard &gb);
 
+/* ******************** random_explode ***********************
+   * void random_explode(gameboard &gb, SDL_Surface *ps);    *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 21 Decembre 2010, v0.3                 *
+   ********************* Description *************************
+   * Cette fonction permet de faire exploser aleatoirement   *
+   * des diamants de la matrice.                             *
+   *********************** Entrees ***************************
+   * `gb' : plateau ou generer les explosions aleatoires     *
+   * `ps' : pointeur sur la surface ou afficher les          *
+   *        explosions                                       *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
 void random_explode(gameboard &gb, SDL_Surface *ps);
 
 /* *********************** solo_loop *************************
-   * bool main_loop(SDL_Surface *ps);                        *
+   * void solo_loop(SDL_Surface *ps);                        *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 27 Novembre 2010, v1.3                 *
+   * Dimitri Sabadie, 29 Decembre 2010, v1.4                 *
    ********************* Description *************************
    * Cette fonction est la boucle de jeu principale du mode  *
    * solo.                                                   *
