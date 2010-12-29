@@ -19,6 +19,8 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
+#include <iostream> // pour cerr
+#include <fstream>
 #include "game_param.h"
 
 game_param get_solo_param(difficulty diff) {
@@ -68,6 +70,16 @@ game_param get_solo_param(difficulty diff) {
             gp.actPoints = 200;
             gp.reaPoints = 400;
             break;
+
+        default :
+            gp.nbKind = 5;
+            gp.endMult = 2;
+            gp.pPD = 1;
+            gp.time = 60;
+            gp.posTime = 15;
+            gp.negTime = 0;
+            gp.actPoints = 60;
+            gp.reaPoints = 175;
     }
             
     return gp;
@@ -120,6 +132,16 @@ game_param get_dual_param(difficulty diff) {
             gp.actPoints = 200;
             gp.reaPoints = 400;
             break;
+
+        default :
+            gp.nbKind = 5;
+            gp.endMult = 1;
+            gp.pPD = 1;
+            gp.time = 60;
+            gp.posTime = 15;
+            gp.negTime = 0;
+            gp.actPoints = 60;
+            gp.reaPoints = 175;
     }
             
     return gp;
@@ -172,7 +194,31 @@ game_param get_coop_param(difficulty diff) {
             gp.actPoints = 250;
             gp.reaPoints = 450;
             break;
+
+        default :
+            gp.nbKind = 6;
+            gp.endMult = 2;
+            gp.pPD = 1;
+            gp.time = 30;
+            gp.posTime = 10;
+            gp.negTime = 8;
+            gp.actPoints = 100;
+            gp.reaPoints = 200;
     }
             
     return gp;
 }
+
+void save_difficulty(difficulty diff) {
+    ofstream file;
+
+    file.open(DIFFICULTY_FILE.c_str(), ios::out | ios::trunc);
+    
+    if (file.is_open()) {
+        file << diff;
+        file.close();
+    } else {
+        cerr << '[' << DIFFICULTY_FILE << "] inaccessible en ecriture" << endl;
+    }
+}
+

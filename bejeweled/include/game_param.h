@@ -22,6 +22,12 @@
 #ifndef GAME_PARAM_H
 #define GAME_PARAM_H
 
+#include <string>
+
+using namespace std;
+
+string const DIFFICULTY_FILE = ".bdiff";
+
 /* ********************** game_param *************************
    * Dimitri Sabadie, 29 Decembre 2010, v0.1                 *
    ********************* Description *************************
@@ -46,7 +52,7 @@ struct game_param {
    * difficulte.                                             *
    *********************************************************** */
 enum difficulty {
-    easy,
+    easy = 0,
     normal,
     heroic,
     legendary
@@ -99,5 +105,19 @@ game_param get_dual_param(difficulty diff);
    *                difficulte choisie                       *
    *********************************************************** */
 game_param get_coop_param(difficulty diff);
+
+/* ******************* save_difficulty ***********************
+   * void save_difficulty(difficulty diff);                  *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 29 Decembre 2010, v0.1                 *
+   ******************** Description **************************
+   * Cette fonction permet de sauvegarder la difficulte      *
+   * choisie par le joueur.                                  *
+   ********************** Entrees ****************************
+   * `diff' : difficulte choisie par le joueur               *
+   ********************** Sorties ****************************
+   * void                                                    *
+   *********************************************************** */
+void save_difficulty(difficulty diff);
 
 #endif // guard
