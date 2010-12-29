@@ -12,7 +12,7 @@ void affiche_temps(TTF_Font *f, SDL_Surface *ps, int temps_restant)
 
     sstr << "Temps : " << temps_restant;
     
-	tempsFont = TTF_RenderText_Solid( f, sstr.str().c_str(), colorFont );
+	tempsFont = TTF_RenderText_Blended( f, sstr.str().c_str(), colorFont );
 	
 	if (!tempsFont)
 	cerr << "Surface temps non generee" << endl;
