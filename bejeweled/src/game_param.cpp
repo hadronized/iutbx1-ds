@@ -19,40 +19,58 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <iostream> // UNIQUEMENT POUR TESTS
-#include <cstdlib> // pour rand()
-#include "algorithm.h"
-#include "diamond.h"
+#include "game_param.h"
 
-using namespace std;
+game_param get_solo_param(difficulty diff) {
+    game_param gp;
 
-diamond_type init_diamond(diamond &d, int x, int y) {
-    d.type = rand() % DIAMOND_TYPE_N;
-    d.box.x = x*DIAMOND_SIZE;
-    d.box.y = y*DIAMOND_SIZE;
-    d.sub.x = d.type*DIAMOND_SIZE;
-    d.sub.y = 0;
-    d.sub.w = d.sub.h = DIAMOND_SIZE;
+    switch (diff) {
+        case easy :
+            gp.nbKind = 4;
+            gp.endMult = 1;
+            gp.pPD = 1;
+            gp.time = 90;
+            gp.posTime = 20;
+            gp.negTime = 0;
+            gp.actPoints = 30;
+            gp.reaPoints = 100;
+            break;
 
-    return d.type;
-}
+        case normal :
+            gp.nbKind = 5;
+            gp.endMult = 2;
+            gp.pPD = 1;
+            gp.time = 60;
+            gp.posTime = 15;
+            gp.negTime = 0;
+            gp.actPoints = 60;
+            gp.reaPoints = 175;
+            break;
 
-void change_diamond_type(diamond &d, diamond_type h, diamond_type v) {
-    while (d.type == h || d.type == v)
-	d.type = rand() % DIAMOND_TYPE_N;
-    d.sub.x = d.type*DIAMOND_SIZE;
-}
+        case heroic :
+            gp.nbKind = 7;
+            gp.endMult = 3;
+            gp.pPD = 2;
+            gp.time = 20;
+            gp.posTime = 10;
+            gp.negTime = 5;
+            gp.actPoints = 120;
+            gp.reaPoints = 300;
+            break;
 
-bool is_near(diamond const &a, diamond const &b) {
-    return (a.box.x == b.box.x && max(a.box.y, b.box.y) - min(a.box.y, b.box.y) == DIAMOND_SIZE)
-        || (a.box.y == b.box.y && max(a.box.x, b.box.x) - min(a.box.x, b.box.x) == DIAMOND_SIZE);
-}
+        case legendary :
+            gp.nbKind = 8;
+            gp.endMult = 4;
+            gp.pPD = 2;
+            gp.time = 10;
+            gp.posTime = 5;
+            gp.negTime = 5;
+            gp.actPoints = 200;
+            gp.reaPoints = 400;
+            break;
 
-void diamond_swap(diamond &a, diamond &b) {
-    int_swap(a.type, b.type);
-    sdlrect_swap(a.sub, b.sub);
-}
 
-bool equal(diamond a, diamond b, diamond c) {
-    return a.type == b.type && b.type == c.type;
+    }
+            
+    return gp;
 }

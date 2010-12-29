@@ -35,28 +35,37 @@ struct game_param {
     int time;       // Temps de départ
     int posTime;    // Temps positif : temps credite a chaque diamant explose
     int negTime;    // Temps negatif : temps debite a chaque mauvaise tentative
-    int actPoints;  // Points necessaire depuis le debut du jeu ou dernier Action pour avoir un Action
-    int reaPoints;  // Points necessaire depuis le debut du jeu ou derniere Reanimation pour avoir un Reanimation
+    int actPoints;  // Points necessaires depuis le debut du jeu ou dernier Action pour avoir un Action
+    int reaPoints;  // Points necessaires depuis le debut du jeu ou derniere Reanimation pour avoir un Reanimation
 };
 
-
-
-/* ******************** init_diamond *************************
-   * diamond_type init_diamond(diamond&, int x, int y);      *
-   ******************* Auteur , Dates ************************
-   * Dimitri Sabadie, 9 novembre 2010, v0.2                  *  
-   ******************** Description **************************
-   * Cette fonction permet d'initialiser un diamant, a       *
-   * savoir, lui attribuer un type au hasard, ainsi qu'une   *
-   * position donnee dans la matrice.                        *
-   ********************** Entrees ****************************
-   * `d' : reference sur le diamant a initialiser            *
-   * `x' : entier representant l'abscisse du diamant a       *
-   *       initialiser                                       *
-   * `y' : entier representant l'ordonnee du diamant e       *
-   *       initialiser                                       *
-   ********************** Sorties ****************************
-   * `diamond_type' : type de diamant genere                 *
+/* ********************** difficulty *************************
+   * Dimitri Sabadie, 29 Decembre 2010, v0.1                 *
+   ********************* Description *************************
+   * Cette enumeration represente tout simplement une        *
+   * difficulte.                                             *
    *********************************************************** */
+enum difficulty {
+    easy,
+    normal,
+    heroic,
+    legendary
+};
+
+/* ******************** get_solo_param ***********************
+   * game_param get_solo_param(difficulty diff);             *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 20 Decembre 2010, v0.1                 *
+   ******************** Description **************************
+   * A partir d'une difficulte choisie par le joueur, cette  *
+   * fonction retourne les parametres de jeu en utiliser     *
+   * pour jouer en mode Solo.                                *
+   ********************** Entrees ****************************
+   * `diff' : difficulte choisie par le joueur               *
+   ********************** Sorties ****************************
+   * `game_param' : les parametres de jeu en fonction de la  *
+   *                difficulte choisie                       *
+   *********************************************************** */
+game_param get_solo_param(difficulty diff);
 
 #endif // guard
