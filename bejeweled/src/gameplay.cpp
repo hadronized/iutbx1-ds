@@ -382,7 +382,7 @@ void solo_loop(SDL_Surface *ps) {
     if (check_solution(gb)) {
         t0 = SDL_GetTicks();
 
-        while (!quit) {
+        while (!quit && temps_restant >0) {
             SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
             temps_restant = temps - ( time(0) - tps);
             
