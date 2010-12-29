@@ -84,4 +84,20 @@ game_param get_solo_param(difficulty diff);
    *********************************************************** */
 game_param get_dual_param(difficulty diff);
 
+/* ******************** get_coop_param ***********************
+   * game_param get_coop_param(difficulty diff);             *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 29 Decembre 2010, v0.1                 *
+   ******************** Description **************************
+   * A partir d'une difficulte choisie par le joueur, cette  *
+   * fonction retourne les parametres de jeu en utiliser     *
+   * pour jouer en mode Coop.                                *
+   ********************** Entrees ****************************
+   * `diff' : difficulte choisie par le joueur               *
+   ********************** Sorties ****************************
+   * `game_param' : les parametres de jeu en fonction de la  *
+   *                difficulte choisie                       *
+   *********************************************************** */
+game_param get_coop_param(difficulty diff);
+
 #endif // guard

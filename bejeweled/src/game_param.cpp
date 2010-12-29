@@ -124,3 +124,55 @@ game_param get_dual_param(difficulty diff) {
             
     return gp;
 }
+
+game_param get_coop_param(difficulty diff) {
+    game_param gp;
+
+    switch (diff) {
+        case easy :
+            gp.nbKind = 5;
+            gp.endMult = 1;
+            gp.pPD = 1;
+            gp.time = 60;
+            gp.posTime = 15;
+            gp.negTime = 5;
+            gp.actPoints = 60;
+            gp.reaPoints = 120;
+            break;
+
+        case normal :
+            gp.nbKind = 6;
+            gp.endMult = 2;
+            gp.pPD = 1;
+            gp.time = 30;
+            gp.posTime = 10;
+            gp.negTime = 8;
+            gp.actPoints = 100;
+            gp.reaPoints = 200;
+            break;
+
+        case heroic :
+            gp.nbKind = 7;
+            gp.endMult = 3;
+            gp.pPD = 2;
+            gp.time = 10;
+            gp.posTime = 5;
+            gp.negTime = 5;
+            gp.actPoints = 175;
+            gp.reaPoints = 350;
+            break;
+
+        case legendary :
+            gp.nbKind = 8;
+            gp.endMult = 4;
+            gp.pPD = 2;
+            gp.time = 5;
+            gp.posTime = 5;
+            gp.negTime = 8;
+            gp.actPoints = 250;
+            gp.reaPoints = 450;
+            break;
+    }
+            
+    return gp;
+}
