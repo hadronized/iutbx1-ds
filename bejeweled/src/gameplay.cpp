@@ -464,11 +464,13 @@ void solo_loop(SDL_Surface *ps) {
             SDL_Flip(ps);
         }
     }
-
+    
+    if (temps_restant == 0){
     in_top_ten_solo(pFont, ps, user.score);
     draw_top_ten(pFont, ps);
     free_theme(gb);
     free_font(pFont);
+    }
 }
 
 
