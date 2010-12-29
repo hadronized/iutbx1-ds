@@ -120,4 +120,19 @@ game_param get_coop_param(difficulty diff);
    *********************************************************** */
 void save_difficulty(difficulty diff);
 
+/* ******************* load_difficulty ***********************
+   * difficulty load_difficulty(void);                       *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 29 Decembre 2010, v0.1                 *
+   ******************** Description **************************
+   * Permet de recuperer la difficulte parametree par le     *
+   * joueur. Si cette derniere n'a jamais ete parametree, la *
+   * difficulte "Normal" est alors choisie.                  *
+   ********************** Entrees ****************************
+   * void                                                    *
+   ********************** Sorties ****************************
+   * `difficulty' : difficulte parametree                    *
+   *********************************************************** */
+difficulty load_difficulty(void);
+
 #endif // guard

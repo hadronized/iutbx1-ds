@@ -222,3 +222,19 @@ void save_difficulty(difficulty diff) {
     }
 }
 
+difficulty load_difficulty() {
+    ifstream file;
+    int diff;
+
+    file.open(DIFFICULTY_FILE.c_str());
+
+    if (file.is_open()) {
+        file >> diff;
+        file.close();
+    } else {
+        cerr << '[' << DIFFICULTY_FILE << "] inaccessible en lecture" << endl;
+        diff = int(normal);
+    }
+
+    return difficulty(diff);
+}
