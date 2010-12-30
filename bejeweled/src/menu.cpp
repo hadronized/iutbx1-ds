@@ -53,7 +53,7 @@ void initialisation_menu(menu &m) {
     
     //initialisation bouton cooperation
     
-    m.coop.box.x = 260;
+    m.coop.box.x = 159; // 260
     m.coop.box.y =   0;
     m.coop.box.w = BUTTON_WIDTH;
     m.coop.box.h = BUTTON_HEIGHT;
@@ -64,8 +64,8 @@ void initialisation_menu(menu &m) {
     
     //initialisation bouton versus
     
-    m.versus.box.x = 520;
-    m.versus.box.y =   0;
+    m.versus.box.x = 318; // 520
+    m.versus.box.y =   0; 
     m.versus.box.w = BUTTON_WIDTH;
     m.versus.box.h = BUTTON_HEIGHT;
     m.versus.at.x  = 550;
@@ -75,7 +75,7 @@ void initialisation_menu(menu &m) {
     
     // initialisation bouton options
     m.options.box.x = 0;
-    m.options.box.y = 78;
+    m.options.box.y = 46; // 78
     m.options.box.w = BUTTON_WIDTH;
     m.options.box.h = BUTTON_HEIGHT;
     m.options.at.x  = 100;
@@ -84,8 +84,8 @@ void initialisation_menu(menu &m) {
     m.options.at.h  = BUTTON_HEIGHT;
     
     // initialisation bouton scores
-    m.score.box.x = 260;
-    m.score.box.y =  78;
+    m.score.box.x = 159; // 260
+    m.score.box.y =  46; // 78
     m.score.box.w = BUTTON_WIDTH;
     m.score.box.h = BUTTON_HEIGHT;
     m.score.at.x  = 320;
@@ -94,8 +94,8 @@ void initialisation_menu(menu &m) {
     m.score.at.h  = BUTTON_HEIGHT;
     
     // initialisation bouton quit
-    m.quit.box.x = 520;
-    m.quit.box.y =  78;
+    m.quit.box.x = 318; // 520
+    m.quit.box.y =  46; // 78
     m.quit.box.w = BUTTON_WIDTH;
     m.quit.box.h = BUTTON_HEIGHT;
     m.quit.at.x  = 550;
@@ -104,22 +104,22 @@ void initialisation_menu(menu &m) {
     m.quit.at.h  = BUTTON_HEIGHT;
     
     m.wallpaper = load_img("themes/default/title.png");
-    m.sheet = load_img_key("themes/default/Buttons.png", 0,255,255);
+    m.sheet = load_img("themes/default/Button.png"); // ou Buttons.png si fond changer
 }
 
 void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
     if ( play_selected(m, e) ) // si la souris selectionne "1joueur"
-        m.play.box.x = 130;
+        m.play.box.x = 80; // 130
     else if( quit_selected(m, e) ) // si la souris selectionne "Quit"
-        m.quit.box.x = 650;
+        m.quit.box.x = 400; // 650
     else if( coop_selected(m, e) ) // si la souris selectionne "Coop"
-        m.coop.box.x = 390;
+        m.coop.box.x = 240; // 390
     else if( versus_selected(m, e) ) // si la souris selectionne "Versus"
-        m.versus.box.x = 650;
+        m.versus.box.x = 400; // 650
     else if( options_selected(m, e) ) // si la souris selectionne "Options"
-        m.options.box.x = 130;
+        m.options.box.x = 80; // 130
     else if( score_selected(m, e) ) // si la souris selectionne "Scores"
-        m.score.box.x = 390;
+        m.score.box.x = 240; // 390
         
     SDL_BlitSurface(m.wallpaper, 0, ps, 0); // affichage du fond de menu
     SDL_BlitSurface(m.sheet, &m.play.box, ps, &m.play.at); // affichage du bouton play
