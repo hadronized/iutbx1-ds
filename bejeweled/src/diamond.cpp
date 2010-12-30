@@ -26,8 +26,8 @@
 
 using namespace std;
 
-diamond_type init_diamond(diamond &d, int x, int y) {
-    d.type = rand() % DIAMOND_TYPE_N;
+diamond_type init_diamond(diamond &d, int x, int y, int kind) {
+    d.type = rand() % kind;
     d.box.x = x*DIAMOND_SIZE;
     d.box.y = y*DIAMOND_SIZE;
     d.sub.x = d.type*DIAMOND_SIZE;
@@ -37,9 +37,9 @@ diamond_type init_diamond(diamond &d, int x, int y) {
     return d.type;
 }
 
-void change_diamond_type(diamond &d, diamond_type h, diamond_type v) {
+void change_diamond_type(diamond &d, diamond_type h, diamond_type v, int kind) {
     while (d.type == h || d.type == v)
-	d.type = rand() % DIAMOND_TYPE_N;
+	d.type = rand() % kind;
     d.sub.x = d.type*DIAMOND_SIZE;
 }
 

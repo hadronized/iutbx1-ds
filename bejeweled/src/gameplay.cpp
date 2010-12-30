@@ -163,7 +163,7 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
         }
         
         pd = &query_diamond(gb, x, 0);
-        change_diamond_type(*pd, pd->type, pd->type);
+        change_diamond_type(*pd, pd->type, pd->type, gb.kind);
     }
 
     //draw_getdown(gb, ps);
@@ -382,7 +382,7 @@ void solo_loop(SDL_Surface *ps) {
 
     load_theme("themes/fractal_cosmos/", gb);
 
-    init_gameboard(gb, 8, 8);
+    init_gameboard(gb, 8, 8, gparam.nbKind);
     init_player(user);
     
     if (check_solution(gb)) {

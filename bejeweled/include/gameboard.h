@@ -40,6 +40,7 @@
 struct gameboard {
     int col;               // nombre de colonnes dans la matrice
     int row;               // nombre de lignes dans la matrice
+    int kind;              // nombre de types de diamants
     diamond_matrix dmds;   // matrice de diamants
     diamond_indices expl;  // tableau d'indices explosions
     int nb_expl;           // nombre d'explosion qui doivent etre traitees
@@ -53,22 +54,24 @@ struct gameboard {
 };
 
 /* ******************** init_gameboard ***********************
-   * void init_gameboard(gameboard &gb, int col, int row);   *
+   * void init_gameboard(gameboard &gb, int col, int row,    *
+   *                     int kind);                          *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 20 Décembre 2010, v0.5                 *
+   * Dimitri Sabadie, 30 Decembre 2010, v0.6                 *
    ********************* Description *************************
    * Cette fonction permet d'initialiser un plateau de jeu,  *
    * c'est a dire creer la matrice de diamant, charger les   *
    * images utilises par le plateau, et initialiser le       *
    * selecteur de diamant a 0.                               *
    *********************** Entrees ***************************
-   * `gb'  : reference sur le plateau a initialiser          *
-   * `col' : nombre de colonnes de la matrice à initialiser  *
-   * `row' : nombre de lignes de la matrice à initialiser    *
+   * `gb'   : reference sur le plateau a initialiser         *
+   * `col'  : nombre de colonnes de la matrice à initialiser *
+   * `row'  : nombre de lignes de la matrice à initialiser   *
+   * `kind' : nombre de type de diamants (min 3, max 8)      *
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-void init_gameboard(gameboard &gb, int col, int row);
+void init_gameboard(gameboard &gb, int col, int row, int kind);
 
 /* ********************* query_diamond ***********************
    * diamond query_diamond(gameboard &gb, int x, int y);     *

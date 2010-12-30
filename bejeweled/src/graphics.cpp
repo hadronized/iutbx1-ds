@@ -296,7 +296,7 @@ void draw_top_ten(TTF_Font *pf, SDL_Surface *ps) {
 
         do {
             SDL_WaitEvent(&event);
-        } while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_RETURN);
+        } while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_ESCAPE);
     } else {
         cerr << '[' << TOP_TEN_SOLO_FILE << "] inaccessible en lecture" << endl;
     }

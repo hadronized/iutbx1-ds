@@ -66,8 +66,8 @@ void load_solo_game(gameboard &gb, int &score) {
         gb.dmds = new diamond[gb.col*gb.row];
         for (int j = 0; j < gb.col; ++j) {
             for (int i = 0; i < gb.row; ++i) {
-                pd = &query_diamond(gb, i, j),
-                init_diamond(*pd, i, j);
+                pd = &query_diamond(gb, i, j);
+                //init_diamond(*pd, i, j);
                 ddata >> pd->type;
                 pd->sub.x = pd->type*DIAMOND_SIZE;
             }

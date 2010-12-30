@@ -40,7 +40,6 @@ struct game_param {
     int pPD;        // Points par diamant
     int time;       // Temps de départ
     int posTime;    // Temps positif : temps credite a chaque diamant explose
-    int negTime;    // Temps negatif : temps debite a chaque mauvaise tentative
     int actPoints;  // Points necessaires depuis le debut du jeu ou dernier Action pour avoir un Action
     int reaPoints;  // Points necessaires depuis le debut du jeu ou derniere Reanimation pour avoir un Reanimation
 };

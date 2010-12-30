@@ -32,8 +32,7 @@ game_param get_solo_param(difficulty diff) {
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 90;
-            gp.posTime = 20;
-            gp.negTime = 0;
+            gp.posTime = 10;
             gp.actPoints = 30;
             gp.reaPoints = 100;
             break;
@@ -43,8 +42,7 @@ game_param get_solo_param(difficulty diff) {
             gp.endMult = 2;
             gp.pPD = 1;
             gp.time = 60;
-            gp.posTime = 15;
-            gp.negTime = 0;
+            gp.posTime = 5;
             gp.actPoints = 60;
             gp.reaPoints = 175;
             break;
@@ -54,8 +52,7 @@ game_param get_solo_param(difficulty diff) {
             gp.endMult = 3;
             gp.pPD = 2;
             gp.time = 20;
-            gp.posTime = 10;
-            gp.negTime = 5;
+            gp.posTime = 2;
             gp.actPoints = 120;
             gp.reaPoints = 300;
             break;
@@ -65,8 +62,7 @@ game_param get_solo_param(difficulty diff) {
             gp.endMult = 4;
             gp.pPD = 2;
             gp.time = 10;
-            gp.posTime = 5;
-            gp.negTime = 5;
+            gp.posTime = 1;
             gp.actPoints = 200;
             gp.reaPoints = 400;
             break;
@@ -76,8 +72,7 @@ game_param get_solo_param(difficulty diff) {
             gp.endMult = 2;
             gp.pPD = 1;
             gp.time = 60;
-            gp.posTime = 15;
-            gp.negTime = 0;
+            gp.posTime = 5;
             gp.actPoints = 60;
             gp.reaPoints = 175;
     }
@@ -94,8 +89,7 @@ game_param get_dual_param(difficulty diff) {
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 90;
-            gp.posTime = 20;
-            gp.negTime = 0;
+            gp.posTime = 10;
             gp.actPoints = 30;
             gp.reaPoints = 100;
             break;
@@ -105,8 +99,7 @@ game_param get_dual_param(difficulty diff) {
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 60;
-            gp.posTime = 15;
-            gp.negTime = 0;
+            gp.posTime = 5;
             gp.actPoints = 60;
             gp.reaPoints = 175;
             break;
@@ -116,8 +109,7 @@ game_param get_dual_param(difficulty diff) {
             gp.endMult = 1;
             gp.pPD = 2;
             gp.time = 20;
-            gp.posTime = 10;
-            gp.negTime = 5;
+            gp.posTime = 2;
             gp.actPoints = 120;
             gp.reaPoints = 300;
             break;
@@ -127,8 +119,7 @@ game_param get_dual_param(difficulty diff) {
             gp.endMult = 1;
             gp.pPD = 2;
             gp.time = 10;
-            gp.posTime = 5;
-            gp.negTime = 5;
+            gp.posTime = 1;
             gp.actPoints = 200;
             gp.reaPoints = 400;
             break;
@@ -138,8 +129,7 @@ game_param get_dual_param(difficulty diff) {
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 60;
-            gp.posTime = 15;
-            gp.negTime = 0;
+            gp.posTime = 5;
             gp.actPoints = 60;
             gp.reaPoints = 175;
     }
@@ -156,8 +146,7 @@ game_param get_coop_param(difficulty diff) {
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 60;
-            gp.posTime = 15;
-            gp.negTime = 5;
+            gp.posTime = 10;
             gp.actPoints = 60;
             gp.reaPoints = 120;
             break;
@@ -168,7 +157,6 @@ game_param get_coop_param(difficulty diff) {
             gp.pPD = 1;
             gp.time = 30;
             gp.posTime = 10;
-            gp.negTime = 8;
             gp.actPoints = 100;
             gp.reaPoints = 200;
             break;
@@ -178,8 +166,7 @@ game_param get_coop_param(difficulty diff) {
             gp.endMult = 3;
             gp.pPD = 2;
             gp.time = 10;
-            gp.posTime = 5;
-            gp.negTime = 5;
+            gp.posTime = 2;
             gp.actPoints = 175;
             gp.reaPoints = 350;
             break;
@@ -189,8 +176,7 @@ game_param get_coop_param(difficulty diff) {
             gp.endMult = 4;
             gp.pPD = 2;
             gp.time = 5;
-            gp.posTime = 5;
-            gp.negTime = 8;
+            gp.posTime = 1;
             gp.actPoints = 250;
             gp.reaPoints = 450;
             break;
@@ -201,7 +187,6 @@ game_param get_coop_param(difficulty diff) {
             gp.pPD = 1;
             gp.time = 30;
             gp.posTime = 10;
-            gp.negTime = 8;
             gp.actPoints = 100;
             gp.reaPoints = 200;
     }
