@@ -8,19 +8,13 @@
 using namespace std;
 
 SDL_Surface * load_img(string const &fn) {
-    SDL_Surface *ptmp = IMG_Load(fn.c_str());
-    SDL_Surface *p = 0;
+    SDL_Surface *pimg = IMG_Load(fn.c_str());
 
-    if (!ptmp) {
+    if (!pimg) {
         cerr << "Erreur: chargement de l'image " << fn << " échoué" << endl;
-    } else {
-        p = SDL_DisplayFormat(ptmp);
-        if (!p)
-            cerr << "Erreur: conversion de l'image échouée" << endl;
-        SDL_FreeSurface(ptmp);
-    }
+    } 
 
-    return p;
+    return pimg;
 }
 
 SDL_Surface * load_img_key(string const &fn, int r, int g, int b) {
@@ -36,7 +30,7 @@ TTF_Font * init_font() {
     pf = TTF_OpenFont("themes/default/NEUROPOL.ttf", 150);
 
     if (!pf)
-cerr << "Erreur de chargement de la police !" << endl;
+        cerr << "Erreur de chargement de la police !" << endl;
     return pf;
 }
 
@@ -51,9 +45,8 @@ void initialisation_menu(menu &m) {
     m.play.at.w  = BUTTON_WIDTH;
     m.play.at.h  = BUTTON_HEIGHT;
     
-    //initialisation bouton cooperation
-    
-    m.coop.box.x = 159; // 260
+    //initialisation bouton cooperation    
+    m.coop.box.x = 260;
     m.coop.box.y =   0;
     m.coop.box.w = BUTTON_WIDTH;
     m.coop.box.h = BUTTON_HEIGHT;
@@ -63,8 +56,7 @@ void initialisation_menu(menu &m) {
     m.coop.at.h  = BUTTON_HEIGHT;
     
     //initialisation bouton versus
-    
-    m.versus.box.x = 318; // 520
+    m.versus.box.x = 520;
     m.versus.box.y =   0; 
     m.versus.box.w = BUTTON_WIDTH;
     m.versus.box.h = BUTTON_HEIGHT;
@@ -75,7 +67,7 @@ void initialisation_menu(menu &m) {
     
     // initialisation bouton options
     m.options.box.x = 0;
-    m.options.box.y = 46; // 78
+    m.options.box.y = 78;
     m.options.box.w = BUTTON_WIDTH;
     m.options.box.h = BUTTON_HEIGHT;
     m.options.at.x  = 100;
@@ -84,8 +76,8 @@ void initialisation_menu(menu &m) {
     m.options.at.h  = BUTTON_HEIGHT;
     
     // initialisation bouton scores
-    m.score.box.x = 159; // 260
-    m.score.box.y =  46; // 78
+    m.score.box.x = 260;
+    m.score.box.y =  78;
     m.score.box.w = BUTTON_WIDTH;
     m.score.box.h = BUTTON_HEIGHT;
     m.score.at.x  = 320;
@@ -94,8 +86,8 @@ void initialisation_menu(menu &m) {
     m.score.at.h  = BUTTON_HEIGHT;
     
     // initialisation bouton quit
-    m.quit.box.x = 318; // 520
-    m.quit.box.y =  46; // 78
+    m.quit.box.x = 520;
+    m.quit.box.y =  78;
     m.quit.box.w = BUTTON_WIDTH;
     m.quit.box.h = BUTTON_HEIGHT;
     m.quit.at.x  = 550;
@@ -104,22 +96,22 @@ void initialisation_menu(menu &m) {
     m.quit.at.h  = BUTTON_HEIGHT;
     
     m.wallpaper = load_img("themes/default/title.png");
-    m.sheet = load_img("themes/default/Button.png"); // ou Buttons.png si fond changer
+    m.sheet = load_img("themes/default/Buttons.png"); // ou Buttons.png si fond changer
 }
 
 void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
     if ( play_selected(m, e) ) // si la souris selectionne "1joueur"
-        m.play.box.x = 80; // 130
+        m.play.box.x = 130;
     else if( quit_selected(m, e) ) // si la souris selectionne "Quit"
-        m.quit.box.x = 400; // 650
+        m.quit.box.x = 650;
     else if( coop_selected(m, e) ) // si la souris selectionne "Coop"
-        m.coop.box.x = 240; // 390
+        m.coop.box.x = 390;
     else if( versus_selected(m, e) ) // si la souris selectionne "Versus"
-        m.versus.box.x = 400; // 650
+        m.versus.box.x = 650;
     else if( options_selected(m, e) ) // si la souris selectionne "Options"
-        m.options.box.x = 80; // 130
+        m.options.box.x = 130;
     else if( score_selected(m, e) ) // si la souris selectionne "Scores"
-        m.score.box.x = 240; // 390
+        m.score.box.x = 390;
         
     SDL_BlitSurface(m.wallpaper, 0, ps, 0); // affichage du fond de menu
     SDL_BlitSurface(m.sheet, &m.play.box, ps, &m.play.at); // affichage du bouton play
@@ -146,7 +138,7 @@ void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
 	pos.y = 100;
     
     SDL_BlitSurface(titreFont, 0, ps, &pos);
-    SDL_FreeSurface(titreFont);   
+    SDL_FreeSurface(titreFont);
 }
 
 void liberer_menu(menu &m) {
