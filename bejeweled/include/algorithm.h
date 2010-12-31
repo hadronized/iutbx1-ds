@@ -23,6 +23,7 @@
 #define ALGORITHM_H
 
 #include <SDL/SDL.h>
+
 /* ********************** int_swap ***************************
    * diamond_type init_diamond(diamond&, int x, int y);      *
    ******************* Auteur , Dates ************************
@@ -37,6 +38,18 @@
    *********************************************************** */
 void int_swap(int &a, int &b);
 
+/* ******************** sdlrect_swap *************************
+   * void sdlrect_swap(SDL_Rect &a, SDL_Rect &b);            *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 21 novembre 2010, v0.1                 *
+   ******************** Description **************************
+   * Cette fonction permet d'echanger deux SDL_Rect.         *
+   ********************** Entrees ****************************
+   * `a' : reference sur le premier SDL_Rect                 *
+   * `b' : reference sur le deuxieme SDL_Rect                *
+   ********************** Sorties ****************************
+   * void                                                    *
+   *********************************************************** */
 void sdlrect_swap(SDL_Rect &a, SDL_Rect &b);
 
 #endif // guard

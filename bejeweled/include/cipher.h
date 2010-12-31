@@ -29,7 +29,32 @@ using namespace std;
 string const XOR_KEY = "This is a really funny key used to crypt and \
 decrypt data. PLEASE DO NOT MODIFY IT !";
 
+/* ************************ crypt ****************************
+   * string crypt(std::string const &data);                  *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 12 Decembre 2010, v0.3                 *
+   ******************** Description **************************
+   * Cette fonction permet de crypter une chaine de          *
+   * caracteres en utilisant l'associativite du OU EXCLUSIF. *
+   ********************** Entrees ****************************
+   * `data' : chaine en entree, claire                       *
+   ********************** Sorties ****************************
+   * `string' : chaine en sortie, cryptee                    *
+   *********************************************************** */
 string crypt(std::string const &data);
+
+/* ********************** decrypt ****************************
+   * string decrypt(std::string const &data);                *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 12 Decembre 2010, v0.3                 *
+   ******************** Description **************************
+   * Cette fonction permet de decrypter une chaine de        *
+   * caracteres en utilisant l'associativite du OU EXCLUSIF. *
+   ********************** Entrees ****************************
+   * `data' : chaine en entree, cryptee                      *
+   ********************** Sorties ****************************
+   * `string' : chaine en sortie, claire                     *
+   *********************************************************** */
 string decrypt(std::string const &data);
 
 #endif // guard

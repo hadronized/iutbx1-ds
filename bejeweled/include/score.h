@@ -30,6 +30,7 @@ using namespace std;
 string const TOP_TEN_SOLO_FILE = ".sbt10f"; // Solo Bejeweled Top 10 file
 string const TOP_TEN_COOP_FILE = ".cbt10f"; // Cooperation Bejeweled Top 10 file
 
+// Fonction Ludwig
 void scores(TTF_Font *f, SDL_Surface *ps, int score);
 
 /* *********************** free_font *************************

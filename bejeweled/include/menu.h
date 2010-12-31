@@ -9,12 +9,13 @@ int const SHEET_HEIGHT  =  147;
 int const BUTTON_WIDTH  =  125;
 int const BUTTON_HEIGHT =  70;
 
-
+// Structure Ludwig
 struct button {
     SDL_Rect box; // définit rectangle dans la feuille de bouttons
     SDL_Rect  at; // définit où positionner le boutton à l'ecran
 };
 
+// Structure Ludwig
 struct menu {
     button play;
     button quit;

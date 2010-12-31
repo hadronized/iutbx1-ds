@@ -27,6 +27,33 @@
 
 std::string const SOLO_SAVE_FILE = ".last.sbsvf"; // Solo Bejeweled Save file
 
+/* ******************** save_solo_game ***********************
+   * void save_solo_game(gameboard const &gb, int score);    *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 11 Decembre 2010, v0.3                 *
+   ********************* Description *************************
+   * Cette fonction permet de sauvegarder la progression     *
+   * d'un joueur en mode Solo.                               *
+   *********************** Entrees ***************************
+   * `gb'    : reference sur le plateau a sauvegarder        *
+   * `score' : score du joueur                               *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+
+/* ******************** load_solo_game ***********************
+   * void load_solo_game(gameboard &gb, int &score);         *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 11 Decembre 2010, v0.3                 *
+   ********************* Description *************************
+   * Cette fonction permet de recuperer la progression d'un  *
+   * joueur en mode Solo.                                    *
+   *********************** Entrees ***************************
+   * `gb'    : reference sur le plateau a recuperer          *
+   * `score' : score du joueur                               *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
 void save_solo_game(gameboard const &gb, int score);
 void load_solo_game(gameboard &gb, int &score);
 

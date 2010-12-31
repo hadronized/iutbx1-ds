@@ -121,6 +121,20 @@ bool is_near(diamond const &a, diamond const &b);
    *********************************************************** */
 void diamond_swap(diamond &a, diamond &b);
 
+/* ************************* equal ***************************
+   * bool equal(diamond a, diamond b, diamond c);            *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 21 novembre 2010, v0.1                 *  
+   ********************* Description *************************
+   * Permet de verifier que 3 diamants ont le meme type.     *
+   *********************** Entrees ***************************
+   * `a' : un diamant                                        *
+   * `b' : un autre diamant                                  *
+   * `c' : et encore un autre                                *
+   ********************** Sorties ****************************
+   * `bool' : true si les diamants ont tous le meme type,    *
+   *          false sinon                                    *
+   *********************************************************** */
 bool equal(diamond a, diamond b, diamond c);
 
 #endif // guard

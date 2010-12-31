@@ -42,8 +42,4 @@
    *********************************************************** */
 bool array_insert(int x, int *a, int &n, int nmax);
 
-// Uniquement pour tests. Affiche un tableau dans la console.
-void show_array(int *a, int n);
-
-
 #endif // guard
