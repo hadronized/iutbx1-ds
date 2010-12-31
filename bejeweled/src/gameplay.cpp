@@ -379,6 +379,7 @@ void solo_loop(SDL_Surface *ps) {
 
     temps = gparam.time;
     tps = time(0);	
+    temps_restant = temps - ( time(0) - tps);
 
     load_theme("themes/fractal_cosmos/", gb);
 
