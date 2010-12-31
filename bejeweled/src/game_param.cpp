@@ -164,7 +164,7 @@ game_param get_coop_param(difficulty diff) {
         case heroic :
             gp.nbKind = 8;
             gp.endMult = 3;
-            gp.pPD = 2;
+            gp.pPD = 1;
             gp.time = 10;
             gp.posTime = 2;
             gp.actPoints = 240;
@@ -174,7 +174,7 @@ game_param get_coop_param(difficulty diff) {
         case legendary :
             gp.nbKind = 8;
             gp.endMult = 4;
-            gp.pPD = 2;
+            gp.pPD = 1;
             gp.time = 5;
             gp.posTime = 1;
             gp.actPoints = 240;
