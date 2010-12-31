@@ -28,33 +28,33 @@ game_param get_solo_param(difficulty diff) {
 
     switch (diff) {
         case easy :
-            gp.nbKind = 4;
+            gp.nbKind = 6;
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 90;
             gp.posTime = 10;
-            gp.actPoints = 30;
-            gp.reaPoints = 100;
+            gp.actPoints = 60;
+            gp.reaPoints = 120;
             break;
 
         case normal :
-            gp.nbKind = 5;
+            gp.nbKind = 7;
             gp.endMult = 2;
             gp.pPD = 1;
             gp.time = 60;
             gp.posTime = 5;
-            gp.actPoints = 60;
-            gp.reaPoints = 175;
+            gp.actPoints = 120;
+            gp.reaPoints = 240;
             break;
 
         case heroic :
-            gp.nbKind = 7;
+            gp.nbKind = 8;
             gp.endMult = 3;
             gp.pPD = 2;
             gp.time = 20;
             gp.posTime = 2;
-            gp.actPoints = 120;
-            gp.reaPoints = 300;
+            gp.actPoints = 240;
+            gp.reaPoints = 480;
             break;
 
         case legendary :
@@ -63,18 +63,18 @@ game_param get_solo_param(difficulty diff) {
             gp.pPD = 2;
             gp.time = 10;
             gp.posTime = 1;
-            gp.actPoints = 200;
-            gp.reaPoints = 400;
+            gp.actPoints = 240;
+            gp.reaPoints = 480;
             break;
 
         default :
-            gp.nbKind = 5;
+            gp.nbKind = 7;
             gp.endMult = 2;
             gp.pPD = 1;
             gp.time = 60;
             gp.posTime = 5;
-            gp.actPoints = 60;
-            gp.reaPoints = 175;
+            gp.actPoints = 120;
+            gp.reaPoints = 240;
     }
             
     return gp;
@@ -85,33 +85,33 @@ game_param get_dual_param(difficulty diff) {
 
     switch (diff) {
         case easy :
-            gp.nbKind = 4;
+            gp.nbKind = 6;
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 90;
             gp.posTime = 10;
-            gp.actPoints = 30;
-            gp.reaPoints = 100;
+            gp.actPoints = 60;
+            gp.reaPoints = 120;
             break;
 
         case normal :
-            gp.nbKind = 5;
+            gp.nbKind = 7;
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 60;
             gp.posTime = 5;
-            gp.actPoints = 60;
-            gp.reaPoints = 175;
+            gp.actPoints = 120;
+            gp.reaPoints = 240;
             break;
 
         case heroic :
-            gp.nbKind = 7;
+            gp.nbKind = 8;
             gp.endMult = 1;
             gp.pPD = 2;
             gp.time = 20;
             gp.posTime = 2;
-            gp.actPoints = 120;
-            gp.reaPoints = 300;
+            gp.actPoints = 240;
+            gp.reaPoints = 480;
             break;
 
         case legendary :
@@ -120,18 +120,18 @@ game_param get_dual_param(difficulty diff) {
             gp.pPD = 2;
             gp.time = 10;
             gp.posTime = 1;
-            gp.actPoints = 200;
-            gp.reaPoints = 400;
+            gp.actPoints = 240;
+            gp.reaPoints = 480;
             break;
 
         default :
-            gp.nbKind = 5;
+            gp.nbKind = 7;
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 60;
             gp.posTime = 5;
-            gp.actPoints = 60;
-            gp.reaPoints = 175;
+            gp.actPoints = 120;
+            gp.reaPoints = 240;
     }
             
     return gp;
@@ -142,7 +142,7 @@ game_param get_coop_param(difficulty diff) {
 
     switch (diff) {
         case easy :
-            gp.nbKind = 5;
+            gp.nbKind = 7;
             gp.endMult = 1;
             gp.pPD = 1;
             gp.time = 60;
@@ -152,23 +152,23 @@ game_param get_coop_param(difficulty diff) {
             break;
 
         case normal :
-            gp.nbKind = 6;
+            gp.nbKind = 8;
             gp.endMult = 2;
             gp.pPD = 1;
             gp.time = 30;
             gp.posTime = 10;
-            gp.actPoints = 100;
-            gp.reaPoints = 200;
+            gp.actPoints = 120;
+            gp.reaPoints = 240;
             break;
 
         case heroic :
-            gp.nbKind = 7;
+            gp.nbKind = 8;
             gp.endMult = 3;
             gp.pPD = 2;
             gp.time = 10;
             gp.posTime = 2;
-            gp.actPoints = 175;
-            gp.reaPoints = 350;
+            gp.actPoints = 240;
+            gp.reaPoints = 480;
             break;
 
         case legendary :
@@ -177,18 +177,18 @@ game_param get_coop_param(difficulty diff) {
             gp.pPD = 2;
             gp.time = 5;
             gp.posTime = 1;
-            gp.actPoints = 250;
-            gp.reaPoints = 450;
+            gp.actPoints = 240;
+            gp.reaPoints = 480;
             break;
 
         default :
-            gp.nbKind = 6;
+            gp.nbKind = 8;
             gp.endMult = 2;
             gp.pPD = 1;
             gp.time = 30;
             gp.posTime = 10;
-            gp.actPoints = 100;
-            gp.reaPoints = 200;
+            gp.actPoints = 120;
+            gp.reaPoints = 240;
     }
             
     return gp;
