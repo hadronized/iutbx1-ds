@@ -4,7 +4,7 @@
 CXX=g++
 CXXFLAGS_DEBUG=-g
 CXXFLAGS_RELEASE=-O2 -Os
-CXXFLAGS=-Wall -Werror -pedantic $(CXXFLAGS_DEBUG)
+CXXFLAGS=-Wall -Werror -pedantic $(CXXFLAGS_RELEASE)
 INCLUDE=-I./include/
 LIBS=-lSDL -lSDL_image -lSDL_ttf
 TARGET=bejeweled

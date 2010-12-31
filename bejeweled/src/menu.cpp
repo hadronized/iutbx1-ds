@@ -96,7 +96,7 @@ void initialisation_menu(menu &m) {
     m.quit.at.h  = BUTTON_HEIGHT;
     
     m.wallpaper = load_img("themes/default/title.png");
-    m.sheet = load_img("themes/default/Buttons.png"); // ou Buttons.png si fond changer
+    m.sheet = load_img("themes/default/buttons.png");
 }
 
 void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
@@ -231,14 +231,3 @@ void menu_loop(SDL_Surface *ps) {
         SDL_Flip(ps);
     }
 }
-
-/*
-     · Finalement, ce n'est pas vraiment de ta faute, plutôt de la façon dont je gère les
-       déplacements à la souris, mais tu lances la fonction liée à un boutton lorsque le joueur
-       enfonce le boutton gauche de la souris. Arrange toi pour que la fonction soit lancée
-       lorsque le boutton gauche de la souris est relâché (car sinon ça sélectionne un diamant
-       dans la grille, pas très cool ... ;).
-
-   Donc occupe toi de ce petit menu.
-
-*/
