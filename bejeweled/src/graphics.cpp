@@ -208,11 +208,7 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
         
         show_gameboard(gb, ps);
         SDL_Flip(ps);
-        //cin.ignore(1024, '\n');
     }
-    
-    vy++;
-
 }
 
 void draw_solution(gameboard &gb, SDL_Surface *ps) {

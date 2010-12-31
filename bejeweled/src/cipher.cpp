@@ -34,5 +34,5 @@ string crypt(std::string const &data) {
 }
 
 string decrypt(std::string const &data) {
-    return crypt(data);
+    return crypt(data); // utilisation de l'associativite du XOR
 }

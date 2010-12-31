@@ -19,7 +19,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <iostream> // uniquement pour tests
 #include "algorithm.h"
 #include "array.h"
 
@@ -48,10 +47,4 @@ bool array_insert(int x, int *a, int &n, int nmax) {
     a[n] = x;
     ++n;
     return true;
-}
-
-#include "matrix.h"
-void show_array(int *a, int n) {
-    for (int i = 0; i < n; ++i)
-        cout << '(' << a[i]%MATRIX_WIDTH << ';' << a[i]/MATRIX_WIDTH << ')' << endl;
 }

@@ -21,7 +21,6 @@
 
 #include <cstdlib> // pour rand()
 #include <sstream>
-#include <iostream> // pour tests uniquement
 #include "algorithm.h"
 #include "gameboard.h"
 #include "graphics.h"

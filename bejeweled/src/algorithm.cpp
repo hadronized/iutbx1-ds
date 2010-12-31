@@ -21,14 +21,23 @@
 
 #include "algorithm.h"
 
+int min(int a, int b) {
+    return a < b ? a : b;
+}
+
+int max(int a, int b) {
+    return a < b ? b : a;
+}
+
 void int_swap(int &a, int &b) {
-    // using the XOR hack :)
+    // utilisation du XOR hack
     a ^= b;
     b ^= a;
     a ^= b;
 }
 
 void sdlrect_swap(SDL_Rect &a, SDL_Rect &b) {
+    // je prefere ne pas l'utiliser ici car les composantes de SDL_Rect sont des Uint16
     SDL_Rect tmp;
     tmp.x = a.x;
     tmp.y = a.y;

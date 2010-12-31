@@ -19,7 +19,6 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <iostream> // UNIQUEMENT POUR TESTS
 #include <cstdlib> // pour rand()
 #include "algorithm.h"
 #include "diamond.h"

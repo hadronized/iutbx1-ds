@@ -24,6 +24,34 @@
 
 #include <SDL/SDL.h>
 
+/* ************************* min *****************************
+   * int min(int a, int b);                                  *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 12 novembre 2010, v0.1                 *
+   ******************** Description **************************
+   * Retourne le plus petit des deux entiers.                *
+   ********************** Entrees ****************************
+   * `a' : premier entier                                    *
+   * `b' : deuxieme entier                                   *
+   ********************** Sorties ****************************
+   * `int' : minimum(a, b)                                   *
+   *********************************************************** */
+int min(int a, int b);
+
+/* ************************* max *****************************
+   * int max(int a, int b);                                  *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 12 novembre 2010, v0.1                 *
+   ******************** Description **************************
+   * Retourne le plus grand des deux entiers.                *
+   ********************** Entrees ****************************
+   * `a' : premier entier                                    *
+   * `b' : deuxieme entier                                   *
+   ********************** Sorties ****************************
+   * `int' : maximum(a, b)                                   *
+   *********************************************************** */
+int max(int a, int b);
+
 /* ********************** int_swap ***************************
    * diamond_type init_diamond(diamond&, int x, int y);      *
    ******************* Auteur , Dates ************************

@@ -19,7 +19,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <iostream> // pour tests
+#include <iostream>
 #include "gameplay.h"
 #include "game_param.h"
 #include "array.h"
