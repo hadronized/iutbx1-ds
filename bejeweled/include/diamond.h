@@ -46,25 +46,45 @@ struct diamond {
 };
 
 /* ******************** init_diamond *************************
-   * diamond_type init_diamond(diamond&, int x, int y);      *
+   * diamond_type init_diamond(diamond&, int x, int y,       *
+   *                           int kind);                    *
    ******************* Auteur , Dates ************************
-   * Dimitri Sabadie, 9 novembre 2010, v0.2                  *  
+   * Dimitri Sabadie, 30 Decembre 2010, v0.3                 *
    ******************** Description **************************
    * Cette fonction permet d'initialiser un diamant, a       *
    * savoir, lui attribuer un type au hasard, ainsi qu'une   *
    * position donnee dans la matrice.                        *
    ********************** Entrees ****************************
-   * `d' : reference sur le diamant a initialiser            *
-   * `x' : entier representant l'abscisse du diamant a       *
-   *       initialiser                                       *
-   * `y' : entier representant l'ordonnee du diamant e       *
-   *       initialiser                                       *
+   * `d'    : reference sur le diamant a initialiser         *
+   * `x'    : entier representant l'abscisse du diamant a    *
+   *          initialiser                                    *
+   * `y'    : entier representant l'ordonnee du diamant e    *
+   *          initialiser                                    *
+   * `kind' : nombre de types de diamants                    *
    ********************** Sorties ****************************
    * `diamond_type' : type de diamant genere                 *
    *********************************************************** */
-diamond_type init_diamond(diamond &d, int x, int y);
+diamond_type init_diamond(diamond &d, int x, int y, int kind);
 
-void change_diamond_type(diamond &d, diamond_type h, diamond_type v);
+/* ***************** change_diamond_type *********************
+   * void change_diamond_type(diamond &d, diamond_type h,    *
+   *                          diamond_type v, int kind);     *
+   ******************* Auteur , Dates ************************
+   * Dimitri Sabadie, 30 Decembre 2010, v0.2                 *
+   ******************** Description **************************
+   * Cette fonction permet de changer le type d'un diamant   *
+   * en prenant en compte deux autres types de diamant.      *
+   * Cette fonction est utilisee pour generer une matrice de *
+   * diamants qui ne contient pas de diamants alignes.       *
+   ********************** Entrees ****************************
+   * `d'    : reference sur le diamant contenant le type     *
+   * `h'    : diamant horizontal (a droite)                  *
+   * `v'    : diamant vertical (au dessus)                   *
+   * `kind' : nombre de types de diamants                    *
+   ********************** Sorties ****************************
+   * void                                                    *
+   *********************************************************** */
+void change_diamond_type(diamond &d, diamond_type h, diamond_type v, int kind);
 
 /* *********************** is_near ***************************
    * bool is_near(diamond const &a, diamond const &b);       *

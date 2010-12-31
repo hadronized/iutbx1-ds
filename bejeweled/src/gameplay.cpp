@@ -21,6 +21,7 @@
 
 #include <iostream> // pour tests
 #include "gameplay.h"
+#include "game_param.h"
 #include "array.h"
 #include "score.h"
 #include "temps.h"
@@ -162,7 +163,7 @@ void get_down(gameboard &gb, SDL_Surface *ps) {
         }
         
         pd = &query_diamond(gb, x, 0);
-        change_diamond_type(*pd, pd->type, pd->type);
+        change_diamond_type(*pd, pd->type, pd->type, gb.kind);
     }
 
     //draw_getdown(gb, ps);
@@ -356,6 +357,8 @@ void solo_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
     gameboard gb;
+    difficulty diff;
+    game_param gparam;
     diamond *pSelected = 0;
     player user;
     int comboScore;
@@ -363,20 +366,23 @@ void solo_loop(SDL_Surface *ps) {
     int temps; 	 
     int temps_restant;
     int tps;
-    
     TTF_Font *pFont = 0;
+
     TTF_Init();
     pFont = init_font();
     if (!pFont)
-        cerr << "Police non initialisée" << endl;
+        cerr << "Police non initialisee" << endl;
 
-    temps = 180;
-    tps = time(0);
-	
-    temps_restant = temps - ( time(0) - tps);
+    // recuperation des parametres de jeu
+    diff = load_difficulty();
+    gparam = get_solo_param(diff);
+
+    temps = gparam.time;
+    tps = time(0);	
 
     load_theme("themes/fractal_cosmos/", gb);
-    init_gameboard(gb, 8, 8);
+
+    init_gameboard(gb, 8, 8, gparam.nbKind);
     init_player(user);
     
     if (check_solution(gb)) {
@@ -387,22 +393,25 @@ void solo_loop(SDL_Surface *ps) {
             temps_restant = temps - ( time(0) - tps);
             
             while (SDL_PollEvent(&event)) {
-                if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE)
+                if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE) {
                     quit = true; // on quitte le jeu -> retour au menu principal
-                if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
+                    // ne pas oublier de sauvegarder le jeu ici !
+                } else if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
                     if (cursor_in_grid(event, gb)) {
                         if (!pSelected) { // si aucun diamant n'était selectionné prealablement ...
                             pSelected = &query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE);
                             pSelected->sub.y = DIAMOND_SIZE;
+
                         } else { // sinon, c'est que l'on en selectionne un deuxième -> on tente donc un echange
                             pSelected->sub.y = 0;
                             if ( try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps) ) {
                                 comboScore = 1;
                                 do {
-                                    user.score += gb.nb_expl * comboScore;
+                                    user.score += gb.nb_expl * comboScore * gparam.pPD;
                                     user.action += gb.nb_expl;
                                     user.reanim += gb.nb_expl;
                                     ++comboScore;
+                                    tps += gparam.posTime;
                                     
                                     show_gameboard(gb, ps);
                                     scores(pFont,ps,user.score);
@@ -411,13 +420,13 @@ void solo_loop(SDL_Surface *ps) {
                                     explode(gb, ps);
                                     get_down(gb, ps);
 
-                                    if (user.action >= 10) { // a modifier en fonction de la difficulte choisie
+                                    if (user.action >= gparam.actPoints) { // a modifier en fonction de la difficulte choisie
                                         show_gameboard(gb, ps);
                                         scores(pFont,ps,user.score);
                                         affiche_temps(pFont,ps,temps_restant);
 
                                         random_explode(gb, ps);
-                                        user.score += BONUS_NB_EXPL;
+                                        user.score += BONUS_NB_EXPL * gparam.pPD;
                                         user.action = 0;
                                     }
                                 } while ( check_explode(gb));
@@ -427,7 +436,7 @@ void solo_loop(SDL_Surface *ps) {
                                 if (check_solution(gb)) { // il reste des solutions
                                     ;
                                 } else { // plus de solution
-                                    if (user.reanim >= 100) { // a modifier en fonction de la difficute choisie
+                                    if (user.reanim >= gparam.reaPoints) { // a modifier en fonction de la difficute choisie
                                         show_gameboard(gb, ps);
                                         scores(pFont,ps,user.score);
                                         affiche_temps(pFont,ps,temps_restant);
@@ -468,10 +477,9 @@ void solo_loop(SDL_Surface *ps) {
 
     in_top_ten_solo(pFont, ps, user.score);
     draw_top_ten(pFont, ps);
+
+    save_difficulty(diff);
+
     free_theme(gb);
     free_font(pFont);
 }
-
-
-
-

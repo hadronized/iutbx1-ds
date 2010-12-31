@@ -29,7 +29,7 @@
 #include "temps.h"
 #include "score.h"
 
-void init_gameboard(gameboard &gb, int col, int row) {
+void init_gameboard(gameboard &gb, int col, int row, int kind) {
     int index;
     diamond_type tmp;
 
@@ -39,6 +39,11 @@ void init_gameboard(gameboard &gb, int col, int row) {
     gb.dmds = new diamond[col*row];
     gb.col = col;
     gb.row = row;
+
+    if (kind >= 3 && kind <= 8)
+        gb.kind = kind;
+    else
+        gb.kind = 5;
     
     gb.expl = new int[col*row];
     
@@ -50,16 +55,16 @@ void init_gameboard(gameboard &gb, int col, int row) {
     for (int j = 0; j < col; ++j) {
         for (int i = 0; i < row; ++i) {
             index = index_2D1D(i, j, row);
-            tmp = init_diamond(gb.dmds[index], i, j);
+            tmp = init_diamond(gb.dmds[index], i, j, kind);
 
             if (i >= 2) { // test horizontal
                 if ( (gb.dmds[index-1].type == tmp) && (gb.dmds[index-2].type == tmp) )
-                    change_diamond_type(gb.dmds[index], tmp, tmp);
+                    change_diamond_type(gb.dmds[index], tmp, tmp, kind);
             }
             
             if (j >= 2) { // test vertical
                 if ( (query_diamond(gb, i, j-1).type == gb.dmds[index].type) && (query_diamond(gb, i, j-2).type == gb.dmds[index].type) ) {
-                    change_diamond_type(gb.dmds[index], gb.dmds[index-1].type, gb.dmds[index].type);
+                    change_diamond_type(gb.dmds[index], gb.dmds[index-1].type, gb.dmds[index].type, kind);
                 }
             }
         }
