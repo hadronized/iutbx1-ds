@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "array.h"
 #include "gameplay.h"
+#include "score.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ SDL_Surface * load_img_key(string const &fn, int r, int g, int b) {
     return optimizedImage;
 }
 
-TTF_Font * init_font() {
+TTF_Font * init_font_menu() {
     TTF_Font *pf;
     pf = TTF_OpenFont("themes/default/NEUROPOL.ttf", 150);
 
@@ -180,54 +181,66 @@ void menu_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
     menu m;
-    TTF_Font *pFont = 0;
+    TTF_Font *pFontMenu = 0;
+    TTF_Font *pFontScore = 0;
     TTF_Init();
-    pFont = init_font();
-    if (!pFont)
-        cerr << "Police non initialisée" << endl;
+    pFontMenu = init_font_menu();
+    if (!pFontMenu)
+        cerr << "Police non initialisee" << endl;
+    pFontScore = init_font();
+    if (!pFontScore)
+        cerr << "Police non initialisee" << endl;
     		
     initialisation_menu(m);
     		
     while(!quit){
-        SDL_WaitEvent(&event); // pas besoin de SDL_PollEvent ici
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_MOUSEBUTTONUP) {
+                if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+                {
+                    SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                    solo_loop(ps);
+                } 
 
-        if (event.type == SDL_MOUSEBUTTONUP) {
-            if (play_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-            {
-                SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-                solo_loop(ps);
-            } 
-	
-            /* else if (versus_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
-               {
-               SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-               vs_loop(ps);
-               } 
-        
-               else if (coop_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
-               {
-               SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-               coop_loop(ps);
-               } 
-        
-               else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
-               {
-               SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-               options_loop(ps);
-               } 
-        
-            */
+                else if (score_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) {
+                    SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                    draw_top_ten(pFontScore, ps);
+                }
+                /* else if (versus_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+                   {
+                   SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                   vs_loop(ps);
+                   } 
+                   
+                   else if (coop_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+                   {
+                   SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                   coop_loop(ps);
+                   } 
+                   
+                   else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+                   {
+                   SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                   options_loop(ps);
+                   } 
+                   
+                */
      
-            else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
-            {
-                quit = true;
+                else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+                {
+                    quit = true;
+                }
             }
+            
+            else if ( event.type == SDL_QUIT || (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE) )
+                quit=true;
         }
-
-        else if ( event.type == SDL_QUIT || (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE) )
-		    quit=true;
 		 
-        affiche_menu(m, pFont, ps, event);
+        affiche_menu(m, pFontMenu, ps, event);
         SDL_Flip(ps);
     }
+
+    free_font(pFontMenu);
+    free_font(pFontScore);
+    TTF_Quit();
 }

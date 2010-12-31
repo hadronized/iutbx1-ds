@@ -57,7 +57,7 @@ bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps) {
 }
 
 bool check_explode(gameboard &gb) {
-    int index;
+    int index = 0;
     diamond tmp;
     diamond_type root;
     int count = 1;

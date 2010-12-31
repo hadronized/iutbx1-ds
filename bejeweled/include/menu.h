@@ -201,4 +201,4 @@ bool options_selected(menu m, SDL_Event e);
    * bool                                                    *
    *********************************************************** */
 bool score_selected(menu m, SDL_Event e);
- 
+

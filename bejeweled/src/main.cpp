@@ -26,9 +26,6 @@
 #include "menu.h"
 #include <cmath>
 
-#include "game_save.h" // pour tests
-#include "score.h"
-
 using namespace std;
 
 string const VERSION  = "0.1a";
@@ -49,23 +46,13 @@ int main() {
 
     srand(time(0)); // initialisation randomizer
 
-    /*gameboard g;
-    init_gameboard(g, 8, 8);
-    save_solo_game(g, 4);
-    load_solo_game(g, rcode);*/
-
     if (init_gui()) {
 	ps = create_screen();
-<<<<<<< HEAD
-	if (ps)
-	    solo_loop(ps);
-=======
 	if (ps) {
             menu_loop(ps);
             SDL_FreeSurface(ps);
         }
         quit_gui();
->>>>>>> menu
     }
     return rcode;
 }
