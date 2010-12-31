@@ -23,6 +23,7 @@
 #include <cstdlib>
 #include <string>
 #include "gameplay.h"
+#include "menu.h"
 #include <cmath>
 
 #include "game_save.h" // pour tests
@@ -39,7 +40,7 @@ int const YEAR        = 2010;
 int main() {
     int rcode = 0;
     SDL_Surface *ps = 0;
-
+    
     cout << SCREEN_TITLE << " version " << VERSION << endl;
     cout << AUTHORS << endl;
     cout << "Licence : " << COPYING << endl;
@@ -55,10 +56,16 @@ int main() {
 
     if (init_gui()) {
 	ps = create_screen();
+<<<<<<< HEAD
 	if (ps)
 	    solo_loop(ps);
+=======
+	if (ps) {
+            menu_loop(ps);
+            SDL_FreeSurface(ps);
+        }
+        quit_gui();
+>>>>>>> menu
     }
-
-    quit_gui();
     return rcode;
 }

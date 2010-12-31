@@ -64,6 +64,8 @@ void init_gameboard(gameboard &gb, int col, int row) {
             }
         }
     }
+    
+    
 }
 
 diamond & query_diamond(gameboard &gb, int x, int y) {
