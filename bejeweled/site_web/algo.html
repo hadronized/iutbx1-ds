@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Algorithmique</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link href="monStyle.css" rel ="stylesheet" type="text/css"/>
+  </head>
+  
+  <body>
+    <div id="header">
+      <h1 >Explication algorithmique</h1>
+    </div>
+    <div id="menu">
+      <p class="elem menu"><a href="site.html">Accueil</a></p>
+      <p class="elem menu"><a href="jouer.html">Comment jouer</a></p>
+      <p class="elem menu"><a href="algo.html">Algorithmes</a></p>
+      <p class="elem menu"><a href="telechargements.html">Telechargements</a></p>
+      <p class="elem menu"><a href="credits.html">Credits</a></p>
+    </div>
+    <p>Nous allons présenter ici deux algorithmes majeurs : celui qui gère l'échange de deux diamants et tout ce qui s'en suit (explosion(s), échange
+      interdit, etc ...) et celui qui permet de vérifier la validité d'une grille pendant le jeu (ou encore recherche de solution).</p>
+    <h2>Echange de diamants ... toute une histoire !</h2>
+    <p>Echanger deux gemmes est votre unique façon d'intéragir avec la grille. Il est donc logique, dans le cadre de ce projet, d'en expliquer les rouages.
+      Tout d'abord, il faut savoir que, dans notre jeu, l'échange de deux diamants se fait en plusieurs phases :</p>
+    <p><img alt="swap bejeweled" src="imgs/swap_bejeweled.png"/></p>
+    <p>Comme vous pouvez le constater, cet algorithme se découpe en quatre phases majeures : la détermination de la possibilité de l'échange, l'échange 
+      graphique, l'échange algorithmique, et la génération des explosions. Plusieurs combinaisons de conditions nous permettent de valider ou non
+      l'échange. Par exemple, si le joueur échange deux diamants, mais qu'aucune explosion ne s'en suit, on voit très bien à travers ce diagramme
+      que les diamants reviendront à leur place, graphiquement et algorithmiquement.</p>
+    <h3>Détermination de la possibilité de l'échange</h3>
+    <p>Bien que cette phase de l'algorithme soit cruciale, son implémentation est relativement simple. Ce morceau d'algorithme a pour responsabilité de
+      déterminer la possibilité de l'échange en se basant sur la position des diamants à échanger.</p>
+    <p><img alt="bejeweled" src="imgs/game_sample.png"/></p>
+    <p>Faisons simple : admettons qu'ici, le joueur veuille échanger le diamant blanc en bas à droite avec celui juste à sa gauche, un rouge. La tentative
+      d'échange est alors dite possible, mais l'échange en lui même ne l'est peut-être pas. Ainsi, lorsque le joueur va demander à échanger ces deux
+      diamants, il vont s'échanger une première fois, puis une deuxième (car aucune explosion n'aura été générée).</p>
+    <p>En revanche, admettons qu'il décide d'échanger le même diamant blanc avec le bleu, une case à gauche au dessus. La tentative d'échange est alors
+      dite impossible, car les déplacements en diagonale ne sont pas autorisés.</p>
+    <p>L'algorithme doit donc retourner vrai si les deux gemmes à échanger son collées adjacentes sur l'horizontale ou la verticale, et faux dans tous
+      les autres cas</p>
+    <p>Une façon efficace de le faire est de voir la chose comme cela : soit les diamants ont la même ordonnée et son collés (ils sont donc adjacents
+      sur l'horizontal), soit ils ont la même abscisse et sont collés (ils sont alors adjacents sur la verticale).</p>
+    <p>Le problème est de savoir comment déterminer si deux diamants sont collés l'un à l'autre. C'est très simple. Nous avons deux cas : horizontal et
+      vertical. Dans le cas horizontal, deux diamants sont adjacents si la distance entre leurs abscisses vaut la taille d'un diamant. Dans le cas
+      vertical, deux diamants sont adjacents si la distance entre leur ordonnées est égale à la taille d'un diamant (les diamants étant carrés). Pour
+      calculer la distance sur un axe entre deux diamants, il suffit de faire la différence de la composante maximale par la minimale :</p>
+    <p>distance(d1, d2)<sub>x</sub> = max(d1<sub>x</sub>, d2<sub>x</sub>) - min(d1<sub>x</sub>, d2<sub>x</sub>)</p>
+    <p>distance(d1, d2)<sub>y</sub> = may(d1<sub>y</sub>, d2<sub>y</sub>) - min(d1<sub>y</sub>, d2<sub>y</sub>)</p>
+    <p>Donc finalement, si les diamants ont la même ordonnée et que la distance entre leurs abscisses vaut la taille d'un diamant ou que les diamants
+      ont la même abscisse et que la distance entre leurs ordonnées vaut la taille d'un diamant, alors l'échange est réalisable.</p>
+    <h3>Echange graphique</h3>
+    <p>Cette phase est l'unique phase qui permettra au joueur de voir ce qui se passe. Elle se doit donc d'être rapide afin de ne pas ennuyer le
+      joueur, et suffisament esthétique pour rendre le tout regardable.</p>
+    <p>Avant de rentrer dans les détails, il faut avant tout faire le point sur un aspect important : les diamants sont stockés sur la pile à l'aide
+      d'une matrice. Ainsi, un diamant en tant qu'entité unique (c'est à dire adressable en mémoire) ne peut pas être échangée. Si on avait voulu
+      que ce soit le cas, il aurait fallu allouer ces derniers sur le tas et passer par des pointeurs. Pour ne pas être trop vague, on distinguera
+      donc deux objets : le diamant en tant que "case" de la matrice de diamant, et le diamant graphique que l'utilisateur voit.Le diamant en tant 
+      que case est adressable en mémoire. Il ne possède pas à proprement parler de type ou de position. Disons qu'il représente
+      juste une case dans la matrice de diamants. En revanche le diamant graphique lui possède une position à l'écran ainsi qu'un type, et il est
+      possible de le "stocker" dans une case de la matrice.</p>
+    <p>On comprend donc rapidemment que deux diamants ne peuvent pas être échangés directement : on ne peut pas échanger la position de ces deux
+      derniers, car ces positions sont rattachés à une case, qui rappelons le, est unique sur la pile.</p>
+    <p>L'unique façon d'échanger deux diamants est donc d'échanger leur type (cf. leur couleur). Evidemment, si l'on fait ça, l'utilisateur n'y
+      verra aucun aspect esthétique, d'où l'intérêt de créer une deuxième fonction se chargeant de créer l'illusion d'un réel échange.</p>
+    <p>La première étape de cette phase est de déterminer le sens d'échange : de gauche à droite, de droite à gauche, de haut en bas ou de bas
+      en haut. En clair, il est nécessaire de déterminer un vecteur vitesse, lequel nous servira à faire bouger nos diamants. Ce vecteur est
+      extrêmement simple à obtenir :</p>
+    <p>v<sub>x</sub> = (d1<sub>x</sub> - d2<sub>x</sub>) / DIAMOND_SIZE</p>
+    <p>v<sub>y</sub> = (d1<sub>y</sub> - d2<sub>y</sub>) / DIAMOND_SIZE</p>
+    <p>Ce vecteur vitesse nous indique donc la direction dans laquelle le diamant d1 va aller, et évidemment, le diamant d2 va aller dans la
+      direction opposée.</p>
+    <p>Il convient donc de boucler sur la taille d'un diamant, et d'ajouter pour d1 le vecteur vitesse, et de le soustraire pour d2 :</p>
+    <p>pour i de 0 à DIAMOND_SIZE</p>
+    <p>| d1<sub>x</sub> += v<sub>x</sub></p>
+    <p>| d1<sub>y</sub> -= v<sub>y</sub></p>
+    <p>Une fois sorti de cette boucle, les deux diamants auront été <em>graphiquement</em> échangés.</p>
+    <h3>Echange algorithmique</h3>
+    <p>Une fois l'échange gaphique terminé, on se retrouve avec deux diamants graphiquement échangés. Comme dit plus haut, l'échange algorithmique est
+      simple : il se résume à échanger les types des diamants. Cependant, il y a un problème. Si l'on fait cela, d1 prendra la couleur de d2, mais
+      sa position à l'écran n'est pas en accord avec sa position dans la matrice de diamants (cf. sa case). Cela peut sembler un peu compliqué, mais
+      l'idée est simple. Récapitulons.</p>
+    <p>Admettons deux diamants d1 (rouge) et d2 (vert) que l'on souhaite échanger. Le diamant d1 se trouve à l'indice i1 dans la matrice, et d2 à 
+      l'indice i2. Le diamant d1 possède une coordonnée (x1;y1) et d2 possède (x2;y2). On a donc ceci :</p>
+    <p>matrice<sub>i1</sub> : { d1(rouge, (x1;y1)) }</p>
+    <p>matrice<sub>i2</sub> : { d2(vert, (x2;y2)) }</p>
+    <p>Après l'échange graphique :</p>
+    <p>matrice<sub>i1</sub> : { d1(rouge, (x2;y2)) }</p>
+    <p>matrice<sub>i2</sub> : { d2(vert, (x1;y1)) }</p>
+    <p>Si l'on échange les couleurs maintenant :</p>
+    <p>matrice<sub>i1</sub> : { d1(vert, (x2;y2)) }</p>
+    <p>matrice<sub>i2</sub> : { d2(rouge, (x1;y1)) }</p>
+    <p>Bien. Maintenant, il reste une donnée à expliquer pour comprendre parfaitement le problème : la position d'un diamant à l'écran est lié à son
+      indice dans la matrice par la relation suivante :</p>
+    <p>diamant<sub>i<sub>x</sub></sub> = matrice<sub>i</sub> % DIAMOND_SIZE</p>
+    <p>diamant<sub>i<sub>y</sub></sub> = matrice<sub>i</sub> / DIAMOND_SIZE</p>
+    <p>On voit donc bien qu'ici, si l'on transforme l'indice du diamant d1 en deux composantes x et y, on obtient x1 et y2, ce qui n'est pas en accord
+      avec les valeurs stockés par le diamant après l'échange graphique. Il faut donc reéchanger ces composantes avant de changer le type des diamants
+      pour avoir un échange algorithmique correct.</p>
+    <h3>Génération des explosions</h3>
+    <p>Cette phase est probablement la plus complexe de l'algorithme. L'idée naïve que l'on pourrait avoir est d'utiliser un booléen "doit exploser" par
+      diamant. Le problème de ce choix réside dans le fait que cela va fixer une complexité linéaire lors du retrait par explosion des diamants (puisqu'il
+      faudra parcourir toute la matrice pour savoir quel diamant doit exploser). Au lieu de cela, notre algorithme génére un tableau pseudo-dynamique
+      qui contient les indices des diamants à retirer de la grille. Pseudo dynamique car la taille statique de ce tableau est fixé, mais sa taille
+      en utilisation dépend du nombre de diamant à retirer du jeu. Ainsi, si 3 diamants doivent exploser, le tableau contiendra les 3 indices des
+      diamants. Cela nous permettra, lors du retrait des diamants, de ne pas parcourir toute la matrice à la recherche de diamants à exploser, mais
+      à plutôt parcourir le tableau contenant les indices des diamants qui doivent exploser, ce qui est bien plus rapide.</p>
+    <p>Afin de mener cette tâche à bien, il faut parcourir la matrice en horizontalement et verticalement, et pour chaque cas compter combien de diamants
+      se suivent. Si ce nombre est supérieur à 3, on stocke alors l'indice de ces diamants dans le tableau. Mais attention, il ne s'agit pas d'ajouter
+      les indices à la fin du tableau. Il faut au préalable vérifier la présence du diamant dans le tableau, car il n'est pas impossible qu'un diamant
+      se trouve à l'intersection de diamants horizontaux et verticaux. De plus, il faut garder un tableau trié (cela est nécessaire pour l'algorithme
+      permettant de faire chuter de nouveaux diamants, mais nous ne traiteront pas ce problème ici).</p>
+    <p>En bref, les solutions retenues pour cette phase sont l'utilisation d'un tri par insertion dichotomique refusant les doublons.</p>
+    <h2>Validité d'une grille ... tout un bazar !</h2>
+        
+  </body>
+</html>

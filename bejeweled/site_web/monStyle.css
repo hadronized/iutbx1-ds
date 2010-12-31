@@ -1,0 +1,78 @@
+h1 
+{
+    color: black;
+}
+
+body
+{
+    background-image: url(imgs/background.jpg);
+    color: white;
+    background-attachment: fixed;
+}
+
+#header 
+{
+    position: relative;
+    color: white;
+}
+
+#header h1 
+{
+    text-align: center;
+    border: 0px;
+    background-color: orange;
+}
+
+#header h2
+{
+    text-align: left;
+    border: 0px;
+
+}
+
+#menu
+{
+    float: left;
+    position: relative;
+    margin-right: 40px;
+    width: 150px;
+}
+
+#menu p
+{
+    text-align: center;
+    margin-bottom: 100px;
+}
+
+#menu p a
+{
+    color: orange;
+    text-decoration:none;
+}
+
+#menu p a:hover
+{
+    font-size: larger;
+}
+
+#intro
+{ 
+    color: white; 
+    position: relative;
+}
+
+#but
+{
+    text-align: left;
+    color: white;
+}
+
+h2
+{
+    color: white;
+}
+
+#nous
+{
+    color: white;
+}
