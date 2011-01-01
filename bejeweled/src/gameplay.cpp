@@ -124,31 +124,6 @@ bool check_explode(gameboard &gb) {
     return gb.nb_expl != 0;
 }
 
-void explode(gameboard &gb, SDL_Surface *ps) {
-    SDL_Rect pos;
-    SDL_Rect sub;
-    int tmpx, tmpy;
-
-    sub.y = 0;
-    sub.w = DIAMOND_SIZE;
-    sub.h = DIAMOND_SIZE;
-
-    for (int y = 0; y < 9; ++y) { // attention constante magique moche : 9, car 9 frames par explosion ...
-        sub.x = y*DIAMOND_SIZE;
-        for (int i = 0; i < gb.nb_expl; ++i) {
-            index_1D2D(gb.expl[i], tmpx, tmpy, gb.row);
-            
-            pos.x = tmpx*DIAMOND_SIZE;
-            pos.y = tmpy*DIAMOND_SIZE;
-
-            SDL_BlitSurface(gb.explode, &sub, ps, &pos);
-        }
-        
-        SDL_Flip(ps);
-        SDL_Delay(80);
-    }
-}
-
 void get_down(gameboard &gb, SDL_Surface *ps) {
     int x, y;
     diamond *pd;
@@ -437,6 +412,7 @@ void solo_loop(SDL_Surface *ps) {
                                 if (check_solution(gb)) { // il reste des solutions
                                     ;
                                 } else { // plus de solution
+                                    game_over(gb, pFont, ps);
                                     if (user.reanim >= gparam.reaPoints) { // a modifier en fonction de la difficute choisie
                                         show_gameboard(gb, ps);
                                         scores(pFont,ps,user.score);
@@ -446,11 +422,10 @@ void solo_loop(SDL_Surface *ps) {
                                         user.reanim = 0;
 
                                         if (!check_solution(gb)) {
-                                            game_over(gb, pFont, ps);
+                                            
                                             quit = true;
                                         }
                                     } else {
-                                        game_over(gb, pFont, ps);
                                         quit = true;
                                     }
                                 }
@@ -475,11 +450,10 @@ void solo_loop(SDL_Surface *ps) {
         }
     }
     
+    user.score *= gparam.endMult;
 
     in_top_ten_solo(pFont, ps, user.score);
     draw_top_ten(pFont, ps);
-
-    save_difficulty(diff);
 
     free_theme(gb);
     free_font(pFont);

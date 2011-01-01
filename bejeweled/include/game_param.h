@@ -60,7 +60,7 @@ enum difficulty {
 /* ******************** get_solo_param ***********************
    * game_param get_solo_param(difficulty diff);             *
    ******************* Auteur , Dates ************************
-   * Dimitri Sabadie, 29 Decembre 2010, v0.1                 *
+   * Dimitri Sabadie, 01 Janvier 2011, v0.1                  *
    ******************** Description **************************
    * A partir d'une difficulte choisie par le joueur, cette  *
    * fonction retourne les parametres de jeu en utiliser     *
@@ -76,7 +76,7 @@ game_param get_solo_param(difficulty diff);
 /* ******************** get_dual_param ***********************
    * game_param get_dual_param(difficulty diff);             *
    ******************* Auteur , Dates ************************
-   * Dimitri Sabadie, 29 Decembre 2010, v0.1                 *
+   * Dimitri Sabadie, 01 Janvier 2011, v0.1                  *
    ******************** Description **************************
    * A partir d'une difficulte choisie par le joueur, cette  *
    * fonction retourne les parametres de jeu en utiliser     *
