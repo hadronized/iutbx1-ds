@@ -526,7 +526,7 @@ void coop_loop(SDL_Surface *ps) {
         t0 = SDL_GetTicks();
 
         while (!quit && temps_restant >0) {
-            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 0, 0, 0));
             temps_restant = temps - ( time(0) - tps);
             
             while (SDL_PollEvent(&event)) {
