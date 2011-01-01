@@ -484,3 +484,138 @@ void solo_loop(SDL_Surface *ps) {
     free_theme(gb);
     free_font(pFont);
 }
+
+/*void coop_loop(SDL_Surface *ps) {
+    SDL_Event event;
+    bool quit = false;
+    gameboard gb;
+    difficulty diff;
+    game_param gparam;
+    diamond *pSelected = 0;
+    player user;
+    int comboScore;
+    Uint32 t0;
+    int temps; 	 
+    int temps_restant;
+    int tps;
+    TTF_Font *pFont = 0;
+
+    TTF_Init();
+    pFont = init_font();
+    if (!pFont)
+        cerr << "Police non initialisee" << endl;
+
+    // recuperation des parametres de jeu
+    diff = load_difficulty();
+    gparam = get_solo_param(diff);
+
+    temps = gparam.time;
+    tps = time(0);	
+    temps_restant = temps - ( time(0) - tps);
+
+    load_theme("themes/fractal_cosmos/", gb);
+
+    init_gameboard(gb, 8, 8, gparam.nbKind);
+    init_player(user);
+    
+    if (check_solution(gb)) {
+        t0 = SDL_GetTicks();
+
+        while (!quit && temps_restant >0) {
+            SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+            temps_restant = temps - ( time(0) - tps);
+            
+            while (SDL_PollEvent(&event)) {
+                if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE) {
+                    quit = true; // on quitte le jeu -> retour au menu principal
+                    // ne pas oublier de sauvegarder le jeu ici !
+                } else if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
+                    if (cursor_in_grid(event, gb)) {
+                        if (!pSelected) { // si aucun diamant n'était selectionné prealablement ...
+                            pSelected = &query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE);
+                            pSelected->sub.y = DIAMOND_SIZE;
+
+                        } else { // sinon, c'est que l'on en selectionne un deuxième -> on tente donc un echange
+                            pSelected->sub.y = 0;
+                            if ( try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps) ) {
+                                comboScore = 1;
+                                do {
+                                    user.score += gb.nb_expl * comboScore * gparam.pPD;
+                                    user.action += gb.nb_expl;
+                                    user.reanim += gb.nb_expl;
+                                    ++comboScore;
+                                    tps += gparam.posTime;
+                                    
+                                    show_gameboard(gb, ps);
+                                    scores(pFont,ps,user.score);
+                                    affiche_temps(pFont,ps,temps_restant);
+
+                                    explode(gb, ps);
+                                    get_down(gb, ps);
+
+                                    if (user.action >= gparam.actPoints) { // a modifier en fonction de la difficulte choisie
+                                        show_gameboard(gb, ps);
+                                        scores(pFont,ps,user.score);
+                                        affiche_temps(pFont,ps,temps_restant);
+
+                                        random_explode(gb, ps);
+                                        user.score += BONUS_NB_EXPL * gparam.pPD;
+                                        user.action = 0;
+                                    }
+                                } while ( check_explode(gb));
+
+                                t0 = SDL_GetTicks();
+
+                                if (check_solution(gb)) { // il reste des solutions
+                                    ;
+                                } else { // plus de solution
+                                    if (user.reanim >= gparam.reaPoints) { // a modifier en fonction de la difficute choisie
+                                        show_gameboard(gb, ps);
+                                        scores(pFont,ps,user.score);
+                                        affiche_temps(pFont,ps,temps_restant);
+
+                                        random_explode(gb, ps);
+                                        user.reanim = 0;
+
+                                        if (!check_solution(gb)) {
+                                            game_over(gb, pFont, ps);
+                                            quit = true;
+                                        }
+                                    } else {
+                                        game_over(gb, pFont, ps);
+                                        quit = true;
+                                    }
+                                }
+                            }
+			
+                            pSelected = 0;
+                        }
+                    }
+                }
+            }
+	
+            if (SDL_GetTicks() - t0 >= MS_BEFORE_SOLUTION) {
+                draw_solution(gb, ps);
+                t0 = SDL_GetTicks();
+            }
+            
+            show_gameboard(gb, ps);
+            scores(pFont,ps,user.score);
+            affiche_temps(pFont,ps,temps_restant);
+
+            SDL_Flip(ps);
+        }
+    }
+    
+
+    in_top_ten_solo(pFont, ps, user.score);
+    draw_top_ten(pFont, ps);
+
+    save_difficulty(diff);
+
+    free_theme(gb);
+    free_font(pFont);    
+
+}
+*/
+
