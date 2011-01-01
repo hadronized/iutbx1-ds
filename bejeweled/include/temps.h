@@ -37,6 +37,6 @@
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-void affiche_temps(TTF_Font *f, SDL_Surface *ps, int temps_restant);
+void affiche_temps(TTF_Font *f, SDL_Surface *ps, int x, int temps_restant);
 
 #endif // guard

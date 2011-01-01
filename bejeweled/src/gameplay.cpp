@@ -416,16 +416,16 @@ void solo_loop(SDL_Surface *ps) {
                                     tps += gparam.posTime;
                                     
                                     show_gameboard(gb, ps);
-                                    scores(pFont,ps,user.score);
-                                    affiche_temps(pFont,ps,temps_restant);
-
+                                    scores(pFont,ps,8*DIAMOND_SIZE+20,user.score);
+                                    affiche_temps(pFont,ps,8*DIAMOND_SIZE+20,temps_restant);
+                                    
                                     explode(gb, ps);
                                     get_down(gb, ps);
 
                                     if (user.action >= gparam.actPoints) { // a modifier en fonction de la difficulte choisie
                                         show_gameboard(gb, ps);
-                                        scores(pFont,ps,user.score);
-                                        affiche_temps(pFont,ps,temps_restant);
+                                        scores(pFont,ps,8*DIAMOND_SIZE+20,user.score);
+                                        affiche_temps(pFont,ps,8*DIAMOND_SIZE+20,temps_restant);
 
                                         random_explode(gb, ps);
                                         user.score += BONUS_NB_EXPL * gparam.pPD;
@@ -440,8 +440,8 @@ void solo_loop(SDL_Surface *ps) {
                                 } else { // plus de solution
                                     if (user.reanim >= gparam.reaPoints) { // a modifier en fonction de la difficute choisie
                                         show_gameboard(gb, ps);
-                                        scores(pFont,ps,user.score);
-                                        affiche_temps(pFont,ps,temps_restant);
+                                        scores(pFont,ps,8*DIAMOND_SIZE+20,user.score);
+                                        affiche_temps(pFont,ps,8*DIAMOND_SIZE+20,temps_restant);
 
                                         random_explode(gb, ps);
                                         user.reanim = 0;
@@ -469,8 +469,8 @@ void solo_loop(SDL_Surface *ps) {
             }
             
             show_gameboard(gb, ps);
-            scores(pFont,ps,user.score);
-            affiche_temps(pFont,ps,temps_restant);
+            scores(pFont,ps,8*DIAMOND_SIZE+20,user.score);
+            affiche_temps(pFont,ps,8*DIAMOND_SIZE+20,temps_restant);
 
             SDL_Flip(ps);
         }
@@ -558,16 +558,16 @@ void coop_loop(SDL_Surface *ps) {
                                     tps += gparam.posTime;
                                     
                                     show_gameboard(gb, ps);
-                                    scores(pFont,ps,team.score);
-                                    affiche_temps(pFont,ps,temps_restant);
+                                    scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
+                                    affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
 
                                     explode(gb, ps);
                                     get_down(gb, ps);
 
                                     if (team.action >= gparam.actPoints) { // a modifier en fonction de la difficulte choisie
                                         show_gameboard(gb, ps);
-                                        scores(pFont,ps,team.score);
-                                        affiche_temps(pFont,ps,temps_restant);
+                                        scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
+                                        affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
 
                                         random_explode(gb, ps);
                                         team.score += BONUS_NB_EXPL * gparam.pPD;
@@ -582,8 +582,8 @@ void coop_loop(SDL_Surface *ps) {
                                 } else { // plus de solution
                                     if (team.reanim >= gparam.reaPoints) { // a modifier en fonction de la difficute choisie
                                         show_gameboard(gb, ps);
-                                        scores(pFont,ps,team.score);
-                                        affiche_temps(pFont,ps,temps_restant);
+                                        scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
+                                        affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
 
                                         random_explode(gb, ps);
                                         team.reanim = 0;
@@ -611,8 +611,8 @@ void coop_loop(SDL_Surface *ps) {
             }
             
             show_gameboard(gb, ps);
-            scores(pFont,ps,team.score);
-            affiche_temps(pFont,ps,temps_restant);
+            scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
+            affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
 
             SDL_Flip(ps);
         }

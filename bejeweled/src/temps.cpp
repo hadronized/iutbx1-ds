@@ -23,7 +23,7 @@
 #include <sstream>
 #include <iostream>
 
-void affiche_temps(TTF_Font *f, SDL_Surface *ps, int temps_restant)
+void affiche_temps(TTF_Font *f, SDL_Surface *ps, int x, int temps_restant)
 {
 	
 	SDL_Rect pos;
@@ -38,7 +38,7 @@ void affiche_temps(TTF_Font *f, SDL_Surface *ps, int temps_restant)
 	if (!tempsFont)
 	cerr << "Surface temps non generee" << endl;
 	
-	pos.x = 500;
+	pos.x = x;
 	pos.y = 100;
     
     SDL_BlitSurface(tempsFont, 0, ps, &pos);
