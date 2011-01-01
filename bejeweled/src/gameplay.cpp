@@ -539,6 +539,29 @@ void coop_loop(SDL_Surface *ps) {
                         cout << "Player 2 up !" << endl;
                         cout << "Hover : " << player2.hover << endl;
                         cout << "Lock : " << player2.lock << endl;
+                    } else if (event.key.keysym.sym == SDLK_DOWN) {
+                        keyboard_update_down(player2);
+                        cout << "Player 2 down !" << endl;
+                        cout << "Hover : " << player2.hover << endl;
+                        cout << "Lock : " << player2.lock << endl;
+                    } else if (event.key.keysym.sym == SDLK_LEFT) {
+                        keyboard_update_left(player2);
+                        cout << "Player 2 left !" << endl;
+                        cout << "Hover : " << player2.hover << endl;
+                        cout << "Lock : " << player2.lock << endl;
+                    } else if (event.key.keysym.sym == SDLK_RIGHT) {
+                        keyboard_update_right(player2);
+                        cout << "Player 2 up !" << endl;
+                        cout << "Hover : " << player2.hover << endl;
+                        cout << "Lock : " << player2.lock << endl;
+                    } else if (event.key.keysym.sym == SDLK_SPACE) {
+                        if (player2.lock == -1)
+                            keyboard_lock(player2, true);
+                        else
+                            keyboard_lock(player2, false);
+                        cout << "Player 2 lock !" << endl;
+                        cout << "Hover : " << player2.hover << endl;
+                        cout << "Lock : " << player2.lock << endl;
                     }
                 } else if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
                     if (cursor_in_grid(event, gb)) {

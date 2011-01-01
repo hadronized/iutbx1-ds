@@ -30,22 +30,22 @@ void init_keyboard(keyboard &kb, gameboard const &gb) {
 
 
 void keyboard_update_up(keyboard &kb) {
-    if (kb.hover / kb.col > 0)
+    if (kb.hover / kb.row > 0)
         kb.hover -= kb.row;
 }
 
 void keyboard_update_down(keyboard &kb) {
-    if (kb.hover / kb.col < kb.col-1)
+    if (kb.hover / kb.row < kb.col-1)
         kb.hover += kb.row;
 }
 
 void keyboard_update_left(keyboard &kb) {
-    if (kb.hover % kb.col > 0)
+    if (kb.hover % kb.row > 0)
         --kb.hover;
 }
 
 void keyboard_update_right(keyboard &kb) {
-    if (kb.hover % kb.col < kb.row-1)
+    if (kb.hover % kb.row < kb.row-1)
         ++kb.hover;
 }
 
