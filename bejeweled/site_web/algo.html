@@ -116,6 +116,48 @@
     <p>En bref, la solution retenue pour cette phase est l'utilisation d'un tri par insertion refusant les doublons.</p>
 
     <h2>Validité d'une grille ... tout un bazar !</h2>
+    <p>Voila l'algorithme qui aura coûté le plus de temps en terme de développement et d'optimisation. Il existe tellement de façons de l'aborder, plus
+      ou moins bonnes. La solution qui pourrait venir immédiatement à l'esprit pourrait être <em>brute force</em>, c'est à dire que l'on déplacerait
+      chaque diamant dans le plus de directions possibles, et on regarderait si des explosions ont été générées. Evidemment, une telle solution est
+      extrêmement brutale et pas du tout optimale. La solution que nous avons retenue divise le problème en sous-problèmes, beaucoup moins complexes à
+      résoudre, et permet de garder une complexité linéaire.</p>
+    <p>Notre solution repose sur le principe de motifs. En effet, il existe une liste exhaustive de motifs de 3 diamants - ou de configuration - qui
+      permette d'engendrer une explosion - et donc de continuer à jouer. Ces motifs sont extrêment basiques, et permettent la construction de motifs
+      plus complexes. Quoi qu'il en soit, il existe 16 motifs « élémentaires » : 8 horizontaux, 8 verticaux. Les voici :</p>
+    <p>Motif 1.1</p>
+    <p>X D X</p>
+    <p>D X D</p>
+    <p>Motif 1.2</p>
+    <p>D X D</p>
+    <p>X D X</p>
+    <p>Motif 2.1</p>
+    <p>D D X</p>
+    <p>X X D</p>
+    <p>Motif 2.2</p>
+    <p>X X D</p>
+    <p>D D X</p>
+    <p>Motif 2.3</p>
+    <p>X D D</p>
+    <p>D X X</p>
+    <p>Motif 2.4</p>
+    <p>D X X</p>
+    <p>X D D</p>
+    <p>Motif 3.1</p>
+    <p>D X D D</p>
+    <p>Motif 3.2</p>
+    <p>D D X D</p>
+    <p>Pour obtenir les 8 autres motifs, il suffit de "renverser" les motifs horizontaux. Dans tous les cas, on remarque plusieurs choses : les motifs
+      1.1 et 1.2 possède une symétrie horizontale, de même que les motifs 2.1 et 2.2, et 2.3 et 2.3. Les motifs 3.1 et 3.2 ont quant à eux une symétrie
+      verticale. Ce détail va nous permet d'écrire des algorithmes qui vont générer efficacement plusieurs motifs à l'aide de quelques bricoles
+      mathématiques, et ainsi d'économiser des lignes de code ...</p>
+    <p>Chose importante, on remarque que l'on peut encore classer les motifs selon leur dimension : 3x2 ou 4x1. Cette notion est importante, car elle
+      en fonction de où on sera dans la matrice de diamants, on saura si on a le droit d'appliquer un motif ou non. Le principe de notre algorithme est
+      alors très clair : on parcourt horizontalement et verticalement la matrice, en appliquant les motifs. Les motifs nous permettent en fait de
+      récupérer le type des diamants qui forment ces motifs (et on remarque bien que si on bouge correctement un de ces diamants, le motif génère une
+      explosion). Un simple test d'égalité entre ces 3 diamants nous permet de savoir si le motif est présent ou non. Si c'est le cas, on stocke
+      mathématiquement l'indice du diamant pouvant générer une solution, et on arrête l'algorithme.</p>
+    <p>Dans le cas où aucun motif n'a pu être appliquée, il n'y a plus de solution possible.</p>
+    <!-- mettre ici un joli diagramme récapitulatif de l'algorithme -->
         
   </body>
 </html>
