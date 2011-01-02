@@ -301,4 +301,18 @@ void random_explode(gameboard &gb, SDL_Surface *ps);
    *********************************************************** */
 void solo_loop(SDL_Surface *ps);
 
+/* *********************** coop_loop *************************
+   * void coop_loop(SDL_Surface *ps);                        *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 01 Janvier 2011, v0.1                  *
+   ********************* Description *************************
+   * Cette fonction est la boucle de jeu principale du mode  *
+   * Coop.                                                   *
+   *********************** Entrees ***************************
+   * `ps' : pointeur sur la surface de jeu                   *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+void coop_loop(SDL_Surface *ps);
+
 #endif // guard

@@ -31,10 +31,10 @@
 
 using namespace std;
 
-int const  SCREEN_WIDTH   = 720;
-int const  SCREEN_HEIGHT  = 480;
-int const  SCREEN_DEPTH   = 32;
-string const SCREEN_TITLE = "Bejeweled !";
+int const  SCREEN_WIDTH        = 720;
+int const  SCREEN_HEIGHT       = 480;
+int const  SCREEN_DEPTH        = 32;
+string const SCREEN_TITLE      = "Bejeweled !";
 
 /* *********************** init_gui **************************
    * bool init_gui(void);                                    *

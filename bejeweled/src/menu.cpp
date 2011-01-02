@@ -425,15 +425,31 @@ void menu_loop(SDL_Surface *ps) {
                     solo_loop(ps);
                 } 
 
-                else if (score_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) {
+                else if (score_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+                {
                     SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
                     draw_top_ten(pFontScore, ps);
                 }
                 
-                /*else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT){
-                    options_loop(ps);
-                    SDL_Flip(ps);
-                    }*/
+                else if (coop_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+                {
+                   SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                   coop_loop(ps);
+                } 
+
+                /* else if (versus_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+                   {
+                   SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                   vs_loop(ps);
+                   } 
+                   
+                   
+                   
+                   else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+                   {
+                   SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                   options_loop(ps);
+                   } */
                    
                 else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
                 {

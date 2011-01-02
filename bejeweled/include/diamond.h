@@ -31,7 +31,7 @@ int const DIAMOND_SIZE   = 60;
 int const DIAMOND_SPEED  = 4;
 
 /* *********************** diamond ***************************
-   * Dimitri Sabadie, 9 novembre 2010, v0.2                  *
+   * Dimitri Sabadie, 9 Novembre 2010, v0.2                  *
    ********************* Description *************************
    * Cette structure represente un diamant. Il est important *
    * de noter qu'elle ne contient pas d'image, juste le      *
@@ -89,7 +89,7 @@ void change_diamond_type(diamond &d, diamond_type h, diamond_type v, int kind);
 /* *********************** is_near ***************************
    * bool is_near(diamond const &a, diamond const &b);       *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 12 novembre 2010, v0.1                 *  
+   * Dimitri Sabadie, 12 Novembre 2010, v0.1                 *  
    ********************* Description *************************
    * Cette fonction permet de verifier que deux diamants     *
    * peuvent bien etre echanges. Attention, cette fonction   *
@@ -109,7 +109,7 @@ bool is_near(diamond const &a, diamond const &b);
 /* *********************** is_near ***************************
    * void diamond_swap(diamond &a, diamond &b);              *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 21 novembre 2010, v0.1                 *  
+   * Dimitri Sabadie, 21 Novembre 2010, v0.1                 *  
    ********************* Description *************************
    * Echange le type de deux diamants. Attention, les        *
    * coordonnees des diamants ne sont pas echangees.         *
@@ -124,7 +124,7 @@ void diamond_swap(diamond &a, diamond &b);
 /* ************************* equal ***************************
    * bool equal(diamond a, diamond b, diamond c);            *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 21 novembre 2010, v0.1                 *  
+   * Dimitri Sabadie, 21 Novembre 2010, v0.1                 *  
    ********************* Description *************************
    * Permet de verifier que 3 diamants ont le meme type.     *
    *********************** Entrees ***************************

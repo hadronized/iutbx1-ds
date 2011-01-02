@@ -39,7 +39,7 @@ void free_font(TTF_Font *pf) {
 	TTF_CloseFont(pf);
 }
 
-void scores(TTF_Font *f, SDL_Surface *ps, int score) // nom de fonction pas du tout explicite, a modifier
+void scores(TTF_Font *f, SDL_Surface *ps, int x, int score) // nom de fonction pas du tout explicite, a modifier
 {
     SDL_Rect pos;
     SDL_Surface *scoreFont;
@@ -53,7 +53,7 @@ void scores(TTF_Font *f, SDL_Surface *ps, int score) // nom de fonction pas du t
     if (!scoreFont)
 	cerr << "Surface score non generee" << endl;
 	
-    pos.x = 500;
+    pos.x = x;
     pos.y = 200;
     
     SDL_BlitSurface(scoreFont, 0, ps, &pos);
