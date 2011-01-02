@@ -144,7 +144,7 @@ void init_menu_options(menu &o)
     o.facile.at.h  = BUTTON_HEIGHT;
     
     // initialisation bouton difficulté normal
-    o.normal.box.x = 0;
+    o.normal.box.x = 260;
     o.normal.box.y = 0;
     o.normal.box.w = BUTTON_WIDTH;
     o.normal.box.h = BUTTON_HEIGHT;
@@ -154,7 +154,7 @@ void init_menu_options(menu &o)
     o.normal.at.h  = BUTTON_HEIGHT;
     
     // initialisation bouton difficulté héroique
-    o.hero.box.x = 0;
+    o.hero.box.x = 520;
     o.hero.box.y = 0;
     o.hero.box.w = BUTTON_WIDTH;
     o.hero.box.h = BUTTON_HEIGHT;
@@ -165,7 +165,7 @@ void init_menu_options(menu &o)
     
     // initialisation bouton difficulté legendaire
     o.legend.box.x = 0;
-    o.legend.box.y = 0;
+    o.legend.box.y = 78;
     o.legend.box.w = BUTTON_WIDTH;
     o.legend.box.h = BUTTON_HEIGHT;
     o.legend.at.x  = 420;
@@ -174,8 +174,8 @@ void init_menu_options(menu &o)
     o.legend.at.h  = BUTTON_HEIGHT;
     
     // initialisation bouton theme defaut
-    o.defaut.box.x = 0;
-    o.defaut.box.y = 0;
+    o.defaut.box.x = 260;
+    o.defaut.box.y = 78;
     o.defaut.box.w = BUTTON_WIDTH;
     o.defaut.box.h = BUTTON_HEIGHT;
     o.defaut.at.x  = 100;
@@ -184,8 +184,8 @@ void init_menu_options(menu &o)
     o.defaut.at.h  = BUTTON_HEIGHT;
  
     // initialisation bouton theme fractal
-    o.fractal.box.x = 0;
-    o.fractal.box.y = 0;
+    o.fractal.box.x = 520;
+    o.fractal.box.y = 78;
     o.fractal.box.w = BUTTON_WIDTH;
     o.fractal.box.h = BUTTON_HEIGHT;
     o.fractal.at.x  = 420;
@@ -194,7 +194,7 @@ void init_menu_options(menu &o)
     o.fractal.at.h  = BUTTON_HEIGHT;
     
     o.wallpaper = load_img("themes/default/title.png");
-    o.sheet = load_img("themes/default/buttons.png");  
+    o.sheet = load_img("themes/default/Buttons.png");  
 }
 
 void affiche_menu_options(menu o,TTF_Font *f, SDL_Surface *ps, SDL_Event e){
@@ -319,8 +319,8 @@ void options_loop(SDL_Surface *ps){
           load_theme("themes/fractal_cosmos/", gb);
       }
       SDL_WaitEvent(&event);
-  } while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_ESCAPE);
-}   
+  }while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_ESCAPE);   
+}
 
 bool mouse_in_rect(SDL_Rect r, SDL_Event e) {
     return ( (e.motion.x >= r.x && e.motion.x <= r.x+r.w) && (e.motion.y >= r.y && e.motion.y <= r.y+r.h) );
