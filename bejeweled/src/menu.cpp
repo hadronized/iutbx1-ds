@@ -309,7 +309,6 @@ void liberer_menu(menu &m) {
 void options_loop(SDL_Surface *ps){
 	
   menu o;
-  gameboard gb;
   SDL_Event event;
   
   do {
@@ -330,12 +329,12 @@ void options_loop(SDL_Surface *ps){
           save_difficulty(legendary);
       }
       else if (defaut_selected(o, event) && event.button.button == SDL_BUTTON_LEFT) {
-          free_theme(gb);
-          load_theme("themes/default/",gb);
+          //free_theme(gb);
+          //load_theme("themes/default/",gb);
       }
       else if (fractal_selected(o, event) && event.button.button == SDL_BUTTON_LEFT) {
-          free_theme(gb);
-          load_theme("themes/fractal_cosmos/", gb);
+          //free_theme(gb);
+          //load_theme("themes/fractal_cosmos/", gb);
       }
       SDL_WaitEvent(&event);
   }while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_ESCAPE);   
@@ -431,11 +430,10 @@ void menu_loop(SDL_Surface *ps) {
                     draw_top_ten(pFontScore, ps);
                 }
                 
-                else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT){
-				affiche_menu_options(o, pFontOptions, ps, event);
-				options_loop(ps);
-				SDL_Flip(ps);
-                } 
+                /*else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT){
+                    options_loop(ps);
+                    SDL_Flip(ps);
+                    }*/
                    
                 else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
                 {
