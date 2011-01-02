@@ -56,7 +56,7 @@ void options_loop(SDL_Surface *ps);
    *********************** Description ***********************
    * Cette fonction permet d'initialiser le menu             *
    *********************** Entrees ***************************
-   * `m' : reference sur le menu à initialiser               *
+   * `m' : reference sur le menu a initialiser               *
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
@@ -71,7 +71,7 @@ void init_menu_options(menu &o);
    *********************** Description ***********************
    * Cette fonction permet d'afficher le menu                *
    *********************** Entrees ***************************
-   * `m' : menu à afficher precedement initialiser           *
+   * `m' : menu a afficher precedement initialiser           *
    *                                                         *
    * `ps': pointeur sur la surface                           *
    *                                                         *
@@ -91,7 +91,7 @@ void affiche_menu_options(menu o,TTF_Font *f, SDL_Surface *ps, SDL_Event e);
    *********************** Description ***********************
    * Cette fonction permet de liberer                        *
    *********************** Entrees ***************************
-   * `m' : reference sur le menu à liberer                   *
+   * `m' : reference sur le menu a liberer                   *
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */

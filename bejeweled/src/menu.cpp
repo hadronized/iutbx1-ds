@@ -293,26 +293,33 @@ void options_loop(SDL_Surface *ps){
   gameboard gb;
   SDL_Event event;
   
-  if (facile_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
-    get_solo_param(easy);
-    save_difficulty(easy);
-    }
-  else if (normal_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
-    get_solo_param(normal);
-    save_difficulty(normal);
-    }
-  else if (hero_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
-    get_solo_param(heroic);
-    save_difficulty(heroic);
-    }
-  else if (legend_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
-    get_solo_param(legendary);
-    save_difficulty(legendary);
-    }
-  else if (defaut_selected(o, event) && event.button.button == SDL_BUTTON_LEFT)
-    load_theme("themes/default/",gb);
-  else if (fractal_selected(o, event) && event.button.button == SDL_BUTTON_LEFT)
-	 load_theme("themes/fractal_cosmos/", gb);
+  do {
+      if (facile_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+          get_solo_param(easy);
+          save_difficulty(easy);
+      }
+      else if (normal_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+          get_solo_param(normal);
+          save_difficulty(normal);
+      }
+      else if (hero_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+          get_solo_param(heroic);
+          save_difficulty(heroic);
+      }
+      else if (legend_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+          get_solo_param(legendary);
+          save_difficulty(legendary);
+      }
+      else if (defaut_selected(o, event) && event.button.button == SDL_BUTTON_LEFT) {
+          free_theme(gb);
+          load_theme("themes/default/",gb);
+      }
+      else if (fractal_selected(o, event) && event.button.button == SDL_BUTTON_LEFT) {
+          free_theme(gb);
+          load_theme("themes/fractal_cosmos/", gb);
+      }
+      SDL_WaitEvent(&event);
+  } while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_ESCAPE);
 }   
 
 bool mouse_in_rect(SDL_Rect r, SDL_Event e) {
