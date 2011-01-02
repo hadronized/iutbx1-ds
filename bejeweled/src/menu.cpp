@@ -278,8 +278,6 @@ void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
     
     SDL_BlitSurface(titreFont, 0, ps, &pos);
     SDL_FreeSurface(titreFont);
-    
-    SDL_Flip(ps);
 }
 
 void liberer_menu(menu &m) {
