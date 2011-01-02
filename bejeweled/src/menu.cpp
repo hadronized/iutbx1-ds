@@ -232,7 +232,7 @@ void affiche_menu_options(menu o,TTF_Font *f, SDL_Surface *ps, SDL_Event e){
 	cerr << "Surface titre non generee" << endl;
 	
 	pos.x =  30;
-	pos.y = 100;
+	pos.y =  30;
     
     SDL_BlitSurface(DiffFont, 0, ps, &pos);
     SDL_FreeSurface(DiffFont);
