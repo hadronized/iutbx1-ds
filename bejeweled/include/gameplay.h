@@ -1,6 +1,6 @@
 /* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     Projet AP1S1 2 : Bejeweled. A bejeweled-like game written in C++ with 
-    the SDL, SDL_image and SDL_ttf libraries.
+nn    the SDL, SDL_image and SDL_ttf libraries.
 
     Copyright (C) 2010  Dimitri Sabadie <dimitri.sabadie@etu.u-bordeaux1.fr>
     and                 Ludwig Raepsaet <ludwig.raepsaet@etu.u-bordeaux1.fr>
@@ -95,23 +95,6 @@ bool try_swap(gameboard &gb, diamond &a, diamond &b, SDL_Surface *ps);
    *          fonction retourne false, sinon true            *
    *********************************************************** */
 bool check_explode(gameboard &gb);
-
-/* ************************ explode **************************
-   * void explode(gameboard &gb, SDL_Surface *ps);           *
-   ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 01 Decembre 2010, v0.2                 *
-   ********************* Description *************************
-   * Cette fonction permet de retirer du plateau les         *
-   * diamants alignes en les faisant exploser.               *
-   *********************** Entrees ***************************
-   * `gb' : reference sur le plateau ou retirer les          *
-   *        explosions                                       *
-   * `ps' : pointeur sur la surface ou dessiner les          *
-   *        explosions graphiquement                         *
-   *********************** Sorties ***************************
-   * void                                                    *
-   *********************************************************** */
-void explode(gameboard &gb, SDL_Surface *ps);
 
 /* *********************** get_down **************************
    * void get_down(gameboard &gb, SDL_Surface *ps);          *
@@ -307,7 +290,7 @@ void random_explode(gameboard &gb, SDL_Surface *ps);
 /* *********************** solo_loop *************************
    * void solo_loop(SDL_Surface *ps);                        *
    ******************** Auteur , Dates ***********************
-   * Dimitri Sabadie, 29 Decembre 2010, v1.4                 *
+   * Dimitri Sabadie, 01 Janvier 2011, v1.5                  *
    ********************* Description *************************
    * Cette fonction est la boucle de jeu principale du mode  *
    * solo.                                                   *
@@ -317,5 +300,19 @@ void random_explode(gameboard &gb, SDL_Surface *ps);
    * void                                                    *
    *********************************************************** */
 void solo_loop(SDL_Surface *ps);
+
+/* *********************** coop_loop *************************
+   * void coop_loop(SDL_Surface *ps);                        *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 01 Janvier 2011, v0.1                  *
+   ********************* Description *************************
+   * Cette fonction est la boucle de jeu principale du mode  *
+   * Coop.                                                   *
+   *********************** Entrees ***************************
+   * `ps' : pointeur sur la surface de jeu                   *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+void coop_loop(SDL_Surface *ps);
 
 #endif // guard

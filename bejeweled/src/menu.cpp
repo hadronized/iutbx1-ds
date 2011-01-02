@@ -26,6 +26,7 @@
 #include "array.h"
 #include "gameplay.h"
 #include "score.h"
+#include "game_param.h"
 
 using namespace std;
 
@@ -50,6 +51,15 @@ SDL_Surface * load_img_key(string const &fn, int r, int g, int b) {
 TTF_Font * init_font_menu() {
     TTF_Font *pf;
     pf = TTF_OpenFont("themes/default/NEUROPOL.ttf", 150);
+
+    if (!pf)
+        cerr << "Erreur de chargement de la police !" << endl;
+    return pf;
+}
+
+TTF_Font * init_font_options() {
+    TTF_Font *pf;
+    pf = TTF_OpenFont("themes/default/NEUROPOL.ttf", 50);
 
     if (!pf)
         cerr << "Erreur de chargement de la police !" << endl;
@@ -121,6 +131,132 @@ void initialisation_menu(menu &m) {
     m.sheet = load_img("themes/default/buttons.png");
 }
 
+void init_menu_options(menu &o)
+{
+	// initialisation bouton difficulté facile
+    o.facile.box.x = 0;
+    o.facile.box.y = 0;
+    o.facile.box.w = BUTTON_WIDTH;
+    o.facile.box.h = BUTTON_HEIGHT;
+    o.facile.at.x  = 100;
+    o.facile.at.y  = 100;
+    o.facile.at.w  = BUTTON_WIDTH;
+    o.facile.at.h  = BUTTON_HEIGHT;
+    
+    // initialisation bouton difficulté normal
+    o.normal.box.x = 260;
+    o.normal.box.y = 0;
+    o.normal.box.w = BUTTON_WIDTH;
+    o.normal.box.h = BUTTON_HEIGHT;
+    o.normal.at.x  = 420;
+    o.normal.at.y  = 100;
+    o.normal.at.w  = BUTTON_WIDTH;
+    o.normal.at.h  = BUTTON_HEIGHT;
+    
+    // initialisation bouton difficulté héroique
+    o.hero.box.x = 520;
+    o.hero.box.y = 0;
+    o.hero.box.w = BUTTON_WIDTH;
+    o.hero.box.h = BUTTON_HEIGHT;
+    o.hero.at.x  = 100;
+    o.hero.at.y  = 200;
+    o.hero.at.w  = BUTTON_WIDTH;
+    o.hero.at.h  = BUTTON_HEIGHT;
+    
+    // initialisation bouton difficulté legendaire
+    o.legend.box.x = 0;
+    o.legend.box.y = 78;
+    o.legend.box.w = BUTTON_WIDTH;
+    o.legend.box.h = BUTTON_HEIGHT;
+    o.legend.at.x  = 420;
+    o.legend.at.y  = 200;
+    o.legend.at.w  = BUTTON_WIDTH;
+    o.legend.at.h  = BUTTON_HEIGHT;
+    
+    // initialisation bouton theme defaut
+    o.defaut.box.x = 260;
+    o.defaut.box.y = 78;
+    o.defaut.box.w = BUTTON_WIDTH;
+    o.defaut.box.h = BUTTON_HEIGHT;
+    o.defaut.at.x  = 100;
+    o.defaut.at.y  = 350;
+    o.defaut.at.w  = BUTTON_WIDTH;
+    o.defaut.at.h  = BUTTON_HEIGHT;
+ 
+    // initialisation bouton theme fractal
+    o.fractal.box.x = 520;
+    o.fractal.box.y = 78;
+    o.fractal.box.w = BUTTON_WIDTH;
+    o.fractal.box.h = BUTTON_HEIGHT;
+    o.fractal.at.x  = 420;
+    o.fractal.at.y  = 350;
+    o.fractal.at.w  = BUTTON_WIDTH;
+    o.fractal.at.h  = BUTTON_HEIGHT;
+    
+    o.wallpaper = load_img("themes/default/title.png");
+    o.sheet = load_img("themes/default/Buttons.png");  
+}
+
+void affiche_menu_options(menu o,TTF_Font *f, SDL_Surface *ps, SDL_Event e){
+  if ( facile_selected(o, e) ) // si la souris selectionne "Facile"
+        o.facile.box.x = 130;
+    else if( normal_selected(o, e) ) // si la souris selectionne "Normal"
+        o.normal.box.x = 650;
+    else if( hero_selected(o, e) ) // si la souris selectionne "Hero"
+        o.hero.box.x = 390;
+    else if( legend_selected(o, e) ) // si la souris selectionne "Legend"
+        o.legend.box.x = 650;
+    else if( defaut_selected(o, e) ) // si la souris selectionne "Defaut"
+        o.defaut.box.x = 130;
+    else if( fractal_selected(o, e) ) // si la souris selectionne "Fractal"
+        o.fractal.box.x = 390;
+         
+    SDL_BlitSurface(o.sheet, &o.facile.box, ps, &o.facile.at); // affichage du bouton facile
+    SDL_BlitSurface(o.sheet, &o.normal.box, ps, &o.normal.at); // affichage du bouton normal
+    SDL_BlitSurface(o.sheet, &o.hero.box, ps, &o.hero.at); // affichage du bouton heroïque
+    SDL_BlitSurface(o.sheet, &o.legend.box, ps, &o.legend.at); // affichage du bouton legendaire
+    SDL_BlitSurface(o.sheet, &o.defaut.box, ps, &o.defaut.at); // affichage du bouton defaut
+    SDL_BlitSurface(o.sheet, &o.fractal.box, ps, &o.fractal.at); // affichage du bouton fractal 
+    
+    SDL_Rect pos;
+    SDL_Surface *DiffFont;
+	SDL_Color colorFont = {255,255,255,255};
+	string message = "Difficulte :";
+	
+    stringstream sstr;
+    sstr << message;
+    
+	DiffFont = TTF_RenderText_Blended( f, sstr.str().c_str(), colorFont );
+	
+	if (!DiffFont)
+	cerr << "Surface titre non generee" << endl;
+	
+	pos.x =  30;
+	pos.y =  30;
+    
+    SDL_BlitSurface(DiffFont, 0, ps, &pos);
+    SDL_FreeSurface(DiffFont);
+    
+    
+    SDL_Rect pos2;
+    SDL_Surface *ThemeFont;
+	string message2 = "Theme :";
+	
+    stringstream sstr1;
+    sstr1 << message2;
+    
+	ThemeFont = TTF_RenderText_Blended( f, sstr1.str().c_str(), colorFont );
+	
+	if (!ThemeFont)
+	cerr << "Surface theme non generee" << endl;
+	
+	pos2.x =  30;
+	pos2.y =  260;
+    
+    SDL_BlitSurface(ThemeFont, 0, ps, &pos2);
+    SDL_FreeSurface(ThemeFont);
+}        
+
 void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
     if ( play_selected(m, e) ) // si la souris selectionne "1joueur"
         m.play.box.x = 130;
@@ -160,7 +296,7 @@ void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
 	pos.y = 100;
     
     SDL_BlitSurface(titreFont, 0, ps, &pos);
-    SDL_FreeSurface(titreFont);
+    SDL_FreeSurface(titreFont);  
 }
 
 void liberer_menu(menu &m) {
@@ -168,6 +304,40 @@ void liberer_menu(menu &m) {
 	SDL_FreeSurface(m.wallpaper);
     if (m.sheet)
 	SDL_FreeSurface(m.sheet);
+}
+
+void options_loop(SDL_Surface *ps){
+	
+    /*menu o;
+  SDL_Event event;
+  
+  do {
+      if (facile_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+          get_solo_param(easy);
+          save_difficulty(easy);
+      }
+      else if (normal_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+          get_solo_param(normal);
+          save_difficulty(normal);
+      }
+      else if (hero_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+          get_solo_param(heroic);
+          save_difficulty(heroic);
+      }
+      else if (legend_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+          get_solo_param(legendary);
+          save_difficulty(legendary);
+      }
+      else if (defaut_selected(o, event) && event.button.button == SDL_BUTTON_LEFT) {
+          //free_theme(gb);
+          //load_theme("themes/default/",gb);
+      }
+      else if (fractal_selected(o, event) && event.button.button == SDL_BUTTON_LEFT) {
+          //free_theme(gb);
+          //load_theme("themes/fractal_cosmos/", gb);
+      }
+      SDL_WaitEvent(&event);
+      }while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_ESCAPE);*/
 }
 
 bool mouse_in_rect(SDL_Rect r, SDL_Event e) {
@@ -198,12 +368,39 @@ bool score_selected(menu m, SDL_Event e) {
     return mouse_in_rect(m.score.at, e);
 }
 
+bool facile_selected(menu o, SDL_Event e) {
+    return mouse_in_rect(o.facile.at, e);
+}
+
+bool normal_selected(menu o, SDL_Event e) {
+    return mouse_in_rect(o.normal.at, e);
+}
+
+bool hero_selected(menu o, SDL_Event e) {
+    return mouse_in_rect(o.hero.at, e);
+}
+
+bool legend_selected(menu o, SDL_Event e) {
+    return mouse_in_rect(o.legend.at, e);
+}
+
+bool defaut_selected(menu o, SDL_Event e) {
+    return mouse_in_rect(o.defaut.at, e);
+}
+
+bool fractal_selected(menu o, SDL_Event e) {
+    return mouse_in_rect(o.fractal.at, e);
+}
+
 void menu_loop(SDL_Surface *ps) {
     SDL_Event event;
     bool quit = false;
     menu m;
+    menu o;
+    
     TTF_Font *pFontMenu = 0;
     TTF_Font *pFontScore = 0;
+    TTF_Font *pFontOptions = 0;
     TTF_Init();
     pFontMenu = init_font_menu();
     if (!pFontMenu)
@@ -211,9 +408,14 @@ void menu_loop(SDL_Surface *ps) {
     pFontScore = init_font();
     if (!pFontScore)
         cerr << "Police non initialisee" << endl;
-    		
+    pFontOptions = init_font_options();
+    if (!pFontOptions)
+         cerr << "Police non initialisee" << endl;
+       
     initialisation_menu(m);
-    		
+    init_menu_options(o);
+    
+    
     while(!quit){
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_MOUSEBUTTONUP) {
@@ -223,30 +425,32 @@ void menu_loop(SDL_Surface *ps) {
                     solo_loop(ps);
                 } 
 
-                else if (score_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) {
+                else if (score_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
+                {
                     SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
                     draw_top_ten(pFontScore, ps);
                 }
+                
+                else if (coop_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
+                {
+                   SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
+                   coop_loop(ps);
+                } 
+
                 /* else if (versus_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
                    {
                    SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
                    vs_loop(ps);
                    } 
                    
-                   else if (coop_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
-                   {
-                   SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
-                   coop_loop(ps);
-                   } 
+                   
                    
                    else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT) 
                    {
                    SDL_FillRect(ps, 0, SDL_MapRGB(ps->format, 255, 255, 255));
                    options_loop(ps);
-                   } 
+                   } */
                    
-                */
-     
                 else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
                 {
                     quit = true;
@@ -256,12 +460,15 @@ void menu_loop(SDL_Surface *ps) {
             else if ( event.type == SDL_QUIT || (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_ESCAPE) )
                 quit=true;
         }
-		 
-        affiche_menu(m, pFontMenu, ps, event);
-        SDL_Flip(ps);
+        
+    affiche_menu(m, pFontMenu, ps, event);  
+    SDL_Flip(ps); 
+
     }
+    
 
     free_font(pFontMenu);
     free_font(pFontScore);
+    free_font(pFontOptions);
     TTF_Quit();
 }

@@ -19,28 +19,36 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include "graphics.h"
-#include <sstream>
-#include <iostream>
+#include "keyboard.h"
 
-void affiche_temps(TTF_Font *f, SDL_Surface *ps, int x, int temps_restant)
-{
-	
-	SDL_Rect pos;
-	SDL_Surface *tempsFont;
-	SDL_Color colorFont = {255,255,255,255};
-    stringstream sstr;
+void init_keyboard(keyboard &kb, gameboard const &gb) {
+    kb.hover = 0;
+    kb.lock = -1; // aucun diamant selectionne par defaut
+    kb.col = gb.col;
+    kb.row = gb.row;
+}
 
-    sstr << "Temps : " << temps_restant;
-    
-	tempsFont = TTF_RenderText_Blended( f, sstr.str().c_str(), colorFont );
-	
-	if (!tempsFont)
-	cerr << "Surface temps non generee" << endl;
-	
-	pos.x = x;
-	pos.y = 100;
-    
-    SDL_BlitSurface(tempsFont, 0, ps, &pos);
-    SDL_FreeSurface(tempsFont);   
+
+void keyboard_update_up(keyboard &kb) {
+    if (kb.hover / kb.row > 0)
+        kb.hover -= kb.row;
+}
+
+void keyboard_update_down(keyboard &kb) {
+    if (kb.hover / kb.row < kb.col-1)
+        kb.hover += kb.row;
+}
+
+void keyboard_update_left(keyboard &kb) {
+    if (kb.hover % kb.row > 0)
+        --kb.hover;
+}
+
+void keyboard_update_right(keyboard &kb) {
+    if (kb.hover % kb.row < kb.row-1)
+        ++kb.hover;
+}
+
+void keyboard_lock(keyboard &kb, bool lock) {
+    kb.lock = lock ? kb.hover : -1;
 }

@@ -31,10 +31,10 @@
 
 using namespace std;
 
-int const  SCREEN_WIDTH   = 720;
-int const  SCREEN_HEIGHT  = 480;
-int const  SCREEN_DEPTH   = 32;
-string const SCREEN_TITLE = "Bejeweled !";
+int const  SCREEN_WIDTH        = 720;
+int const  SCREEN_HEIGHT       = 480;
+int const  SCREEN_DEPTH        = 32;
+string const SCREEN_TITLE      = "Bejeweled !";
 
 /* *********************** init_gui **************************
    * bool init_gui(void);                                    *
@@ -194,6 +194,23 @@ void draw_grid(gameboard &gb, SDL_Surface *ps);
    * void                                                    *
    *********************************************************** */
 void draw_diamond(gameboard &gb, diamond &d, SDL_Surface *ps);
+
+/* ************************ explode **************************
+   * void explode(gameboard &gb, SDL_Surface *ps);           *
+   ******************** Auteur , Dates ***********************
+   * Dimitri Sabadie, 01 Decembre 2010, v0.2                 *
+   ********************* Description *************************
+   * Cette fonction permet de retirer du plateau les         *
+   * diamants alignes en les faisant exploser.               *
+   *********************** Entrees ***************************
+   * `gb' : reference sur le plateau ou retirer les          *
+   *        explosions                                       *
+   * `ps' : pointeur sur la surface ou dessiner les          *
+   *        explosions graphiquement                         *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+void explode(gameboard &gb, SDL_Surface *ps);
 
 /* ***************** * draw_diamond_swap *********************
    * void draw_diamond_swap(gameboard &gb, diamond &a,       *

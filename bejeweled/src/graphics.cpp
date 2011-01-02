@@ -166,6 +166,31 @@ void draw_diamond(gameboard &gb, diamond &d, SDL_Surface *ps) {
     SDL_BlitSurface(gb.pieces, &d.sub, ps, &d.box);
 }
 
+void explode(gameboard &gb, SDL_Surface *ps) {
+    SDL_Rect pos;
+    SDL_Rect sub;
+    int tmpx, tmpy;
+
+    sub.y = 0;
+    sub.w = DIAMOND_SIZE;
+    sub.h = DIAMOND_SIZE;
+
+    for (int y = 0; y < 9; ++y) { // attention constante magique moche : 9, car 9 frames par explosion ...
+        sub.x = y*DIAMOND_SIZE;
+        for (int i = 0; i < gb.nb_expl; ++i) {
+            index_1D2D(gb.expl[i], tmpx, tmpy, gb.row);
+            
+            pos.x = tmpx*DIAMOND_SIZE;
+            pos.y = tmpy*DIAMOND_SIZE;
+
+            SDL_BlitSurface(gb.explode, &sub, ps, &pos);
+        }
+        
+        SDL_Flip(ps);
+        SDL_Delay(50);
+    }
+}
+
 void draw_diamond_swap(gameboard &gb, diamond &a, diamond &b, int vx, int vy, SDL_Surface *ps) {
     SDL_Rect area;
     area.x = min(a.box.x, b.box.x);
@@ -214,7 +239,7 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
 void draw_solution(gameboard &gb, SDL_Surface *ps) {
     diamond *pd = &gb.dmds[gb.index_sol];
 
-    for (int blink = 0; blink < 10; ++blink) {
+    for (int blink = 0; blink < 6; ++blink) { // 6/2 = 3 clignotements
         pd->sub.y = DIAMOND_SIZE - pd->sub.y;
         draw_game_wp(gb, 0, ps);
         draw_grid(gb, ps);
