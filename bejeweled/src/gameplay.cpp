@@ -382,7 +382,7 @@ void solo_loop(SDL_Surface *ps) {
     tps = time(0);	
     temps_restant = temps - ( time(0) - tps);
 
-    load_theme("themes/fractal_cosmos/", gb);
+    load_theme("themes/default/", gb);
 
     init_gameboard(gb, 8, 8, gparam.nbKind);
     init_player(user);
@@ -514,7 +514,7 @@ void coop_loop(SDL_Surface *ps) {
     tps = time(0);	
     temps_restant = temps - ( time(0) - tps);
 
-    load_theme("themes/fractal_cosmos/", gb);
+    load_theme("themes/default/", gb);
 
     init_gameboard(gb, 8, 12, gparam.nbKind);
     init_player(team);
