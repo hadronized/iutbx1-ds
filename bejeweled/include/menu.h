@@ -47,6 +47,18 @@ struct menu {
    *********************************************************** */
 void menu_loop(SDL_Surface *ps);
 
+/* *********************** options_loop **********************
+   * options_loop(SDL_Surface *ps);                          *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 01  Janvier 2011, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction est la boucle contenant le sous menu     *
+   *********************** Entrees ***************************
+   * `ps' : pointeur sur la surface                          *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
+
 void options_loop(SDL_Surface *ps);
 
 /* *********************** initialisation_menu ***************
@@ -61,6 +73,18 @@ void options_loop(SDL_Surface *ps);
    * void                                                    *
    *********************************************************** */
 void initialisation_menu(menu &m);
+
+/* *********************** init_menu_options *****************
+   * init_menu_options(menu &o);                             *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 01  Janvier 2011, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet d'initialiser le menu             *
+   *********************** Entrees ***************************
+   * `o' : reference sur le menu a initialiser               *
+   *********************** Sorties ***************************
+   * void                                                    *
+   *********************************************************** */
 
 void init_menu_options(menu &o);
 
@@ -80,7 +104,24 @@ void init_menu_options(menu &o);
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-void affiche_menu(menu m, TTF_Font *f, SDL_Surface *ps, SDL_Event e); 
+void affiche_menu(menu m, TTF_Font *f, SDL_Surface *ps, SDL_Event e);
+ 
+/* *********************** affiche_menu_options *****************
+   * affiche_menu_options(menu o, SDL_Surface *ps, SDL_Event e);*
+   *********************** Auteur , Dates ***********************
+   * Ludwig Raepsaet, 01  Janvier 2011, v0.1                    *
+   *********************** Description **************************
+   * Cette fonction permet d'afficher le sous menu              *
+   *********************** Entrees ******************************
+   * `o' : menu a afficher precedement initialiser              *
+   *                                                            *
+   * `ps': pointeur sur la surface                              *
+   *                                                            *
+   * `e' : evenement par lequel on recupere l'etat de           *
+   *       souris                                               *
+   *********************** Sorties ******************************
+   * void                                                       *
+   *********************************************************** */
 
 void affiche_menu_options(menu o,TTF_Font *f, SDL_Surface *ps, SDL_Event e);
 
@@ -216,15 +257,105 @@ bool options_selected(menu m, SDL_Event e);
    *********************************************************** */
 bool score_selected(menu m, SDL_Event e);
 
+/* *********************** facile_selected   *****************
+   * bool facile_selected(menu o, SDL_Event e)               *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 01  Janvier 2011, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton facile                            *
+   *********************** Entrees ***************************
+   * `o' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
 bool facile_selected(menu o, SDL_Event e);
  
+/* *********************** normal_selected   *****************
+   * bool normal_selected(menu o, SDL_Event e)               *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 01  Janvier 2011, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton normal                            *
+   *********************** Entrees ***************************
+   * `o' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
 bool normal_selected(menu o, SDL_Event e);
 
+/* *********************** hero_selected     *****************
+   * bool hero_selected(menu o, SDL_Event e)                 *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 01  Janvier 2011, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton hero                              *
+   *********************** Entrees ***************************
+   * `o' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
 bool hero_selected(menu o, SDL_Event e);
 
+/* *********************** legend_selected     ***************
+   * bool legend_selected(menu o, SDL_Event e)               *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 01  Janvier 2011, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton legend                            *
+   *********************** Entrees ***************************
+   * `o' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
 bool legend_selected(menu o, SDL_Event e);
 
+/* *********************** defaut_selected     ***************
+   * bool defaut_selected(menu o, SDL_Event e)               *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 01  Janvier 2011, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton defaut                            *
+   *********************** Entrees ***************************
+   * `o' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
 bool defaut_selected(menu o, SDL_Event e);
 
+/* *********************** fractal_selected    ***************
+   * bool fractal_selected(menu o, SDL_Event e)              *
+   *********************** Auteur , Dates ********************
+   * Ludwig Raepsaet, 01  Janvier 2011, v0.1                 *
+   *********************** Description ***********************
+   * Cette fonction permet de savoir si la souris            *
+   * selectionne le bouton fractal                           *
+   *********************** Entrees ***************************
+   * `o' : menu precedemment initialisé                      * 
+   *                                                         *
+   * `e' : evenement par lequel on recupere l'etat de        *
+   *       souris                                            *
+   *********************** Sorties ***************************
+   * bool                                                    *
+   *********************************************************** */
 bool fractal_selected(menu o, SDL_Event e);
 
