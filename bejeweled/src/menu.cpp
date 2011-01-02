@@ -308,7 +308,7 @@ void liberer_menu(menu &m) {
 
 void options_loop(SDL_Surface *ps){
 	
-  menu o;
+    /*menu o;
   SDL_Event event;
   
   do {
@@ -337,7 +337,7 @@ void options_loop(SDL_Surface *ps){
           //load_theme("themes/fractal_cosmos/", gb);
       }
       SDL_WaitEvent(&event);
-  }while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_ESCAPE);   
+      }while (event.type != SDL_KEYUP || event.key.keysym.sym != SDLK_ESCAPE);*/
 }
 
 bool mouse_in_rect(SDL_Rect r, SDL_Event e) {
