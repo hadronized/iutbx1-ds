@@ -26,6 +26,7 @@
 #include "array.h"
 #include "gameplay.h"
 #include "score.h"
+#include "game_param.h"
 
 using namespace std;
 
@@ -277,6 +278,8 @@ void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
     
     SDL_BlitSurface(titreFont, 0, ps, &pos);
     SDL_FreeSurface(titreFont);
+    
+    SDL_Flip(ps);
 }
 
 void liberer_menu(menu &m) {
@@ -286,8 +289,12 @@ void liberer_menu(menu &m) {
 	SDL_FreeSurface(m.sheet);
 }
 
-/* void options_loop(SDL_Surface *ps)
-{
+void options_loop(SDL_Surface *ps){
+	
+  menu o;
+  gameboard gb;
+  SDL_Event event;
+  
   if (facile_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
     get_solo_param(easy);
     save_difficulty(easy);
@@ -304,12 +311,12 @@ void liberer_menu(menu &m) {
     get_solo_param(legendary);
     save_difficulty(legendary);
     }
-  else if (defaut_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+  else if (defaut_selected(o, event) && event.button.button == SDL_BUTTON_LEFT)
     load_theme("themes/default/",gb);
-  else if (fractal_selected(o, event) && event.button.button == SDL_BUTTON_LEFT){
+  else if (fractal_selected(o, event) && event.button.button == SDL_BUTTON_LEFT)
 	 load_theme("themes/fractal_cosmos/", gb);
 }   
-	*/
+
 bool mouse_in_rect(SDL_Rect r, SDL_Event e) {
     return ( (e.motion.x >= r.x && e.motion.x <= r.x+r.w) && (e.motion.y >= r.y && e.motion.y <= r.y+r.h) );
 }
@@ -402,7 +409,8 @@ void menu_loop(SDL_Surface *ps) {
                 
                 else if (options_selected(m, event) && event.button.button == SDL_BUTTON_LEFT){
 				affiche_menu_options(o, pFontOptions, ps, event);
-				//options_loop(ps);
+				options_loop(ps);
+				SDL_Flip(ps);
                 } 
                    
                 else if( quit_selected(m, event) && event.button.button == SDL_BUTTON_LEFT)
@@ -415,9 +423,9 @@ void menu_loop(SDL_Surface *ps) {
                 quit=true;
         }
         
-    affiche_menu(m, pFontMenu, ps, event);
-    SDL_Flip(ps);    
- 
+    affiche_menu(m, pFontMenu, ps, event);  
+    SDL_Flip(ps); 
+
     }
     
 

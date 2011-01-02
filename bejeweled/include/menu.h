@@ -23,6 +23,13 @@ struct menu {
     button versus;
     button options;
     button score;
+    button facile;
+    button normal;
+    button hero;
+    button legend;
+    button defaut;
+    button fractal;
+    
     SDL_Surface *wallpaper; // fond d'ecran du menu
     SDL_Surface *sheet;     // feuille du menu
 };
@@ -40,6 +47,8 @@ struct menu {
    *********************************************************** */
 void menu_loop(SDL_Surface *ps);
 
+void options_loop(SDL_Surface *ps);
+
 /* *********************** initialisation_menu ***************
    * initialisation_menu(menu &m);                           *
    *********************** Auteur , Dates ********************
@@ -52,6 +61,8 @@ void menu_loop(SDL_Surface *ps);
    * void                                                    *
    *********************************************************** */
 void initialisation_menu(menu &m);
+
+void init_menu_options(menu &o);
 
 /* *********************** affiche_menu **********************
    * affiche_menu(menu m, SDL_Surface *ps, SDL_Event e);     *
@@ -69,7 +80,9 @@ void initialisation_menu(menu &m);
    *********************** Sorties ***************************
    * void                                                    *
    *********************************************************** */
-void affiche_menu(menu m, TTF_Font *f, SDL_Surface *ps, SDL_Event e);
+void affiche_menu(menu m, TTF_Font *f, SDL_Surface *ps, SDL_Event e); 
+
+void affiche_menu_options(menu o,TTF_Font *f, SDL_Surface *ps, SDL_Event e);
 
 /* *********************** liberer_menu **********************
    * liberer_menu(menu &m);                                  *  
@@ -202,4 +215,16 @@ bool options_selected(menu m, SDL_Event e);
    * bool                                                    *
    *********************************************************** */
 bool score_selected(menu m, SDL_Event e);
+
+bool facile_selected(menu o, SDL_Event e);
+ 
+bool normal_selected(menu o, SDL_Event e);
+
+bool hero_selected(menu o, SDL_Event e);
+
+bool legend_selected(menu o, SDL_Event e);
+
+bool defaut_selected(menu o, SDL_Event e);
+
+bool fractal_selected(menu o, SDL_Event e);
 
