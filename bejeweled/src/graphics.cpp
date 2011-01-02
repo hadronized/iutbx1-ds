@@ -239,7 +239,7 @@ void draw_getdown(gameboard &gb, SDL_Surface *ps) {
 void draw_solution(gameboard &gb, SDL_Surface *ps) {
     diamond *pd = &gb.dmds[gb.index_sol];
 
-    for (int blink = 0; blink < 10; ++blink) {
+    for (int blink = 0; blink < 6; ++blink) { // 6/2 = 3 clignotements
         pd->sub.y = DIAMOND_SIZE - pd->sub.y;
         draw_game_wp(gb, 0, ps);
         draw_grid(gb, ps);
