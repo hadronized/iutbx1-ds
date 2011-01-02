@@ -499,6 +499,7 @@ void coop_loop(SDL_Surface *ps) {
     int temps_restant;
     int tps;
     TTF_Font *pFont = 0;
+    bool doswap = false;
 
     TTF_Init();
     pFont = init_font();
@@ -536,32 +537,22 @@ void coop_loop(SDL_Surface *ps) {
                         // ne pas oublier de sauvegarder le jeu ici !
                     } else if (event.key.keysym.sym == SDLK_UP) {
                         keyboard_update_up(player2);
-                        cout << "Player 2 up !" << endl;
-                        cout << "Hover : " << player2.hover << endl;
-                        cout << "Lock : " << player2.lock << endl;
                     } else if (event.key.keysym.sym == SDLK_DOWN) {
                         keyboard_update_down(player2);
-                        cout << "Player 2 down !" << endl;
-                        cout << "Hover : " << player2.hover << endl;
-                        cout << "Lock : " << player2.lock << endl;
                     } else if (event.key.keysym.sym == SDLK_LEFT) {
                         keyboard_update_left(player2);
-                        cout << "Player 2 left !" << endl;
-                        cout << "Hover : " << player2.hover << endl;
-                        cout << "Lock : " << player2.lock << endl;
                     } else if (event.key.keysym.sym == SDLK_RIGHT) {
                         keyboard_update_right(player2);
-                        cout << "Player 2 up !" << endl;
-                        cout << "Hover : " << player2.hover << endl;
-                        cout << "Lock : " << player2.lock << endl;
                     } else if (event.key.keysym.sym == SDLK_SPACE) {
-                        if (player2.lock == -1)
+                        if (player2.lock == -1) { // on selectionne un diamant
+                            gb.dmds[player2.hover].sub.y = DIAMOND_SIZE;
                             keyboard_lock(player2, true);
-                        else
+                        } else { // on en selectionne un deuxieme, on lance la tentative de swap {
+                            gb.dmds[player2.lock].sub.y = 0;
+                            if ( try_swap(gb, gb.dmds[player2.lock], gb.dmds[player2.hover], ps) )
+                                doswap = true;
                             keyboard_lock(player2, false);
-                        cout << "Player 2 lock !" << endl;
-                        cout << "Hover : " << player2.hover << endl;
-                        cout << "Lock : " << player2.lock << endl;
+                        }
                     }
                 } else if (event.type == SDL_MOUSEBUTTONUP && event.button.button == SDL_BUTTON_LEFT) {
                     if (cursor_in_grid(event, gb)) {
@@ -571,58 +562,60 @@ void coop_loop(SDL_Surface *ps) {
 
                         } else { // sinon, c'est que l'on en selectionne un deuxième -> on tente donc un echange
                             pSelected->sub.y = 0;
-                            if ( try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps) ) {
-                                comboScore = 1;
-                                do {
-                                    team.score += gb.nb_expl * comboScore * gparam.pPD;
-                                    team.action += gb.nb_expl;
-                                    team.reanim += gb.nb_expl;
-                                    ++comboScore;
-                                    tps += gparam.posTime;
-                                    
-                                    show_gameboard(gb, ps);
-                                    scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
-                                    affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
-
-                                    explode(gb, ps);
-                                    get_down(gb, ps);
-
-                                    if (team.action >= gparam.actPoints) { // a modifier en fonction de la difficulte choisie
-                                        show_gameboard(gb, ps);
-                                        scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
-                                        affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
-
-                                        random_explode(gb, ps);
-                                        team.score += BONUS_NB_EXPL * gparam.pPD;
-                                        team.action = 0;
-                                    }
-                                } while ( check_explode(gb));
-
-                                t0 = SDL_GetTicks();
-
-                                if (check_solution(gb)) { // il reste des solutions
-                                    ;
-                                } else { // plus de solution
-                                    if (team.reanim >= gparam.reaPoints) { // a modifier en fonction de la difficute choisie
-                                        show_gameboard(gb, ps);
-                                        scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
-                                        affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
-
-                                        random_explode(gb, ps);
-                                        team.reanim = 0;
-
-                                        if (!check_solution(gb)) {
-                                            game_over(gb, pFont, ps);
-                                            quit = true;
-                                        }
-                                    } else {
-                                        game_over(gb, pFont, ps);
-                                        quit = true;
-                                    }
-                                }
-                            }
-			
+                            if ( try_swap(gb, *pSelected, query_diamond(gb, event.motion.x/DIAMOND_SIZE, event.motion.y/DIAMOND_SIZE), ps) )
+                                doswap = true;
                             pSelected = 0;
+                        }
+                    }
+                }
+                if (doswap) {
+                    doswap = false;
+                    comboScore = 1;
+                    do {
+                        team.score += gb.nb_expl * comboScore * gparam.pPD;
+                        team.action += gb.nb_expl;
+                        team.reanim += gb.nb_expl;
+                        ++comboScore;
+                        tps += gparam.posTime;
+                                    
+                        show_gameboard(gb, ps);
+                        scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
+                        affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
+
+                        explode(gb, ps);
+                        get_down(gb, ps);
+
+                        if (team.action >= gparam.actPoints) { // a modifier en fonction de la difficulte choisie
+                            show_gameboard(gb, ps);
+                            scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
+                            affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
+
+                            random_explode(gb, ps);
+                            team.score += BONUS_NB_EXPL * gparam.pPD;
+                            team.action = 0;
+                        }
+                    } while ( check_explode(gb));
+
+                    t0 = SDL_GetTicks();
+
+                    if (check_solution(gb)) { // il reste des solutions
+                        ;
+                    } else { // plus de solution
+                        if (team.reanim >= gparam.reaPoints) { // a modifier en fonction de la difficute choisie
+                            show_gameboard(gb, ps);
+                            scores(pFont,ps,12*DIAMOND_SIZE+20,team.score);
+                            affiche_temps(pFont,ps,12*DIAMOND_SIZE+20,temps_restant);
+
+                            random_explode(gb, ps);
+                            team.reanim = 0;
+
+                            if (!check_solution(gb)) {
+                                game_over(gb, pFont, ps);
+                                quit = true;
+                            }
+                        } else {
+                            game_over(gb, pFont, ps);
+                            quit = true;
                         }
                     }
                 }
