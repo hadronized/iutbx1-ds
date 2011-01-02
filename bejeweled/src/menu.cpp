@@ -179,7 +179,7 @@ void init_menu_options(menu &o)
     o.defaut.box.w = BUTTON_WIDTH;
     o.defaut.box.h = BUTTON_HEIGHT;
     o.defaut.at.x  = 100;
-    o.defaut.at.y  = 300;
+    o.defaut.at.y  = 350;
     o.defaut.at.w  = BUTTON_WIDTH;
     o.defaut.at.h  = BUTTON_HEIGHT;
  
@@ -189,7 +189,7 @@ void init_menu_options(menu &o)
     o.fractal.box.w = BUTTON_WIDTH;
     o.fractal.box.h = BUTTON_HEIGHT;
     o.fractal.at.x  = 420;
-    o.fractal.at.y  = 300;
+    o.fractal.at.y  = 350;
     o.fractal.at.w  = BUTTON_WIDTH;
     o.fractal.at.h  = BUTTON_HEIGHT;
     
@@ -221,7 +221,7 @@ void affiche_menu_options(menu o,TTF_Font *f, SDL_Surface *ps, SDL_Event e){
     SDL_Rect pos;
     SDL_Surface *DiffFont;
 	SDL_Color colorFont = {255,255,255,255};
-	string message = "Difficulte";
+	string message = "Difficulte :";
 	
     stringstream sstr;
     sstr << message;
@@ -236,6 +236,25 @@ void affiche_menu_options(menu o,TTF_Font *f, SDL_Surface *ps, SDL_Event e){
     
     SDL_BlitSurface(DiffFont, 0, ps, &pos);
     SDL_FreeSurface(DiffFont);
+    
+    
+    SDL_Rect pos2;
+    SDL_Surface *ThemeFont;
+	string message2 = "Theme :";
+	
+    stringstream sstr1;
+    sstr1 << message2;
+    
+	ThemeFont = TTF_RenderText_Blended( f, sstr1.str().c_str(), colorFont );
+	
+	if (!ThemeFont)
+	cerr << "Surface theme non generee" << endl;
+	
+	pos2.x =  30;
+	pos2.y =  260;
+    
+    SDL_BlitSurface(ThemeFont, 0, ps, &pos2);
+    SDL_FreeSurface(ThemeFont);
 }        
 
 void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
@@ -277,7 +296,7 @@ void affiche_menu(menu m,TTF_Font *f, SDL_Surface *ps, SDL_Event e) {
 	pos.y = 100;
     
     SDL_BlitSurface(titreFont, 0, ps, &pos);
-    SDL_FreeSurface(titreFont);
+    SDL_FreeSurface(titreFont);  
 }
 
 void liberer_menu(menu &m) {
